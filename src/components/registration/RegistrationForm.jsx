@@ -9,6 +9,87 @@ import Grid from "@material-ui/core/Grid";
 import Checkbox from "@material-ui/core/Checkbox";
 
 export default class RegistrationForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      fname: "",
+      fnameSuccess: false,
+      fnameError: false,
+      fnameErrorMsg: "",
+      lname: "",
+      lnameError: false,
+      lnameErrorMsg: "",
+      email: "",
+      emailError: false,
+      emailErrorMsg: "",
+      passowrd: "",
+      passwordError: false,
+      passwordErrorMsg: "",
+      cnf_passowrd: "",
+      cnf_passowrdError: false,
+      cnf_passowrdErrorMsg: "",
+    };
+  }
+
+  handelInput = (e) => {
+    console.log(e.target.name, e.target.value);
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  validate = () => {
+    this.setState({
+      fname: "",
+      fnameSuccess: false,
+      fnameError: false,
+      fnameErrorMsg: "",
+      lname: "",
+      lnameError: false,
+      lnameErrorMsg: "",
+      email: "",
+      emailError: false,
+      emailErrorMsg: "",
+      passowrd: "",
+      passwordError: false,
+      passwordErrorMsg: "",
+      cnf_passowrd: "",
+      cnf_passowrdError: false,
+      cnf_passowrdErrorMsg: "",
+    });
+
+    let valid = true;
+
+    if (this.state.fname.length != 0) {
+      if (/^[A-Z]{1}[a-z]{2,}/.test(this.state.fname)) {
+        console.log();
+        this.setState({
+          //fname: this.state.fname,
+          fnameSuccess: true,
+          fnameErrorMsg: "",
+          fnameError: false,
+        });
+      } else {
+        valid = false;
+        this.setState({
+          fnameError: true,
+          fnameErrorMsg: "Only alphabates are allowed",
+        });
+      }
+    } else {
+      valid = false;
+      // if (this.state.fname.length === 0)
+      this.setState({
+        fnameError: true,
+        fnameErrorMsg: "First name is required",
+      });
+    }
+
+    return valid;
+  };
+
+  submit = () => {
+    this.validate();
+  };
+
   render() {
     return (
       <Card className="shadow p-2 p-sm-3 my-5">
@@ -46,6 +127,9 @@ export default class RegistrationForm extends Component {
                     label="First name"
                     variant="outlined"
                     margin="normal"
+                    onChange={this.handelInput}
+                    error={this.state.fnameError}
+                    helperText={this.state.fnameErrorMsg}
                     required
                   />
                 </Grid>
@@ -59,6 +143,8 @@ export default class RegistrationForm extends Component {
                     label="Last name"
                     variant="outlined"
                     margin="normal"
+                    error={this.state.lnameError}
+                    helperText={this.state.lnameErrorMsg}
                     required
                   />
                 </Grid>
@@ -72,6 +158,8 @@ export default class RegistrationForm extends Component {
                     label="Email"
                     variant="outlined"
                     margin="normal"
+                    error={this.state.emailError}
+                    helperText={this.state.emailErrorMsg}
                     required
                   />
                 </Grid>
@@ -85,6 +173,8 @@ export default class RegistrationForm extends Component {
                     label="Password"
                     variant="outlined"
                     margin="normal"
+                    error={this.state.passwordError}
+                    helperText={this.state.passwordErrorMsg}
                     required
                   />
                 </Grid>
@@ -98,6 +188,8 @@ export default class RegistrationForm extends Component {
                     label="Confirm password"
                     variant="outlined"
                     margin="normal"
+                    error={this.state.passwordError}
+                    helperText={this.state.passwordErrorMsg}
                     required
                   />
                 </Grid>
@@ -147,6 +239,7 @@ export default class RegistrationForm extends Component {
                 type="button"
                 variant="contained"
                 className="bg-primary text-white shadow px-5 py-2 mb-3 mb-sm-0"
+                onClick={this.submit}
               >
                 Next
               </Button>
