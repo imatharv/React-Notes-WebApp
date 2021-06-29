@@ -2,11 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
+import RegistrationForm from './components/registration/RegistrationForm';
 import reportWebVitals from './reportWebVitals';
+import Grid from "@material-ui/core/Grid";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    {/* <App /> */}
+    <React.Fragment>
+      <CssBaseline />
+      <Container maxWidth="md">
+            <RegistrationForm />      
+      </Container>
+    </React.Fragment>
   </React.StrictMode>,
   document.getElementById('root')
 );
