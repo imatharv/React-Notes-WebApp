@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import "./registration-form.css";
-import logo from "../../assets/images/register.svg";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
