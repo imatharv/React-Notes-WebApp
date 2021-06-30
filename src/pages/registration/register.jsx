@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Service from "../../services/userService";
 import "./register-style.css";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -8,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Checkbox from "@material-ui/core/Checkbox";
 
-export default class RegistrationForm extends Component {
+export default class RegistrationPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,18 +33,7 @@ export default class RegistrationForm extends Component {
   }
 
   handleClickShowPassword = (e) => {
-    this.setState({
-      inputType: "passsword" ? "text" : "password",
-    });
-    // if (e.target.checked) {
-    //   this.setState({
-    //     inputType: "text",
-    //   });
-    // } else {
-    //   this.setState({
-    //     inputType: "password",
-    //   });
-    // }
+    this.setState({ showPassword: !this.state.showPassword });
   };
 
   handelInput = (e) => {
@@ -190,7 +180,17 @@ export default class RegistrationForm extends Component {
   };
 
   submit = () => {
-    this.validate();
+    if (this.validate()) {
+      console.log("api call");
+      let data = {
+        firstName: this.state.fname,
+        lastName: this.state.lname,
+        email: this.state.email,
+        service: "advance",
+        password: this.state.password,
+      };
+      Service.registration(data);
+    }
   };
 
   render() {
@@ -281,7 +281,7 @@ export default class RegistrationForm extends Component {
                 <Grid item sm={6} xs={12}>
                   <TextField
                     size="small"
-                    type="password"
+                    type={this.state.showPassword ? "text" : "password"}
                     fullWidth
                     id="outlined-basic"
                     name="password"
@@ -297,7 +297,7 @@ export default class RegistrationForm extends Component {
                 <Grid item sm={6} xs={12}>
                   <TextField
                     size="small"
-                    type="password"
+                    type={this.state.showPassword ? "text" : "password"}
                     id="outlined-basic"
                     fullWidth
                     name="cnf_password"
@@ -314,8 +314,7 @@ export default class RegistrationForm extends Component {
                   <Checkbox
                     className=""
                     size="small"
-                    checked={this.state.isTrue}
-                    onChange={this.handleClickShowPassword}
+                    onClick={this.handleClickShowPassword}
                   />
                   <Typography
                     component="h5"
