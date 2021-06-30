@@ -1,0 +1,89 @@
+.image-auto {
+  max-width: 60% !important;
+  height: auto !important;
+}
+.component-card {
+  border-radius: 8px !important;
+  padding: 1rem !important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+.card-content {
+  padding: 1rem !important;
+}
+.card-heading {
+  padding: 1rem !important;
+}
+.card-data {
+  padding: 1rem !important;
+}
+.card-footing {
+  margin-top: 3rem !important;
+}
+.image-wrapper {
+  padding: 0rem 1rem 1rem 1rem !important;
+}
+.button-login {
+  color: #fff !important;
+  background-color: #007bff !important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  padding-right: 1.5rem !important;
+  padding-left: 1.5rem !important;
+  margin-bottom: 0 !important;
+}
+.link-wrapper {
+  text-align: left !important;
+}
+.button-wrapper {
+  text-align: right !important;
+}
+.font-weight-light {
+  font-weight: 300;
+}
+.font-weight-normal {
+  font-weight: 400;
+}
+.font-weight-bold {
+  font-weight: 600;
+}
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+.mb-1 {
+  margin-bottom: 0.25rem !important;
+}
+.mb-2 {
+  margin-bottom: 0.5rem !important;
+}
+.d-inline {
+  display: inline !important;
+}
+
+@media (max-width: 576px) {
+  .component-card {
+    padding: 0.5rem !important;
+  }
+  .card-content {
+    padding: 0.25rem !important;
+  }
+  .card-heading {
+    padding: 0.5rem !important;
+  }
+  .card-data {
+    padding: 0.5rem !important;
+  }
+  .card-footing {
+    margin-top: 1rem !important;
+  }
+  .image-wrapper {
+    padding: 0.5rem !important;
+  }
+  .button-login {
+    margin-bottom: 1rem !important;
+  }
+  .link-wrapper {
+    text-align: center !important;
+  }
+  .button-wrapper {
+    text-align: center !important;
+  }
+}
