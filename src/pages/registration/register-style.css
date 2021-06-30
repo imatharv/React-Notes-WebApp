@@ -1,0 +1,7 @@
+.component-card {
+  border-radius: 8px !important;
+}
+.image-auto {
+  max-width: 70% !important;
+  height: auto !important;
+}

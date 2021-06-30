@@ -3,15 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-import RegistrationForm from './components/registration/RegistrationForm';
 import reportWebVitals from './reportWebVitals';
+import App from './App.js';
 
 ReactDOM.render(
   <React.StrictMode>
     <React.Fragment>
       <CssBaseline />
         <Container maxWidth="md">
-          <RegistrationForm />      
+          <App />   
         </Container>
     </React.Fragment>
   </React.StrictMode>,
