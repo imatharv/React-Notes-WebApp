@@ -1,10 +1,16 @@
+body {
+  background-color: #f8f9fa !important;
+}
 .image-auto {
   max-width: 60% !important;
   height: auto !important;
 }
+.login-page-container {
+  max-width: 400px !important;
+}
 .component-card {
-  border-radius: 8px !important;
   padding: 1rem !important;
+  border-radius: 8px !important;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 .card-content {
@@ -59,7 +65,12 @@
 }
 
 @media (max-width: 576px) {
+  body {
+    background-color: #fff !important;
+  }
   .component-card {
+    border-radius: 8px !important;
+    box-shadow: none !important;
     padding: 0.5rem !important;
   }
   .card-content {
@@ -72,7 +83,7 @@
     padding: 0.5rem !important;
   }
   .card-footing {
-    margin-top: 1rem !important;
+    margin-top: 1.5rem !important;
   }
   .image-wrapper {
     padding: 0.5rem !important;
@@ -81,9 +92,9 @@
     margin-bottom: 1rem !important;
   }
   .link-wrapper {
-    text-align: center !important;
+    text-align: left !important;
   }
   .button-wrapper {
-    text-align: center !important;
+    text-align: right !important;
   }
 }

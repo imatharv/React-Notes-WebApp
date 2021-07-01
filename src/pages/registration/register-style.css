@@ -1,7 +1,19 @@
+.signup-page-container {
+  max-width: 900px !important;
+}
 .component-card {
   border-radius: 8px !important;
 }
 .image-auto {
   max-width: 70% !important;
   height: auto !important;
+}
+.image-container {
+  display: inline !important;
+}
+
+@media (max-width: 576px) {
+  .image-container {
+    display: none !important;
+  }
 }

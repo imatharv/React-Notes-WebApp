@@ -1,6 +1,11 @@
 import React, { Component } from "react";
-import Service from "../../services/userService";
+//import { Redirect } from "react-router-dom";
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+import UserService from "../../services/userService";
 import "./register-style.css";
+import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -9,10 +14,15 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Checkbox from "@material-ui/core/Checkbox";
 
+const Service = new UserService();
+
 export default class RegistrationPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      open: false,
+      SnackbarMessage: "",
+      SnackbarStyle: "",
       fname: "",
       fnameSuccess: false,
       fnameError: false,
@@ -31,6 +41,12 @@ export default class RegistrationPage extends Component {
       cnf_passwordErrorMsg: "",
     };
   }
+
+  handleClickToLogin = (e) => {
+    console.log("asd");
+    this.props.history.push("/login");
+    //<Redirect to="/login" />;
+  };
 
   handleClickShowPassword = (e) => {
     this.setState({ showPassword: !this.state.showPassword });
@@ -181,7 +197,6 @@ export default class RegistrationPage extends Component {
 
   submit = () => {
     if (this.validate()) {
-      console.log("api call");
       let data = {
         firstName: this.state.fname,
         lastName: this.state.lname,
@@ -189,182 +204,241 @@ export default class RegistrationPage extends Component {
         service: "advance",
         password: this.state.password,
       };
-      Service.registration(data);
+      Service.registration(data)
+        .then((data) => {
+          console.log(data);
+          this.setState({
+            open: true,
+            SnackbarMessage: "Signup successful",
+            SnackbarStyle: "snackbar-success",
+          });
+        })
+        .catch((error) => {
+          console.log("error: ", error);
+          this.setState({
+            open: true,
+            SnackbarMessage: "Something went wrong",
+            SnackbarStyle: "snackbar-error",
+          });
+        });
     }
+  };
+
+  handleClose = () => {
+    this.setState({
+      open: false,
+      SnackbarMessage: "",
+      SnackbarStyle: "error",
+    });
   };
 
   render() {
     return (
-      <Card className="shadow p-2 p-sm-3 component-card">
-        <CardContent className="p-1 p-sm-3">
-          <Grid container direction="row" justify="center" alignItems="center">
-            <Grid item xs={12} className="p-2 p-sm-3">
-              <Typography
-                variant="h5"
-                component="h5"
-                className="font-weight-bolder mb-1"
-              >
-                <span className="text-primary">F</span>
-                <span className="text-danger">u</span>
-                <span className="text-warning">n</span>
-                <span className="text-info">d</span>
-                <span className="text-secondary">o</span>
-                <span className="text-success">o</span>
-                <span className="text-dark">Notes</span>
-              </Typography>
-              <Typography
-                variant="h5"
-                component="h5"
-                className="font-weight-light mb-2"
-              >
-                Create your FundooNotes account
-              </Typography>
-            </Grid>
-          </Grid>
-
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="flex-start"
-          >
-            <Grid item sm={7} xs={12} className="p-2 p-sm-3">
-              <Grid container spacing={1}>
-                <Grid item sm={6} xs={12}>
-                  <TextField
-                    size="small"
-                    type="text"
-                    fullWidth
-                    id="outlined-basic"
-                    name="fname"
-                    label="First name"
-                    variant="outlined"
-                    margin="normal"
-                    onChange={this.handelInput}
-                    error={this.state.fnameError}
-                    helperText={this.state.fnameErrorMsg}
-                    required
-                  />
-                </Grid>
-                <Grid item sm={6} xs={12}>
-                  <TextField
-                    size="small"
-                    type="text"
-                    fullWidth
-                    id="outlined-basic"
-                    name="lname"
-                    label="Last name"
-                    variant="outlined"
-                    margin="normal"
-                    onChange={this.handelInput}
-                    error={this.state.lnameError}
-                    helperText={this.state.lnameErrorMsg}
-                    required
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    size="small"
-                    type="email"
-                    fullWidth
-                    id="outlined-basic"
-                    name="email"
-                    label="Email"
-                    variant="outlined"
-                    margin="normal"
-                    onChange={this.handelInput}
-                    error={this.state.emailError}
-                    helperText={this.state.emailErrorMsg}
-                    required
-                  />
-                </Grid>
-                <Grid item sm={6} xs={12}>
-                  <TextField
-                    size="small"
-                    type={this.state.showPassword ? "text" : "password"}
-                    fullWidth
-                    id="outlined-basic"
-                    name="password"
-                    label="Password"
-                    variant="outlined"
-                    margin="normal"
-                    onChange={this.handelInput}
-                    error={this.state.passwordError}
-                    helperText={this.state.passwordErrorMsg}
-                    required
-                  />
-                </Grid>
-                <Grid item sm={6} xs={12}>
-                  <TextField
-                    size="small"
-                    type={this.state.showPassword ? "text" : "password"}
-                    id="outlined-basic"
-                    fullWidth
-                    name="cnf_password"
-                    label="Confirm password"
-                    variant="outlined"
-                    margin="normal"
-                    onChange={this.handelInput}
-                    error={this.state.cnf_passwordError}
-                    helperText={this.state.cnf_passwordErrorMsg}
-                    required
-                  />
-                </Grid>
-                <Grid item sx={12} className="" margin="none">
-                  <Checkbox
-                    className=""
-                    size="small"
-                    onClick={this.handleClickShowPassword}
-                  />
-                  <Typography
-                    component="h5"
-                    className="font-weight-normal d-inline"
-                  >
-                    Show password
-                  </Typography>
-                </Grid>
-              </Grid>
-              <Grid container spacing={3} className="mt-3 mt-sm-5">
-                <Grid item sm={6} xs={12} className=" text-center text-sm-left">
-                  <Button
-                    size="medium"
-                    color="primary"
-                    className="mb-0 mb-sm-0 text-primary"
-                    onClick=""
-                    style={{ textTransform: "unset" }}
-                  >
-                    Sign in instead
-                  </Button>
-                </Grid>
-                <Grid item sm={6} xs={12} className="text-center text-sm-right">
-                  <Button
-                    type="button"
-                    variant="contained"
-                    size="medium"
-                    className="bg-primary text-white shadow mb-3 mb-sm-0 px-4"
-                    onClick={this.submit}
-                  >
-                    Next
-                  </Button>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item sm={5} xs={12} className="p-2 px-sm-3 pb-sm-3">
-              <Grid container direction="row" justify="center">
-                <img
-                  src="https://ssl.gstatic.com/accounts/signup/glif/account.svg"
-                  alt="svg"
-                  className="image-auto"
-                />
-                <Typography className="font-weight-light text-center w-75">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Quaerat, alias.
+      <Container className="py-3 px-0 signup-page-container">
+        <Card className="shadow p-2 p-sm-3 component-card">
+          <CardContent className="p-1 p-sm-3">
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+            >
+              <Grid item xs={12} className="p-2 p-sm-3">
+                <Typography
+                  variant="h5"
+                  component="h5"
+                  className="font-weight-bolder mb-1"
+                >
+                  <span className="text-primary">F</span>
+                  <span className="text-danger">u</span>
+                  <span className="text-warning">n</span>
+                  <span className="text-info">d</span>
+                  <span className="text-secondary">o</span>
+                  <span className="text-success">o</span>
+                  <span className="text-dark">Notes</span>
+                </Typography>
+                <Typography
+                  variant="h5"
+                  component="h5"
+                  className="font-weight-light mb-2"
+                >
+                  Create your FundooNotes account
                 </Typography>
               </Grid>
             </Grid>
-          </Grid>
-        </CardContent>
-      </Card>
+
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="flex-start"
+            >
+              <Grid item sm={7} xs={12} className="p-2 p-sm-3">
+                <Grid container spacing={1}>
+                  <Grid item sm={6} xs={12}>
+                    <TextField
+                      size="small"
+                      type="text"
+                      fullWidth
+                      id="outlined-basic"
+                      name="fname"
+                      label="First name"
+                      variant="outlined"
+                      margin="normal"
+                      onChange={this.handelInput}
+                      error={this.state.fnameError}
+                      helperText={this.state.fnameErrorMsg}
+                      required
+                    />
+                  </Grid>
+                  <Grid item sm={6} xs={12}>
+                    <TextField
+                      size="small"
+                      type="text"
+                      fullWidth
+                      id="outlined-basic"
+                      name="lname"
+                      label="Last name"
+                      variant="outlined"
+                      margin="normal"
+                      onChange={this.handelInput}
+                      error={this.state.lnameError}
+                      helperText={this.state.lnameErrorMsg}
+                      required
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      size="small"
+                      type="email"
+                      fullWidth
+                      id="outlined-basic"
+                      name="email"
+                      label="Email"
+                      variant="outlined"
+                      margin="normal"
+                      onChange={this.handelInput}
+                      error={this.state.emailError}
+                      helperText={this.state.emailErrorMsg}
+                      required
+                    />
+                  </Grid>
+                  <Grid item sm={6} xs={12}>
+                    <TextField
+                      size="small"
+                      type={this.state.showPassword ? "text" : "password"}
+                      fullWidth
+                      id="outlined-basic"
+                      name="password"
+                      label="Password"
+                      variant="outlined"
+                      margin="normal"
+                      onChange={this.handelInput}
+                      error={this.state.passwordError}
+                      helperText={this.state.passwordErrorMsg}
+                      required
+                    />
+                  </Grid>
+                  <Grid item sm={6} xs={12}>
+                    <TextField
+                      size="small"
+                      type={this.state.showPassword ? "text" : "password"}
+                      id="outlined-basic"
+                      fullWidth
+                      name="cnf_password"
+                      label="Confirm password"
+                      variant="outlined"
+                      margin="normal"
+                      onChange={this.handelInput}
+                      error={this.state.cnf_passwordError}
+                      helperText={this.state.cnf_passwordErrorMsg}
+                      required
+                    />
+                  </Grid>
+                  <Grid item sx={12} className="" margin="none">
+                    <Checkbox
+                      className=""
+                      size="small"
+                      onClick={this.handleClickShowPassword}
+                    />
+                    <Typography
+                      component="h5"
+                      className="font-weight-light d-inline"
+                    >
+                      Show password
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid container spacing={3} className="mt-5">
+                  <Grid item xs={6} className="text-left">
+                    <Button
+                      size="medium"
+                      color="primary"
+                      className="mb-0 mb-sm-0 text-primary"
+                      onClick={this.handleClickToLogin}
+                      style={{ textTransform: "unset" }}
+                    >
+                      Sign in instead
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6} className="text-right">
+                    <Button
+                      type="button"
+                      variant="contained"
+                      size="medium"
+                      className="bg-primary text-white shadow mb-3 mb-sm-0 px-4"
+                      onClick={this.submit}
+                    >
+                      Next
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid
+                item
+                sm={5}
+                xs={12}
+                className="p-2 px-sm-3 pb-sm-3 image-container"
+              >
+                <Grid container direction="row" justify="center">
+                  <img
+                    src="https://ssl.gstatic.com/accounts/signup/glif/account.svg"
+                    alt="svg"
+                    className="image-auto"
+                  />
+                  <Typography className="font-weight-light text-center w-75">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Quaerat, alias.
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+        <Snackbar
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+          open={this.state.open}
+          autoHideDuration={2000}
+          onClose={this.handleClose}
+          message={this.state.SnackbarMessage}
+          className={this.state.SnackbarStyle}
+          action={
+            <React.Fragment>
+              <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={this.handleClose}
+              >
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </React.Fragment>
+          }
+        />
+      </Container>
     );
   }
 }

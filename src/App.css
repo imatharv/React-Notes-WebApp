@@ -8,3 +8,16 @@
   font-size: calc(10px + 2vmin);
   color: rgb(49, 49, 49);
 }
+.snackbar-success {
+  background-color: #4caf50 !important;
+  color: #fff !important;
+}
+.snackbar-error {
+  background-color: #f44336 !important;
+  color: #fff !important;
+}
+@media (max-width: 576px) {
+  .App-containt {
+    background-color: #fff;
+  }
+}

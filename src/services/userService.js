@@ -3,9 +3,23 @@ import AxiosService from "./axiosService";
 const axios = new AxiosService();
 
 export default class UserService {
-    static baseURL = "http://fundoonotes.incubation.bridgelabz.com/api/";
+    baseURL = "http://fundoonotes.incubation.bridgelabz.com/api/";
 
     registration = (data) => {
         return axios.postMethod(`${this.baseURL}user/userSignUp`, data);
     }
+
+    login = (data) => {
+        return axios.postMethod(`${this.baseURL}user/login`, data);
+    }
+
+    // forgetPassword = (data) => {
+    //     return axios.postMethod(`${this.baseURL}user/userSignUp`, data);
+    // }
+
+    // resetPassword = (data) => {
+    //     return axios.postMethod(`${this.baseURL}user/userSignUp`, data);
+    // }
+
+
 }

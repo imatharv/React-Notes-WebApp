@@ -1,5 +1,6 @@
 import './App.css';
-import Container from '@material-ui/core/Container';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+
 import RegistrationPage from "./pages/registration/register";
 import LoginPage from './pages/login/login';
 
@@ -7,10 +8,12 @@ function App() {
   return (
     <div className="App">
       <header className="App-containt">
-        <Container maxWidth="md" className="py-3 px-0">
-          <LoginPage />
-          {/* <RegistrationPage /> */}
-        </Container>
+          <BrowserRouter>
+          <Switch>
+            <Route exact path = "/login" component = {LoginPage} />
+            <Route exact path = "/signup" component = {RegistrationPage} />
+          </Switch>
+          </BrowserRouter>
       </header>
     </div>
   );
