@@ -1,4 +1,4 @@
-import "./loginStyles.scss";
+import "./forgetPasswordStyles.css";
 import React, { Component } from "react";
 //import { Redirect } from "react-router-dom";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -12,11 +12,10 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import Checkbox from "@material-ui/core/Checkbox";
 
 const Service = new UserService();
 
-export default class LoginPage extends Component {
+export default class ForgetPasswordPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,20 +25,12 @@ export default class LoginPage extends Component {
       email: "",
       emailError: false,
       emailErrorMsg: "You can use letters, numbers and periods",
-      password: "",
-      passwordError: false,
-      passwordErrorMsg: "Should be alphanumeric",
     };
   }
 
-  handleClickToSignup = (e) => {
-    console.log("asd");
-    this.props.history.push("/signup");
-    //<Redirect to="/Signup" />;
-  };
-
-  handleClickShowPassword = (e) => {
-    this.setState({ showPassword: !this.state.showPassword });
+  handleClickToLogin = (e) => {
+    this.props.history.push("/login");
+    //<Redirect to="/login" />;
   };
 
   handelInput = (e) => {
@@ -50,8 +41,6 @@ export default class LoginPage extends Component {
     this.setState({
       emailError: false,
       emailErrorMsg: "You can use letters, numbers and periods",
-      passwordError: false,
-      passwordErrorMsg: "Should be alphanumeric",
     });
 
     let valid = true;
@@ -81,34 +70,6 @@ export default class LoginPage extends Component {
         emailErrorMsg: "Email is required",
       });
     }
-
-    //validating password
-    if (this.state.password.length != 0) {
-      if (
-        /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\S+$).{8,}$/.test(
-          this.state.password
-        )
-      ) {
-        this.setState({
-          passwordError: false,
-          passwordErrorMsg: "",
-        });
-      } else {
-        valid = false;
-        this.setState({
-          passwordError: true,
-          passwordErrorMsg:
-            "Password should be alphanumeric (min 8 charectors, atleast one alphabate, one number & one special charector)",
-        });
-      }
-    } else {
-      valid = false;
-      this.setState({
-        passwordError: true,
-        passwordErrorMsg: "Password is required",
-      });
-    }
-
     return valid;
   };
 
@@ -118,17 +79,15 @@ export default class LoginPage extends Component {
       let data = {
         email: this.state.email,
         service: "advance",
-        password: this.state.password,
       };
-      Service.login(data)
+      Service.forgetPassword(data)
         .then((data) => {
           console.log(data);
           this.setState({
             open: true,
-            SnackbarMessage: "Login successful",
-            SnackbarStyle: "snackbar-success",
+            SnackbarMessage: "Check your email for the password reset link",
+            SnackbarStyle: "snackbar-info",
           });
-          //<Redirect to="/dashboard" />;
         })
         .catch((error) => {
           console.log("error: ", error);
@@ -145,13 +104,13 @@ export default class LoginPage extends Component {
     this.setState({
       open: false,
       SnackbarMessage: "",
-      SnackbarStyle: "error",
+      SnackbarStyle: "",
     });
   };
 
   render() {
     return (
-      <Container className="py-3 px-0 login-page-container">
+      <Container className="py-3 px-0 forget-password-page-container">
         <Card className="component-card">
           <CardContent className="card-content">
             <Grid
@@ -162,9 +121,9 @@ export default class LoginPage extends Component {
             >
               <Grid item xs={12} className="card-heading">
                 <Typography
-                  variant="h5"
-                  component="h5"
-                  className="font-weight-bold mb-1"
+                  variant="h6"
+                  component="h6"
+                  className="font-weight-bold mb-2"
                 >
                   <span className="text-primary">F</span>
                   <span className="text-danger">u</span>
@@ -179,7 +138,7 @@ export default class LoginPage extends Component {
                   component="h5"
                   className="font-weight-light mb-2"
                 >
-                  Login to your FundooNotes account
+                  Please provide your registered email ID to reset the password
                 </Typography>
               </Grid>
             </Grid>
@@ -208,35 +167,6 @@ export default class LoginPage extends Component {
                       required
                     />
                   </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      size="small"
-                      type={this.state.showPassword ? "text" : "password"}
-                      fullWidth
-                      id="outlined-basic"
-                      name="password"
-                      label="Password"
-                      variant="outlined"
-                      margin="normal"
-                      onChange={this.handelInput}
-                      error={this.state.passwordError}
-                      helperText={this.state.passwordErrorMsg}
-                      required
-                    />
-                  </Grid>
-                  <Grid item sx={12} className="" margin="none">
-                    <Checkbox
-                      className=""
-                      size="small"
-                      onClick={this.handleClickShowPassword}
-                    />
-                    <Typography
-                      component="h6"
-                      className="font-weight-light text-secondary d-inline"
-                    >
-                      Show password
-                    </Typography>
-                  </Grid>
                 </Grid>
                 <Grid container spacing={3} className="card-footing">
                   <Grid item xs={6} className="link-wrapper">
@@ -244,13 +174,13 @@ export default class LoginPage extends Component {
                       size="medium"
                       color="primary"
                       className="mb-0 mb-sm-0 text-primary"
-                      onClick={this.handleClickToSignup}
+                      onClick={this.handleClickToLogin}
                       style={{ textTransform: "unset" }}
                     >
-                      Sign up instead
+                      Sign in instead
                     </Button>
                   </Grid>
-                  <Grid item xs={6} className="button-wrapper ">
+                  <Grid item xs={6} className="button-wrapper">
                     <Button
                       type="button"
                       variant="contained"
@@ -258,7 +188,7 @@ export default class LoginPage extends Component {
                       className="button-login"
                       onClick={this.submit}
                     >
-                      Login
+                      Submit
                     </Button>
                   </Grid>
                 </Grid>
