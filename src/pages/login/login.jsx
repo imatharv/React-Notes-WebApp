@@ -33,8 +33,12 @@ export default class LoginPage extends Component {
   }
 
   handleClickToSignup = (e) => {
-    console.log("asd");
     this.props.history.push("/signup");
+    //<Redirect to="/Signup" />;
+  };
+
+  handleClickToForgetPassword = (e) => {
+    this.props.history.push("/forget-password");
     //<Redirect to="/Signup" />;
   };
 
@@ -259,6 +263,17 @@ export default class LoginPage extends Component {
                       onClick={this.submit}
                     >
                       Login
+                    </Button>
+                  </Grid>
+                  <Grid item xs={12} className="link-wrapper-center forgot-password">
+                    <Button
+                      size="medium"
+                      color="primary"
+                      className="button-blue"
+                      onClick={this.handleClickToForgetPassword}
+                      style={{ textTransform: "unset" }}
+                    >
+                      Forget password?
                     </Button>
                   </Grid>
                 </Grid>

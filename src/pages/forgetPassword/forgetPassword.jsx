@@ -111,7 +111,7 @@ export default class ForgetPasswordPage extends Component {
   render() {
     return (
       <Container className="py-3 px-0 forget-password-page-container">
-        <Card className="component-card">
+        <Card className="component-card ">
           <CardContent className="card-content">
             <Grid
               container

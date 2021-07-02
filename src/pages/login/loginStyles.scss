@@ -22,8 +22,8 @@ body {
 .card-data {
   padding: 1rem !important;
 }
-.card-footing {
-  margin-top: 3rem !important;
+.login-page-container .card-footing {
+  margin-top: 2rem !important;
 }
 .image-wrapper {
   padding: 0rem 1rem 1rem 1rem !important;
@@ -38,6 +38,19 @@ body {
 }
 .link-wrapper {
   text-align: left !important;
+}
+.link-wrapper-center {
+  text-align: center !important;
+}
+.forgot-password {
+  border-radius: 5px;
+  padding: 8px !important;
+  margin-inline: 10px !important;
+  background-color: #E6F0FF;
+  margin-top: 1.2rem !important;
+}
+.button-blue {
+  color: #0d6efd !important;
 }
 .button-wrapper {
   text-align: right !important;
@@ -96,5 +109,8 @@ body {
   }
   .button-wrapper {
     text-align: right !important;
+  }
+  .forgot-password {
+    margin-top: 1rem !important;
   }
 }

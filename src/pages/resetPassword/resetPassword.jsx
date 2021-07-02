@@ -110,11 +110,11 @@ export default class ResetPasswordPage extends Component {
     if (this.validate()) {
       console.log("API call");
       let data = {
-        password: this.state.password,
-        service: "advance",
+        "newPassword": this.state.password
       };
-      Service.resetPassword(data)
-        .then((data) => {
+      let token = this.props.match.params.token;
+      Service.resetPassword(data, token)
+        .then((data, token) => {
           console.log(data);
           this.setState({
             open: true,
@@ -233,18 +233,7 @@ export default class ResetPasswordPage extends Component {
                   </Grid>
                 </Grid>
                 <Grid container spacing={3} className="card-footing">
-                  <Grid item xs={6} className="link-wrapper">
-                    <Button
-                      size="medium"
-                      color="primary"
-                      className="mb-0 mb-sm-0 text-primary"
-                      onClick={this.handleClickToLogin}
-                      style={{ textTransform: "unset" }}
-                    >
-                      Sign in instead
-                    </Button>
-                  </Grid>
-                  <Grid item xs={6} className="button-wrapper">
+                  <Grid item xs={12} className="button-wrapper">
                     <Button
                       type="button"
                       variant="contained"

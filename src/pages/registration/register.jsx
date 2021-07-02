@@ -234,7 +234,7 @@ export default class RegistrationPage extends Component {
 
   render() {
     return (
-      <Container className="py-3 px-0 signup-page-container">
+      <Container className="py-3 px-0 signup-page-container ">
         <Card className="shadow p-2 p-sm-3 component-card">
           <CardContent className="p-1 p-sm-3">
             <Grid

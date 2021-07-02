@@ -11,12 +11,13 @@ function App() {
     <div className="App">
       <header className="App-containt">
           <BrowserRouter>
+          {/* <Redirect from="/" to="/login" /> */}
           <Switch>
-            <Route exact path = "/" component = {LoginPage} />
+            {/* <Route exact path = "/" component = {LoginPage} /> */}
             <Route exact path = "/login" component = {LoginPage} />
             <Route exact path = "/signup" component = {RegistrationPage} />
             <Route exact path = "/forget-password" component = {ForgetPasswordPage} />
-            <Route exact path = "/reset-password" component = {ResetPasswordPage} />
+            <Route exact path = "/resetpassword/:token" component = {ResetPasswordPage} />
           </Switch>
           </BrowserRouter>
       </header>
