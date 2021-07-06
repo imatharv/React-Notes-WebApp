@@ -80,8 +80,8 @@ export default function ActionsDrawer(props) {
             [classes.drawerClose]: !props.open,
           }),
         }}
-        onMouseEnter={handleDrawerToggle}
-        onMouseLeave={handleDrawerToggle}
+        // onMouseEnter={handleDrawerToggle}
+        // onMouseLeave={handleDrawerToggle}
       >
         {/* <List>
           {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (

@@ -1,6 +1,6 @@
 import Navigation from "../../components/navbar/navbar";
 import Drawer from "../../components/drawer/drawer";
-import Content from "../../components/content/content";
+import Notes from "../../components/notes/notes";
 
 import React from "react";
 
@@ -17,7 +17,7 @@ export default function Dashboard() {
     <div>
       <Navigation drawerExpand={handleNavbarDrawerToggle} />
       <Drawer open={navbarDrawerExpand} />
-      <Content />
+      <Notes />
     </div>
   );
 }
