@@ -1,11 +1,11 @@
-import "./loginStyles.scss";
-import React, { Component } from "react";
 //import { Redirect } from "react-router-dom";
+import "./loginStyles.scss";
+import UserService from "../../services/userService";
+import React, { Component } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Container from "@material-ui/core/Container";
-import UserService from "../../services/userService";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";

@@ -1,10 +1,10 @@
-import React, { Component } from "react";
 //import { Redirect } from "react-router-dom";
+import "./registerStyles.css";
+import UserService from "../../services/userService";
+import React, { Component } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
-import UserService from "../../services/userService";
-import "./registerStyles.css";
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -43,9 +43,7 @@ export default class RegistrationPage extends Component {
   }
 
   handleClickToLogin = (e) => {
-    console.log("asd");
     this.props.history.push("/login");
-    //<Redirect to="/login" />;
   };
 
   handleClickShowPassword = (e) => {
