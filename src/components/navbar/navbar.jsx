@@ -17,10 +17,8 @@ import Button from "@material-ui/core/Button";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Paper from "@material-ui/core/Paper";
 import Popper from "@material-ui/core/Popper";
-import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import Divider from "@material-ui/core/Divider";
-import { CenterFocusStrong } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -245,10 +243,10 @@ export default function Navigation(props) {
                       </div>
 
                       <Typography className="font-weight-bold">
-                        Atharva Joshi
+                        {props.firstName} {props.lastName}
                       </Typography>
                       <Typography className="font-weight-light small">
-                        atharvaajoshi.a3@gmail.com
+                        {props.email}
                       </Typography>
                       <Button
                         variant="contained"

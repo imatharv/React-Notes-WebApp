@@ -121,8 +121,7 @@ export default class ResetPasswordPage extends Component {
             SnackbarMessage: "Password updated successfully",
             SnackbarStyle: "snackbar-success",
           });
-          //this.props.history.push("/login");
-          //<Redirect to="/login" />;
+          this.props.history.push("/login");
         })
         .catch((error) => {
           console.log("error: ", error);

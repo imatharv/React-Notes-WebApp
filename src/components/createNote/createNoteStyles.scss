@@ -1,0 +1,37 @@
+$dark: #343a40;
+$icons-dark: #424549;
+
+.MuiInput-underline::before {
+  content: none !important;
+  transition: none !important;
+  border-bottom: none !important;
+}
+.MuiInput-underline::after {
+  content: none !important;
+  transition: none !important;
+  border-bottom: none !important;
+}
+.createNote {
+  //width: 700px;
+  width: 700px;
+  margin-inline: auto;
+  border-radius: 10px !important;
+  box-shadow: 0 0.5rem 1rem rgba(111, 111, 111, 0.1) !important;
+  color: $dark !important;
+}
+.MuiSvgIcon-root {
+  color: $icons-dark !important;
+}
+::placeholder {
+  color: $dark !important;
+  font-weight: bold;
+}
+.card-close-button {
+  margin-left: auto !important;
+  text-transform: unset !important;
+  color: $dark !important;
+  background-color: transparent !important;
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+}

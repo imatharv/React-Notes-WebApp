@@ -1,0 +1,10 @@
+@import "../../root-mixin.scss";
+
+.create-note-container {
+  @include flexbox(row, flex-start, flex-start);
+  @include margin(-50px, 0, 100px, 0);
+}
+.display-note-container {
+  @include flexbox(row, center, center);
+  @include margin(0, 0, 50px, 0);
+}

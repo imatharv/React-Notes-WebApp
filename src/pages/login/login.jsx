@@ -34,12 +34,10 @@ export default class LoginPage extends Component {
 
   handleClickToSignup = (e) => {
     this.props.history.push("/signup");
-    //<Redirect to="/Signup" />;
   };
 
   handleClickToForgetPassword = (e) => {
     this.props.history.push("/forget-password");
-    //<Redirect to="/Signup" />;
   };
 
   handleClickShowPassword = (e) => {
@@ -132,7 +130,12 @@ export default class LoginPage extends Component {
             SnackbarMessage: "Login successful",
             SnackbarStyle: "snackbar-success",
           });
-          //<Redirect to="/dashboard" />;
+          localStorage.setItem("firstName", data.data.firstName);
+          localStorage.setItem("lastName", data.data.lastName);
+          localStorage.setItem("email", data.data.email);
+          localStorage.setItem("token", data.data.id);
+
+          this.props.history.push("/dashboard");
         })
         .catch((error) => {
           console.log("error: ", error);
@@ -265,7 +268,11 @@ export default class LoginPage extends Component {
                       Login
                     </Button>
                   </Grid>
-                  <Grid item xs={12} className="link-wrapper-center forgot-password">
+                  <Grid
+                    item
+                    xs={12}
+                    className="link-wrapper-center forgot-password"
+                  >
                     <Button
                       size="medium"
                       color="primary"
