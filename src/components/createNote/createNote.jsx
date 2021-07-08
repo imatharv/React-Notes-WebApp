@@ -54,8 +54,8 @@ export default function CreateNote(props) {
       let noteData = new FormData(); // Currently empty
       noteData.append("title", titleText);
       noteData.append("description", contentText);
-      Service.createNote(noteData)
-        .then((noteData, token) => {
+      Service.createNote(noteData, token)
+        .then((noteData) => {
           console.log(noteData);
           setSnackbarOpen(true);
           setSnackbarMessage("Note successfully created");

@@ -5,6 +5,6 @@ export default class AxiosService {
         return axios.post(url, data, isHeaderRequired)
     }
     getMethod = (url, isHeaderRequired = false) => {
-        return axios.post(url, isHeaderRequired)
+        return axios.get(url, isHeaderRequired)
     }
 }
