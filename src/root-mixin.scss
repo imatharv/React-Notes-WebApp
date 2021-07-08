@@ -4,7 +4,7 @@
   justify-content: $justify;
   align-items: $align;
 }
-@mixin margin($top, $right, $bottom, $left) {
+@mixin margin($top: null, $right: null, $bottom: null, $left: null) {
   margin-top: $top;
   margin-right: $right;
   margin-bottom: $bottom;
@@ -15,4 +15,8 @@
   padding-right: $right;
   padding-bottom: $bottom;
   padding-left: $left;
+}
+@mixin image($height, $width) {
+  height: $height !important;
+  width: $width !important;
 }

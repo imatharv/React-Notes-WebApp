@@ -1,18 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
 import reportWebVitals from './reportWebVitals';
 import App from './App.js';
 
 ReactDOM.render(
   <React.StrictMode>
     <React.Fragment>
-      <CssBaseline />
-        <Container maxWidth="md">
-          <App />   
-        </Container>
+      <App />   
     </React.Fragment>
   </React.StrictMode>,
   document.getElementById('root')

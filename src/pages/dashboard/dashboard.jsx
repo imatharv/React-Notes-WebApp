@@ -5,6 +5,7 @@ import React from "react";
 
 export default function Dashboard() {
   const [navbarDrawerExpand, setNavbarDrawerExpand] = React.useState(false);
+
   const firstName = localStorage.getItem("firstName");
   const lastName = localStorage.getItem("lastName");
   const email = localStorage.getItem("email");
@@ -14,15 +15,17 @@ export default function Dashboard() {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <Navigation
         drawerExpand={handleNavbarDrawerToggle}
         email={email}
         firstName={firstName}
         lastName={lastName}
       />
-      <Drawer open={navbarDrawerExpand} />
-      <Notes />
-    </div>
+      <div className="content-wrapper">
+        <Drawer open={navbarDrawerExpand} />
+        <Notes />
+      </div>
+    </React.Fragment>
   );
 }

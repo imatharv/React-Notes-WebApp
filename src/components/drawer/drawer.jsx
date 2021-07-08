@@ -18,9 +18,6 @@ import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
   hide: {
     display: "none",
   },
@@ -46,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: "hidden",
-    width: theme.spacing(5) + 1,
+    width: theme.spacing(0),
     [theme.breakpoints.up("sm")]: {
       width: theme.spacing(8.5) + 1,
     },
@@ -61,67 +58,64 @@ export default function ActionsDrawer(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  const handleDrawerToggle = () => {
-    setOpen(!open);
-  };
+  // const handleDrawerToggle = () => {
+  //   setOpen(!open);
+  // };
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <Drawer
-        variant="permanent"
-        className={clsx(classes.drawer, {
+    <Drawer
+      variant="permanent"
+      className={clsx(classes.drawer, {
+        [classes.drawerOpen]: props.open,
+        [classes.drawerClose]: !props.open,
+      })}
+      classes={{
+        paper: clsx({
           [classes.drawerOpen]: props.open,
           [classes.drawerClose]: !props.open,
-        })}
-        classes={{
-          paper: clsx({
-            [classes.drawerOpen]: props.open,
-            [classes.drawerClose]: !props.open,
-          }),
-        }}
-        // onMouseEnter={handleDrawerToggle}
-        // onMouseLeave={handleDrawerToggle}
-      >
-        <List>
-          <ListItem button>
-            <ListItemIcon>
-              <EmojiObjectsOutlinedIcon />
-            </ListItemIcon>
-            <ListItemText>Notes</ListItemText>
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <NotificationsNoneRoundedIcon />
-            </ListItemIcon>
-            <ListItemText>Reminders</ListItemText>
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <LabelOutlinedIcon />
-            </ListItemIcon>
-            <ListItemText>Labels</ListItemText>
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <EditOutlinedIcon />
-            </ListItemIcon>
-            <ListItemText>Edit labels</ListItemText>
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <ArchiveOutlinedIcon />
-            </ListItemIcon>
-            <ListItemText>Archives</ListItemText>
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <DeleteOutlinedIcon />
-            </ListItemIcon>
-            <ListItemText>Trash</ListItemText>
-          </ListItem>
-        </List>
-      </Drawer>
-    </div>
+        }),
+      }}
+      // onMouseEnter={handleDrawerToggle}
+      // onMouseLeave={handleDrawerToggle}
+    >
+      <List>
+        <ListItem button>
+          <ListItemIcon>
+            <EmojiObjectsOutlinedIcon />
+          </ListItemIcon>
+          <ListItemText>Notes</ListItemText>
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <NotificationsNoneRoundedIcon />
+          </ListItemIcon>
+          <ListItemText>Reminders</ListItemText>
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <LabelOutlinedIcon />
+          </ListItemIcon>
+          <ListItemText>Labels</ListItemText>
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <EditOutlinedIcon />
+          </ListItemIcon>
+          <ListItemText>Edit labels</ListItemText>
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <ArchiveOutlinedIcon />
+          </ListItemIcon>
+          <ListItemText>Archives</ListItemText>
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <DeleteOutlinedIcon />
+          </ListItemIcon>
+          <ListItemText>Trash</ListItemText>
+        </ListItem>
+      </List>
+    </Drawer>
   );
 }

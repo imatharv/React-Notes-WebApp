@@ -87,7 +87,7 @@ export default function CreateNote(props) {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <Card className="createNote">
         <CardHeader
           action={
@@ -141,6 +141,6 @@ export default function CreateNote(props) {
         onClose={handleClose}
         message={snackbarMessage}
       />
-    </div>
+    </React.Fragment>
   );
 }

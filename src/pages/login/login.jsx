@@ -158,160 +158,162 @@ export default class LoginPage extends Component {
 
   render() {
     return (
-      <Container className="py-3 px-0 login-page-container">
-        <Card className="component-card">
-          <CardContent className="card-content">
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              alignItems="center"
-            >
-              <Grid item xs={12} className="card-heading">
-                <Typography
-                  variant="h5"
-                  component="h5"
-                  className="font-weight-bold mb-1"
-                >
-                  <span className="text-primary">F</span>
-                  <span className="text-danger">u</span>
-                  <span className="text-warning">n</span>
-                  <span className="text-info">d</span>
-                  <span className="text-secondary">o</span>
-                  <span className="text-success">o</span>
-                  <span className="text-dark">Notes</span>
-                </Typography>
-                <Typography
-                  variant="h5"
-                  component="h5"
-                  className="font-weight-light mb-2"
-                >
-                  Login to your FundooNotes account
-                </Typography>
-              </Grid>
-            </Grid>
-
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              alignItems="flex-start"
-            >
-              <Grid item xs={12} className="card-data">
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <TextField
-                      size="small"
-                      type="email"
-                      fullWidth
-                      id="outlined-basic"
-                      name="email"
-                      label="Email"
-                      variant="outlined"
-                      margin="normal"
-                      onChange={this.handelInput}
-                      error={this.state.emailError}
-                      helperText={this.state.emailErrorMsg}
-                      required
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      size="small"
-                      type={this.state.showPassword ? "text" : "password"}
-                      fullWidth
-                      id="outlined-basic"
-                      name="password"
-                      label="Password"
-                      variant="outlined"
-                      margin="normal"
-                      onChange={this.handelInput}
-                      error={this.state.passwordError}
-                      helperText={this.state.passwordErrorMsg}
-                      required
-                    />
-                  </Grid>
-                  <Grid item sx={12} className="" margin="none">
-                    <Checkbox
-                      className=""
-                      size="small"
-                      onClick={this.handleClickShowPassword}
-                    />
-                    <Typography
-                      component="h6"
-                      className="font-weight-light text-secondary d-inline"
-                    >
-                      Show password
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid container spacing={3} className="card-footing">
-                  <Grid item xs={6} className="link-wrapper">
-                    <Button
-                      size="medium"
-                      color="primary"
-                      className="mb-0 mb-sm-0 text-primary"
-                      onClick={this.handleClickToSignup}
-                      style={{ textTransform: "unset" }}
-                    >
-                      Sign up instead
-                    </Button>
-                  </Grid>
-                  <Grid item xs={6} className="button-wrapper ">
-                    <Button
-                      type="button"
-                      variant="contained"
-                      size="medium"
-                      className="button-login"
-                      onClick={this.submit}
-                    >
-                      Login
-                    </Button>
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    className="link-wrapper-center forgot-password"
-                  >
-                    <Button
-                      size="medium"
-                      color="primary"
-                      className="button-blue"
-                      onClick={this.handleClickToForgetPassword}
-                      style={{ textTransform: "unset" }}
-                    >
-                      Forget password?
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
-        <Snackbar
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "center",
-          }}
-          open={this.state.open}
-          autoHideDuration={2000}
-          onClose={this.handleClose}
-          message={this.state.SnackbarMessage}
-          className={this.state.SnackbarStyle}
-          action={
-            <React.Fragment>
-              <IconButton
-                size="small"
-                aria-label="close"
-                color="inherit"
-                onClick={this.handleClose}
+      <div className="App-containt">
+        <Container className="py-3 px-0 login-page-container">
+          <Card className="component-card">
+            <CardContent className="card-content">
+              <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
               >
-                <CloseIcon fontSize="small" />
-              </IconButton>
-            </React.Fragment>
-          }
-        />
-      </Container>
+                <Grid item xs={12} className="card-heading">
+                  <Typography
+                    variant="h5"
+                    component="h5"
+                    className="font-weight-bold mb-1"
+                  >
+                    <span className="text-primary">F</span>
+                    <span className="text-danger">u</span>
+                    <span className="text-warning">n</span>
+                    <span className="text-info">d</span>
+                    <span className="text-secondary">o</span>
+                    <span className="text-success">o</span>
+                    <span className="text-dark">Notes</span>
+                  </Typography>
+                  <Typography
+                    variant="h5"
+                    component="h5"
+                    className="font-weight-light mb-2"
+                  >
+                    Login to your FundooNotes account
+                  </Typography>
+                </Grid>
+              </Grid>
+
+              <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="flex-start"
+              >
+                <Grid item xs={12} className="card-data">
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <TextField
+                        size="small"
+                        type="email"
+                        fullWidth
+                        id="outlined-basic"
+                        name="email"
+                        label="Email"
+                        variant="outlined"
+                        margin="normal"
+                        onChange={this.handelInput}
+                        error={this.state.emailError}
+                        helperText={this.state.emailErrorMsg}
+                        required
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        size="small"
+                        type={this.state.showPassword ? "text" : "password"}
+                        fullWidth
+                        id="outlined-basic"
+                        name="password"
+                        label="Password"
+                        variant="outlined"
+                        margin="normal"
+                        onChange={this.handelInput}
+                        error={this.state.passwordError}
+                        helperText={this.state.passwordErrorMsg}
+                        required
+                      />
+                    </Grid>
+                    <Grid item sx={12} className="" margin="none">
+                      <Checkbox
+                        className=""
+                        size="small"
+                        onClick={this.handleClickShowPassword}
+                      />
+                      <Typography
+                        component="h6"
+                        className="font-weight-light text-secondary d-inline"
+                      >
+                        Show password
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid container spacing={3} className="card-footing">
+                    <Grid item xs={6} className="link-wrapper">
+                      <Button
+                        size="medium"
+                        color="primary"
+                        className="mb-0 mb-sm-0 text-primary"
+                        onClick={this.handleClickToSignup}
+                        style={{ textTransform: "unset" }}
+                      >
+                        Sign up instead
+                      </Button>
+                    </Grid>
+                    <Grid item xs={6} className="button-wrapper ">
+                      <Button
+                        type="button"
+                        variant="contained"
+                        size="medium"
+                        className="button-login"
+                        onClick={this.submit}
+                      >
+                        Login
+                      </Button>
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      className="link-wrapper-center forgot-password"
+                    >
+                      <Button
+                        size="medium"
+                        color="primary"
+                        className="button-blue"
+                        onClick={this.handleClickToForgetPassword}
+                        style={{ textTransform: "unset" }}
+                      >
+                        Forget password?
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+          <Snackbar
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "center",
+            }}
+            open={this.state.open}
+            autoHideDuration={2000}
+            onClose={this.handleClose}
+            message={this.state.SnackbarMessage}
+            className={this.state.SnackbarStyle}
+            action={
+              <React.Fragment>
+                <IconButton
+                  size="small"
+                  aria-label="close"
+                  color="inherit"
+                  onClick={this.handleClose}
+                >
+                  <CloseIcon fontSize="small" />
+                </IconButton>
+              </React.Fragment>
+            }
+          />
+        </Container>
+      </div>
     );
   }
 }

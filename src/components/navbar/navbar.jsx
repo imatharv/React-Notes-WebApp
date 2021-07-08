@@ -4,7 +4,6 @@ import clsx from "clsx";
 import { fade, makeStyles, useTheme } from "@material-ui/core/styles";
 import blueGrey from "@material-ui/core/colors/blueGrey";
 import deepPurple from "@material-ui/core/colors/deepPurple";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -21,15 +20,8 @@ import MenuList from "@material-ui/core/MenuList";
 import Divider from "@material-ui/core/Divider";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
     backgroundColor: "#fff !important",
     color: blueGrey[800],
     boxShadow: "none !important;",
@@ -51,8 +43,11 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
     display: "none",
+    justifyContent: "flex-start !important",
+    alignItems: "center !important",
+    alignContent: "center !important",
     [theme.breakpoints.up("md")]: {
-      display: "block",
+      display: "flex",
     },
   },
   toolbar: {
@@ -175,105 +170,102 @@ export default function Navigation(props) {
   }, [menuOpen]);
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" className={clsx(classes.appBar)}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleNavbarDrawerToggle}
-            edge="start"
-            className={clsx(classes.menuButton)}
+    <AppBar position="fixed" className={clsx(classes.appBar)}>
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          onClick={handleNavbarDrawerToggle}
+          edge="start"
+          className={clsx(classes.menuButton)}
+        >
+          <MenuIcon />
+        </IconButton>
+
+        <div className={classes.title}>
+          <img
+            src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png"
+            className={classes.logoImage}
+            alt="logo"
+          />
+          <Typography variant="h6" className={classes.headerTitle} noWrap>
+            FundooNotes
+          </Typography>
+        </div>
+
+        <div className={classes.search}>
+          <div className={classes.searchIcon}>
+            <SearchIcon />
+          </div>
+          <InputBase
+            placeholder="Search…"
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+            inputProps={{ "aria-label": "search" }}
+          />
+        </div>
+        <div className={classes.avatarWrapper}>
+          <Button
+            ref={anchorRef}
+            aria-controls={menuOpen ? "menu-list-grow" : undefined}
+            aria-haspopup="true"
+            onClick={handleAccountInfoMenuToggle}
           >
-            <MenuIcon />
-          </IconButton>
-
-          <div className={classes.title}>
-            <img
-              src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png"
-              className={classes.logoImage}
-              alt="logo"
-            />
-            <Typography variant="h6" className={classes.headerTitle} noWrap>
-              FundooNotes
-            </Typography>
-          </div>
-
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-            />
-          </div>
-          <div className={classes.avatarWrapper}>
-            <Button
-              ref={anchorRef}
-              aria-controls={menuOpen ? "menu-list-grow" : undefined}
-              aria-haspopup="true"
-              onClick={handleAccountInfoMenuToggle}
-            >
-              <Avatar className={classes.avatar}>A</Avatar>
-            </Button>
-            <Popper
-              className={classes.popperMenu}
-              open={menuOpen}
-              anchorEl={anchorRef.current}
-              role={undefined}
-              transition
-              disablePortal
-            >
-              <Paper className={classes.papper}>
-                <ClickAwayListener onClickAway={handleAccountInfoMenuClose}>
-                  <MenuList
-                    autoFocusItem={menuOpen}
-                    id="menu-list-grow"
-                    onKeyDown={handleListKeyDown}
-                  >
-                    <div className={classes.accountInfo}>
-                      <div className={classes.menuItemAvatarWrapper}>
-                        <Avatar className={classes.menuItemAvatar}>A</Avatar>
-                      </div>
-
-                      <Typography className="font-weight-bold">
-                        {props.firstName} {props.lastName}
-                      </Typography>
-                      <Typography className="font-weight-light small">
-                        {props.email}
-                      </Typography>
-                      <Button
-                        variant="contained"
-                        className="menuItemButton buttonLight"
-                      >
-                        Manage your account
-                      </Button>
+            <Avatar className={classes.avatar}>A</Avatar>
+          </Button>
+          <Popper
+            className={classes.popperMenu}
+            open={menuOpen}
+            anchorEl={anchorRef.current}
+            role={undefined}
+            transition
+            disablePortal
+          >
+            <Paper className={classes.papper}>
+              <ClickAwayListener onClickAway={handleAccountInfoMenuClose}>
+                <MenuList
+                  autoFocusItem={menuOpen}
+                  id="menu-list-grow"
+                  onKeyDown={handleListKeyDown}
+                >
+                  <div className={classes.accountInfo}>
+                    <div className={classes.menuItemAvatarWrapper}>
+                      <Avatar className={classes.menuItemAvatar}>A</Avatar>
                     </div>
 
-                    <Divider className="menuDivider" />
+                    <Typography className="font-weight-bold">
+                      {props.firstName} {props.lastName}
+                    </Typography>
+                    <Typography className="font-weight-light small">
+                      {props.email}
+                    </Typography>
+                    <Button
+                      variant="contained"
+                      className="menuItemButton buttonLight"
+                    >
+                      Manage your account
+                    </Button>
+                  </div>
 
-                    <div className={classes.accountInfo}>
-                      <Button
-                        variant="contained"
-                        className="menuItemLogoutButton buttonLight"
-                      >
-                        Sign out
-                      </Button>
-                    </div>
-                    {/* <MenuItem onClick={handleClose}>Profile</MenuItem> */}
-                  </MenuList>
-                </ClickAwayListener>
-              </Paper>
-            </Popper>
-          </div>
-        </Toolbar>
-      </AppBar>
-    </div>
+                  <Divider className="menuDivider" />
+
+                  <div className={classes.accountInfo}>
+                    <Button
+                      variant="contained"
+                      className="menuItemLogoutButton buttonLight"
+                    >
+                      Sign out
+                    </Button>
+                  </div>
+                  {/* <MenuItem onClick={handleClose}>Profile</MenuItem> */}
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Popper>
+        </div>
+      </Toolbar>
+    </AppBar>
   );
 }

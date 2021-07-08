@@ -12,8 +12,13 @@ import IconsGroup from "../icons/icons";
 
 const Service = new NoteService();
 
-export default function DisplayNotes() {
+export default function DisplayNotes(props) {
   const [notes, setNotes] = React.useState([]);
+
+  const handleClickUpdateDialogOpen = () => {
+    props.dialogOpen();
+    console.log("clicked in display notes");
+  };
 
   useEffect(() => {
     displayNote();
@@ -24,9 +29,8 @@ export default function DisplayNotes() {
     const token = localStorage.getItem("token");
     Service.getNote(token)
       .then((noteData) => {
-        console.log(noteData);
-        setNotes(noteData.data.data);
-        console.log(notes);
+        console.log(noteData.data.data.data);
+        setNotes(noteData.data.data.data);
       })
       .catch((error) => {
         console.log("Data fetch error: ", error);
@@ -34,10 +38,14 @@ export default function DisplayNotes() {
   };
 
   return (
-    <div>
+    <React.Fragment>
       {notes.map((data) => {
         return (
-          <Card className="displayNote" key={data.id}>
+          <Card
+            className="displayNote"
+            key={data.id}
+            onClick={handleClickUpdateDialogOpen}
+          >
             <CardHeader
               action={
                 <IconButton aria-label="Pin to top">
@@ -50,7 +58,7 @@ export default function DisplayNotes() {
                   className="noteTitle"
                   id="standard-textarea"
                   label=""
-                  // value={data.title}
+                  value={data.title}
                   placeholder="Title"
                   multiline
                   fullWidth
@@ -63,7 +71,7 @@ export default function DisplayNotes() {
                 className="noteContent"
                 id="standard-textarea"
                 label=""
-                // value={data.description}
+                value={data.description}
                 placeholder="Take a note.."
                 multiline
                 fullWidth
@@ -75,6 +83,6 @@ export default function DisplayNotes() {
           </Card>
         );
       })}
-    </div>
+    </React.Fragment>
   );
 }
