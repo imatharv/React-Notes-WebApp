@@ -15,10 +15,15 @@ const Service = new NoteService();
 export default function DisplayNotes(props) {
   const [notes, setNotes] = React.useState([]);
 
-  const handleClickUpdateDialogOpen = () => {
-    props.dialogOpen();
+  const handleClickUpdateDialogOpen = (id, title, description) => {
     console.log("clicked in display notes");
+    props.dialogOpen(id, title, description);
   };
+
+  // const handleClickUpdateDialogClose = () => {
+  //   console.log("clicked in display notes");
+  //   props.dialogOpen();
+  // };
 
   useEffect(() => {
     displayNote();
@@ -44,7 +49,11 @@ export default function DisplayNotes(props) {
           <Card
             className="displayNote"
             key={data.id}
-            onClick={handleClickUpdateDialogOpen}
+            onClick={handleClickUpdateDialogOpen(
+              data.id,
+              data.title,
+              data.description
+            )}
           >
             <CardHeader
               action={
@@ -56,7 +65,7 @@ export default function DisplayNotes(props) {
                 <TextField
                   name="noteTitle"
                   className="noteTitle"
-                  id="standard-textarea"
+                  id="standard-textarea noteTitle"
                   label=""
                   value={data.title}
                   placeholder="Title"
@@ -69,7 +78,7 @@ export default function DisplayNotes(props) {
               <TextField
                 name="noteContent"
                 className="noteContent"
-                id="standard-textarea"
+                id="standard-textarea noteContent"
                 label=""
                 value={data.description}
                 placeholder="Take a note.."

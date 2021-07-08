@@ -18,35 +18,34 @@ import IconsGroup from "../icons/icons";
 export default function UpdateNoteDialog(props) {
   const [DialogOpen, setDialogOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState("paper");
-  const descriptionElementRef = React.useRef(null);
-  React.useEffect(() => {
-    if (DialogOpen) {
-      const { current: descriptionElement } = descriptionElementRef;
-      if (descriptionElement !== null) {
-        descriptionElement.focus();
-      }
-    }
-  }, [DialogOpen]);
-  //   const handleClose = () => {
-  //     setDialogOpen(false);
-  //   };
+
+  //   const descriptionElementRef = React.useRef(null);
+  //   React.useEffect(() => {
+  //     if (DialogOpen) {
+  //       const { current: descriptionElement } = descriptionElementRef;
+  //       if (descriptionElement !== null) {
+  //         descriptionElement.focus();
+  //       }
+  //     }
+  //   }, [DialogOpen]);
+
+  const handleClose = () => {
+    setDialogOpen(false);
+  };
   return (
     <div>
       <Dialog
-        open={props.dialogOpen}
-        //onClose={handleClose}
-        scroll={props.scroll}
-        aria-labelledby="scroll-dialog-title"
-        aria-describedby="scroll-dialog-description"
+        open={props.open}
+        onClose={handleClose}
+        maxWidth="md"
+        className="update-note-dialog"
       >
-        <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
-        <DialogContent dividers={props.scroll === "paper"}>
+        <DialogContent className="dialog-content">
           <DialogContentText
-            id="scroll-dialog-description"
-            ref={descriptionElementRef}
+            //ref={descriptionElementRef}
             tabIndex={-1}
           >
-            <Card className="displayNote">
+            <Card className="updateNote">
               <CardHeader
                 action={
                   <IconButton aria-label="Pin to top">
@@ -59,7 +58,7 @@ export default function UpdateNoteDialog(props) {
                     className="noteTitle"
                     id="standard-textarea"
                     label=""
-                    //value={data.title}
+                    value={props.title}
                     placeholder="Title"
                     multiline
                     fullWidth
@@ -72,23 +71,19 @@ export default function UpdateNoteDialog(props) {
                   className="noteContent"
                   id="standard-textarea"
                   label=""
-                  //value={data.description}
+                  value={props.content}
                   placeholder="Take a note.."
                   multiline
                   fullWidth
                 />
               </CardContent>
-              <CardActions disableSpacing>
-                <IconsGroup />
-              </CardActions>
+              <CardActions disableSpacing></CardActions>
             </Card>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button
-            //onClick={handleClose}
-            color="primary"
-          >
+          <IconsGroup />
+          <Button onClick={handleClose} className="dialog-close-button">
             Close
           </Button>
         </DialogActions>
