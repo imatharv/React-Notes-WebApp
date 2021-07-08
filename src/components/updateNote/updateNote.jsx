@@ -17,7 +17,9 @@ import IconsGroup from "../icons/icons";
 
 export default function UpdateNoteDialog(props) {
   const [DialogOpen, setDialogOpen] = React.useState(false);
-  const [scroll, setScroll] = React.useState("paper");
+  //const [scroll, setScroll] = React.useState("paper");
+  const [title, setTitle] = React.useState("");
+  const [content, setContent] = React.useState("");
 
   //   const descriptionElementRef = React.useRef(null);
   //   React.useEffect(() => {
@@ -29,6 +31,12 @@ export default function UpdateNoteDialog(props) {
   //     }
   //   }, [DialogOpen]);
 
+  const handleInputTitle = (event) => {
+    setTitle(event.target.value);
+  };
+  const handleInputContent = (event) => {
+    setContent(event.target.value);
+  };
   const handleClose = () => {
     setDialogOpen(false);
   };
@@ -58,7 +66,9 @@ export default function UpdateNoteDialog(props) {
                     className="noteTitle"
                     id="standard-textarea"
                     label=""
+                    //value={title}
                     value={props.title}
+                    onChange={handleInputTitle}
                     placeholder="Title"
                     multiline
                     fullWidth
@@ -71,7 +81,9 @@ export default function UpdateNoteDialog(props) {
                   className="noteContent"
                   id="standard-textarea"
                   label=""
+                  //value={content}
                   value={props.content}
+                  onChange={handleInputContent}
                   placeholder="Take a note.."
                   multiline
                   fullWidth
