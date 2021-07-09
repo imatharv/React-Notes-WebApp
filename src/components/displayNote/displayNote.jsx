@@ -9,21 +9,25 @@ import CardActions from "@material-ui/core/CardActions";
 import IconButton from "@material-ui/core/IconButton";
 import EmojiFlagsRoundedIcon from "@material-ui/icons/EmojiFlagsRounded";
 import IconsGroup from "../icons/icons";
+import UpdateDialog from "../updateNote/updateNote";
 
 const Service = new NoteService();
 
 export default function DisplayNotes(props) {
   const [notes, setNotes] = React.useState([]);
+  const [updateNoteData, setUpdateNoteData] = React.useState({});
+  const [open, setOpen] = React.useState(false);
 
-  const handleClickUpdateDialogOpen = (id, title, description) => {
+  const handleClickUpdateDialogOpen = (e, data) => {
+    e.preventDefault();
+    setUpdateNoteData(data);
+    setOpen(true);
     console.log("clicked in display notes");
-    props.dialogOpen(id, title, description);
   };
 
-  // const handleClickUpdateDialogClose = () => {
-  //   console.log("clicked in display notes");
-  //   props.dialogOpen();
-  // };
+  const handleClickUpdateDialogClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     displayNote();
@@ -49,11 +53,7 @@ export default function DisplayNotes(props) {
           <Card
             className="displayNote"
             key={data.id}
-            onClick={handleClickUpdateDialogOpen(
-              data.id,
-              data.title,
-              data.description
-            )}
+            onClick={(e) => handleClickUpdateDialogOpen(e, data)}
           >
             <CardHeader
               action={
@@ -92,6 +92,11 @@ export default function DisplayNotes(props) {
           </Card>
         );
       })}
+      <UpdateDialog
+        open={open}
+        data={updateNoteData}
+        close={handleClickUpdateDialogClose}
+      />
     </React.Fragment>
   );
 }

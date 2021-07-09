@@ -16,20 +16,16 @@ import EmojiFlagsRoundedIcon from "@material-ui/icons/EmojiFlagsRounded";
 import IconsGroup from "../icons/icons";
 
 export default function UpdateNoteDialog(props) {
-  const [DialogOpen, setDialogOpen] = React.useState(false);
-  //const [scroll, setScroll] = React.useState("paper");
+  const [DialogOpen, setDialogOpen] = React.useState(props.open);
   const [title, setTitle] = React.useState("");
   const [content, setContent] = React.useState("");
 
-  //   const descriptionElementRef = React.useRef(null);
-  //   React.useEffect(() => {
-  //     if (DialogOpen) {
-  //       const { current: descriptionElement } = descriptionElementRef;
-  //       if (descriptionElement !== null) {
-  //         descriptionElement.focus();
-  //       }
-  //     }
-  //   }, [DialogOpen]);
+  React.useEffect(() => {
+    if (props.data) {
+      setTitle(props.data.title);
+      setContent(props.data.description);
+    }
+  }, [props.data]);
 
   const handleInputTitle = (event) => {
     setTitle(event.target.value);
@@ -38,7 +34,7 @@ export default function UpdateNoteDialog(props) {
     setContent(event.target.value);
   };
   const handleClose = () => {
-    setDialogOpen(false);
+    props.close();
   };
   return (
     <div>
@@ -66,8 +62,7 @@ export default function UpdateNoteDialog(props) {
                     className="noteTitle"
                     id="standard-textarea"
                     label=""
-                    //value={title}
-                    value={props.title}
+                    value={title}
                     onChange={handleInputTitle}
                     placeholder="Title"
                     multiline
@@ -81,8 +76,7 @@ export default function UpdateNoteDialog(props) {
                   className="noteContent"
                   id="standard-textarea"
                   label=""
-                  //value={content}
-                  value={props.content}
+                  value={content}
                   onChange={handleInputContent}
                   placeholder="Take a note.."
                   multiline
