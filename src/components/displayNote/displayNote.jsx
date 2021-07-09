@@ -2,6 +2,7 @@ import "./displayNoteStyles.scss";
 import NoteService from "../../services/noteService";
 import React, { useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -17,6 +18,8 @@ export default function DisplayNotes(props) {
   const [notes, setNotes] = React.useState([]);
   const [updateNoteData, setUpdateNoteData] = React.useState({});
   const [open, setOpen] = React.useState(false);
+  const [backgroundColor, setBackgroundColor] = React.useState("black");
+  const [textColor, setTextColor] = React.useState("white");
 
   const handleClickUpdateDialogOpen = (e, data) => {
     e.preventDefault();
@@ -32,6 +35,11 @@ export default function DisplayNotes(props) {
   useEffect(() => {
     displayNote();
   }, []);
+
+  const handleClickSetColors = () => {
+    setBackgroundColor("black");
+    setTextColor("red");
+  };
 
   const displayNote = () => {
     console.log("API call");
@@ -56,38 +64,27 @@ export default function DisplayNotes(props) {
             onClick={(e) => handleClickUpdateDialogOpen(e, data)}
           >
             <CardHeader
-              action={
-                <IconButton aria-label="Pin to top">
-                  <EmojiFlagsRoundedIcon />
-                </IconButton>
-              }
               title={
-                <TextField
+                <Typography
                   name="noteTitle"
                   className="noteTitle"
-                  id="standard-textarea noteTitle"
-                  label=""
-                  value={data.title}
-                  placeholder="Title"
-                  multiline
-                  fullWidth
-                />
+                  id="noteTitle"
+                >
+                  {data.title}
+                </Typography>
               }
             />
             <CardContent>
-              <TextField
+              <Typography
                 name="noteContent"
                 className="noteContent"
-                id="standard-textarea noteContent"
-                label=""
-                value={data.description}
-                placeholder="Take a note.."
-                multiline
-                fullWidth
-              />
+                id="noteContent"
+              >
+                {data.description}
+              </Typography>
             </CardContent>
-            <CardActions disableSpacing>
-              <IconsGroup />
+            <CardActions disableSpacing className="iconbar">
+              <IconsGroup serColor={handleClickSetColors} />
             </CardActions>
           </Card>
         );

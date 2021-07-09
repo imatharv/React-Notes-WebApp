@@ -26,10 +26,11 @@ export default function Notes() {
           <CreateNote />
         </div>
         <div className="display-note-container">
+          {/* <div className="display-note-wrapper"> */}
           <DisplayNote dialogOpen={handleClickUpdateDialogOpen} />
+          {/* </div> */}
         </div>
       </div>
-      <UpdateDialog open={open} id={id} title={title} content={content} />
     </React.Fragment>
   );
 }

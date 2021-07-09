@@ -67,14 +67,6 @@ export default function CreateNote(props) {
         });
     }
   };
-
-  const handleTitleInputChange = (event) => {
-    setTitleText(event.target.value);
-  };
-  const handleContentInputChange = (event) => {
-    setContentText(event.target.value);
-  };
-
   const validate = () => {
     let valid = true;
     if (titleText.length == 0) {
@@ -86,15 +78,17 @@ export default function CreateNote(props) {
     return valid;
   };
 
+  const handleTitleInputChange = (event) => {
+    setTitleText(event.target.value);
+  };
+  const handleContentInputChange = (event) => {
+    setContentText(event.target.value);
+  };
+
   return (
     <React.Fragment>
       <Card className="createNote">
         <CardHeader
-          action={
-            <IconButton aria-label="Pin to top">
-              <EmojiFlagsRoundedIcon />
-            </IconButton>
-          }
           title={
             <TextField
               name="noteTitle"

@@ -8,8 +8,10 @@ export default class NotesService {
     createNote = (data, token) => {
         return axios.postMethod(`${this.baseURL}notes/addNotes`, data, { headers: {"Authorization" : token} });
     }
-
     getNote = (token) => {
         return axios.getMethod(`${this.baseURL}notes/getNotesList`, { headers: {"Authorization" : token} });
+    }
+    updateNote = (data, token) => {
+        return axios.postMethod(`${this.baseURL}notes/updateNotes`, data, { headers: {"Authorization" : token} });
     }
 }

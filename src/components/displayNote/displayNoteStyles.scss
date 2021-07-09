@@ -14,13 +14,25 @@ $icons-dark: #424549;
 .displayNote {
   width: 282px !important;
   border-radius: 10px !important;
-  border: 1px solid #d4dbe2;
+  border: 1px solid #e1e7ec;
   box-shadow: none !important;
   color: $dark !important;
+  margin: 8px !important;
+  align-self: flex-start !important;
+}
+.iconbar {
+  transition-timing-function: ease;
+  transition: opacity 1s;
+  opacity: 0;
+  visibility: hidden;
 }
 .displayNote:hover {
   border: 1px solid #dfe4e9;
-  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.085) !important;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.08) !important;
+  .iconbar {
+    opacity: 1;
+    visibility: visible;
+  }
 }
 .MuiSvgIcon-root {
   color: $icons-dark !important;
@@ -37,4 +49,29 @@ $icons-dark: #424549;
   animation: none !important;
   transition: none !important;
   transform: none !important;
+}
+.displayNote .noteTitle {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+}
+.displayNote .noteContent {
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0 !important;
+}
+.displayNote .MuiCardHeader-root {
+  padding-bottom: 0 !important;
+}
+.displayNote .MuiCardContent-root {
+  padding-top: 5px !important;
+}
+.displayNote .MuiCardActions-root {
+  padding-top: 0px !important;
+}
+@media (max-width: 630px) {
+  .displayNote {
+    width: 600px !important;
+    margin-inline: 0px !important;
+  }
 }

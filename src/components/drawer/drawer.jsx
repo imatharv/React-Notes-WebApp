@@ -43,11 +43,11 @@ const useStyles = makeStyles((theme) => ({
     }),
     overflowX: "hidden",
     width: theme.spacing(0),
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up("md")]: {
       width: theme.spacing(8.5) + 1,
+      paddingLeft: 6,
     },
     marginTop: 64,
-    paddingLeft: 6,
     border: "none !important",
   },
 }));
