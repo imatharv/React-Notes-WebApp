@@ -23,8 +23,8 @@ export default function UpdateNoteDialog(props) {
   const [id, setId] = React.useState("");
   const [updatedTitle, setUpdatedTitle] = React.useState("");
   const [updatedContent, setUpdatedContent] = React.useState("");
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-  const [snackbarMessage, setSnackbarMessage] = React.useState(false);
+  // const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  // const [snackbarMessage, setSnackbarMessage] = React.useState(false);
 
   const updateNote = () => {
     if (validate()) {
@@ -37,18 +37,19 @@ export default function UpdateNoteDialog(props) {
       Service.updateNote(noteUpdateData, token)
         .then((noteUpdateData) => {
           console.log(noteUpdateData);
-          setSnackbarOpen(true);
-          setSnackbarMessage("Note successfully updated");
+          // setSnackbarOpen(true);
+          // setSnackbarMessage("Note successfully updated");
           props.close();
+          props.displayNote();
         })
         .catch((error) => {
           console.log("Data posting error: ", error);
-          setSnackbarOpen(true);
-          setSnackbarMessage("Data posting error");
+          // setSnackbarOpen(true);
+          // setSnackbarMessage("Data posting error");
         });
     } else {
-      setSnackbarOpen(true);
-      setSnackbarMessage("Validation error");
+      // setSnackbarOpen(true);
+      // setSnackbarMessage("Validation error");
     }
   };
   const validate = () => {
@@ -65,7 +66,8 @@ export default function UpdateNoteDialog(props) {
     if (reason === "clickaway") {
       return;
     }
-    setSnackbarOpen(false);
+    props.close();
+    // setSnackbarOpen(false);
   };
   React.useEffect(() => {
     if (props.data) {
@@ -86,10 +88,7 @@ export default function UpdateNoteDialog(props) {
     <div>
       <Dialog open={props.open} maxWidth="md" className="update-note-dialog">
         <DialogContent className="dialog-content">
-          <DialogContentText
-            //ref={descriptionElementRef}
-            tabIndex={-1}
-          >
+          <DialogContentText tabIndex={-1}>
             <Card className="updateNote">
               <CardHeader
                 action={
@@ -135,7 +134,7 @@ export default function UpdateNoteDialog(props) {
           </Button>
         </DialogActions>
       </Dialog>
-      <Snackbar
+      {/* <Snackbar
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "center",
@@ -144,7 +143,7 @@ export default function UpdateNoteDialog(props) {
         autoHideDuration={3000}
         onClose={handleClose}
         message={snackbarMessage}
-      />
+      /> */}
     </div>
   );
 }

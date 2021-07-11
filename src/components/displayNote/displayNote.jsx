@@ -15,7 +15,7 @@ import NoteService from "../../services/noteService";
 const Service = new NoteService();
 
 export default function DisplayNotes(props) {
-  const [notes, setNotes] = React.useState([]);
+  // const [notes, setNotes] = React.useState([]);
   const [updateNoteData, setUpdateNoteData] = React.useState({});
   const [open, setOpen] = React.useState(false);
   const [backgroundColor, setBackgroundColor] = React.useState("black");
@@ -32,63 +32,62 @@ export default function DisplayNotes(props) {
     setOpen(false);
   };
 
-  useEffect(() => {
-    displayNote();
-  }, []);
-
   const handleClickSetColors = () => {
     setBackgroundColor("black");
     setTextColor("red");
   };
 
-  const displayNote = () => {
-    console.log("API call");
-    const token = localStorage.getItem("token");
-    Service.getNote(token)
-    .then((noteData) => {
-      console.log(noteData.data.data.data);
-      setNotes(noteData.data.data.data);
-    })
-    .catch((error) => {
-      console.log("Data fetch error: ", error);
-    });
-  };
+  // const displayNote = () => {
+  //   console.log("API call");
+  //   const token = localStorage.getItem("token");
+  //   Service.getNote(token)
+  //   .then((noteData) => {
+  //     console.log(noteData.data.data.data);
+  //     setNotes(noteData.data.data.data);
+  //   })
+  //   .catch((error) => {
+  //     console.log("Data fetch error: ", error);
+  //   });
+  // };
 
   return (
     <React.Fragment>
-      {notes.slice(0).reverse().map((data) => {
-        return (
-          <Card
-            className="displayNote"
-            key={data.id}
-            onClick={(e) => handleClickUpdateDialogOpen(e, data)}
-          >
-            <CardHeader
-              title={
+      {props.notes
+        .slice(0)
+        .reverse()
+        .map((data) => {
+          return (
+            <Card
+              className="displayNote"
+              key={data.id}
+              onClick={(e) => handleClickUpdateDialogOpen(e, data)}
+            >
+              <CardHeader
+                title={
+                  <Typography
+                    name="noteTitle"
+                    className="noteTitle"
+                    id="noteTitle"
+                  >
+                    {data.title}
+                  </Typography>
+                }
+              />
+              <CardContent>
                 <Typography
-                  name="noteTitle"
-                  className="noteTitle"
-                  id="noteTitle"
+                  name="noteContent"
+                  className="noteContent"
+                  id="noteContent"
                 >
-                  {data.title}
+                  {data.description}
                 </Typography>
-              }
-            />
-            <CardContent>
-              <Typography
-                name="noteContent"
-                className="noteContent"
-                id="noteContent"
-              >
-                {data.description}
-              </Typography>
-            </CardContent>
-            <CardActions disableSpacing className="iconbar">
-              <IconsGroup serColor={handleClickSetColors} />
-            </CardActions>
-          </Card>
-        );
-      })}
+              </CardContent>
+              <CardActions disableSpacing className="iconbar">
+                <IconsGroup serColor={handleClickSetColors} />
+              </CardActions>
+            </Card>
+          );
+        })}
       <UpdateDialog
         open={open}
         data={updateNoteData}

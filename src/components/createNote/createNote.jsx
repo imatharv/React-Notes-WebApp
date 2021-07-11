@@ -26,8 +26,8 @@ const useStyles = makeStyles((theme) => ({
 export default function CreateNote(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-  const [snackbarMessage, setSnackbarMessage] = React.useState(false);
+  // const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  // const [snackbarMessage, setSnackbarMessage] = React.useState(false);
 
   // const handleSnackbar = () => {
   //   setSnackbarOpen(true);
@@ -46,7 +46,7 @@ export default function CreateNote(props) {
   const [titleText, setTitleText] = React.useState("");
   const [contentText, setContentText] = React.useState("");
 
-  const createNote = () => {
+  const createNote = (event) => {
     if (validate()) {
       console.log("API call");
       const token = localStorage.getItem("token");
@@ -57,14 +57,14 @@ export default function CreateNote(props) {
         .then((noteData) => {
           console.log(noteData);
           setExpanded(false);
-          setSnackbarOpen(true);
-          setSnackbarMessage("Note successfully created");
-          
+          // setSnackbarOpen(true);
+          // setSnackbarMessage("Note successfully created");
+          props.displayNote();
         })
         .catch((error) => {
           console.log("Data posting error: ", error);
-          setSnackbarOpen(true);
-          setSnackbarMessage("Data posting error");
+          // setSnackbarOpen(true);
+          // setSnackbarMessage("Data posting error");
         });
     } else {
       setExpanded(false);
@@ -128,7 +128,7 @@ export default function CreateNote(props) {
           </CardActions>
         </Collapse>
       </Card>
-      <Snackbar
+      {/* <Snackbar
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "center",
@@ -137,7 +137,7 @@ export default function CreateNote(props) {
         autoHideDuration={3000}
         onClose={handleClose}
         message={snackbarMessage}
-      />
+      /> */}
     </React.Fragment>
   );
 }
