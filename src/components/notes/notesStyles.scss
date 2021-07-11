@@ -1,31 +1,24 @@
 @import "../../root-mixin.scss";
 
 .dashboard-notes-container {
-  @include padding(32px, 16px, 16px, 16px);
+  @include padding(64px, 16px, 16px, 16px);
+  @include margin(null, null, null, 115px);
+  flex-grow: 1 !important;
 }
 .create-note-container {
   @include flexbox(row, flex-start, flex-start);
-  @include margin(null, null, 80px, null);
+  @include margin(null, null, 60px, null);
 }
 .display-note-container {
   @include flexbox(row, flex-start, flex-start);
   flex-wrap: wrap !important;
-  @include margin(null, null, null, 150px);
+  
 }
-// .display-note-wrapper {
-//   margin-inline: auto !important;
-//   display: flex !important;
-//   flex-wrap: wrap !important;
-// }
 @media (max-width: 960px) {
-  .display-note-container {
-    @include margin(null, null, null, 0px);
+  .dashboard-notes-container {
+    @include margin(null, null, null, 50px);
   }
   .create-note-container {
     @include margin(null, null, 40px, null);
   }
-  // .display-note-wrapper {
-  //   padding: 8px !important;
-  //   display: block !important;
-  // }
 }

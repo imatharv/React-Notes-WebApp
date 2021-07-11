@@ -7,6 +7,7 @@ import LoginPage from './pages/login/login';
 import ForgetPasswordPage from './pages/forgetPassword/forgetPassword';
 import ResetPasswordPage from './pages/resetPassword/resetPassword';
 import Dashboard from './pages/dashboard/dashboard';
+import ProtectedRoute from "./components/authenticate/authenticate"
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
           <Route exact path = "/signup" component = {RegistrationPage} />
           <Route exact path = "/forget-password" component = {ForgetPasswordPage} />
           <Route exact path = "/resetpassword/:token" component = {ResetPasswordPage} />
-          <Route exact path = "/dashboard" component = {Dashboard} />
+          {/* <Route exact path = "/dashboard" component = {Dashboard} /> */}
+          <ProtectedRoute path = "/dashboard" exact component={Dashboard} />
         </Switch>
       </BrowserRouter>
     </React.Fragment>

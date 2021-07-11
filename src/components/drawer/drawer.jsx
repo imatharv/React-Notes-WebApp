@@ -14,11 +14,11 @@ import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import ArchiveOutlinedIcon from "@material-ui/icons/ArchiveOutlined";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 
-const drawerWidth = 240;
+const drawerWidth = 220;
 
 const useStyles = makeStyles((theme) => ({
   hide: {
-    display: "none",
+    display: "block",
   },
   drawer: {
     width: drawerWidth,
@@ -31,10 +31,15 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    marginTop: 64,
+    
     border: "none !important",
-    paddingLeft: 6,
+    paddingLeft: 0,
     boxShadow: "0rem 0.5rem 1rem rgba(100,100,100,0.1) !important",
+    [theme.breakpoints.up("md")]: {
+      paddingLeft: 6,
+      marginTop: 64,
+    },
+    marginTop: 55,
   },
   drawerClose: {
     transition: theme.transitions.create("width", {
@@ -42,12 +47,13 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: "hidden",
-    width: theme.spacing(0),
-    [theme.breakpoints.up("md")]: {
+    width: theme.spacing(6.7),
+    [theme.breakpoints.up("sm")]: {
       width: theme.spacing(8.5) + 1,
       paddingLeft: 6,
+      marginTop: 64,
     },
-    marginTop: 64,
+    marginTop: 55,
     border: "none !important",
   },
 }));

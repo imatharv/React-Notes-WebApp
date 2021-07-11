@@ -37,11 +37,10 @@ export default function CreateNote(props) {
     if (reason === "clickaway") {
       return;
     }
-    setSnackbarOpen(false);
   };
 
   const handleExpandClick = () => {
-    setExpanded(!expanded);
+    setExpanded(true);
   };
 
   const [titleText, setTitleText] = React.useState("");
@@ -57,14 +56,18 @@ export default function CreateNote(props) {
       Service.createNote(noteData, token)
         .then((noteData) => {
           console.log(noteData);
+          setExpanded(false);
           setSnackbarOpen(true);
           setSnackbarMessage("Note successfully created");
+          
         })
         .catch((error) => {
           console.log("Data posting error: ", error);
           setSnackbarOpen(true);
           setSnackbarMessage("Data posting error");
         });
+    } else {
+      setExpanded(false);
     }
   };
   const validate = () => {

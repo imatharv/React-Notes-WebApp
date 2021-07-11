@@ -143,10 +143,13 @@ export default function Navigation(props) {
   const anchorRef = React.useRef(null);
   const prevOpen = React.useRef(menuOpen);
 
+  const handleClickLogout = () => {
+    props.islogout();
+  }
+
   const handleNavbarDrawerToggle = () => {
     props.drawerExpand();
   };
-
   const handleAccountInfoMenuToggle = () => {
     setMenuOpen((prevOpen) => !prevOpen);
   };
@@ -255,6 +258,7 @@ export default function Navigation(props) {
                     <Button
                       variant="contained"
                       className="menuItemLogoutButton buttonLight"
+                      onClick={handleClickLogout}
                     >
                       Sign out
                     </Button>

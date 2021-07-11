@@ -1,5 +1,4 @@
 import "./displayNoteStyles.scss";
-import NoteService from "../../services/noteService";
 import React, { useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
@@ -11,6 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 import EmojiFlagsRoundedIcon from "@material-ui/icons/EmojiFlagsRounded";
 import IconsGroup from "../icons/icons";
 import UpdateDialog from "../updateNote/updateNote";
+import NoteService from "../../services/noteService";
 
 const Service = new NoteService();
 
@@ -45,18 +45,18 @@ export default function DisplayNotes(props) {
     console.log("API call");
     const token = localStorage.getItem("token");
     Service.getNote(token)
-      .then((noteData) => {
-        console.log(noteData.data.data.data);
-        setNotes(noteData.data.data.data);
-      })
-      .catch((error) => {
-        console.log("Data fetch error: ", error);
-      });
+    .then((noteData) => {
+      console.log(noteData.data.data.data);
+      setNotes(noteData.data.data.data);
+    })
+    .catch((error) => {
+      console.log("Data fetch error: ", error);
+    });
   };
 
   return (
     <React.Fragment>
-      {notes.map((data) => {
+      {notes.slice(0).reverse().map((data) => {
         return (
           <Card
             className="displayNote"

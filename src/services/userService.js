@@ -13,6 +13,10 @@ export default class UserService {
         return axios.postMethod(`${this.baseURL}user/login`, data);
     }
 
+    logout = (token) => {
+        return axios.postMethod(`${this.baseURL}user/logout`, { headers: {"Authorization" : token} });
+    }
+
     forgetPassword = (data) => {
         return axios.postMethod(`${this.baseURL}user/reset`, data);
     }
