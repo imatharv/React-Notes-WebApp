@@ -1,103 +1,114 @@
 import "./colorPattetStyles.scss";
-import "./iconsStyles.scss";
-
-// import clsx from "clsx";
-// import { fade, makeStyles, useTheme } from "@material-ui/core/styles";
-// import Button from "@material-ui/core/Button";
-// import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-// import Paper from "@material-ui/core/Paper";
-// import Popper from "@material-ui/core/Popper";
-// import MenuList from "@material-ui/core/MenuList";
-// import Typography from "@material-ui/core/Typography";
-// import Divider from "@material-ui/core/Divider";
 import React from "react";
-import IconButton from "@material-ui/core/IconButton";
-import AddAlertOutlinedIcon from "@material-ui/icons/AddAlertOutlined";
-import PersonAddOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
-import PaletteOutlinedIcon from "@material-ui/icons/PaletteOutlined";
-import CropOriginalRoundedIcon from "@material-ui/icons/CropOriginalRounded";
-import ArchiveOutlinedIcon from "@material-ui/icons/ArchiveOutlined";
-import MoreVertRoundedIcon from "@material-ui/icons/MoreVertRounded";
+import Button from "@material-ui/core/Button";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Grow from "@material-ui/core/Grow";
+import Paper from "@material-ui/core/Paper";
+import Popper from "@material-ui/core/Popper";
+import MenuItem from "@material-ui/core/MenuItem";
+import MenuList from "@material-ui/core/MenuList";
+import { makeStyles } from "@material-ui/core/styles";
 
-// const useStyles = makeStyles((theme) => ({
-//   popperMenu: {
-//     padding: theme.spacing(0, 2, 0, 2),
-//     margin: theme.spacing(0.5, 2, 1, 1),
-//     textAlign: "center",
-//     alignItems: "center !important",
-//     backgroundColor: "#fff",
-//     boxShadow: "0 0.5rem 1rem rgb(0 0 0 / 15%) !important",
-//     borderRadius: 8,
-//     // [theme.breakpoints.down("sm")]: {
-//     //   margin: theme.spacing(0),
-//     // },
-//   },
-//   menuItemAvatarWrapper: {
-//     display: "flex",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     padding: theme.spacing(1),
-//   },
-// }));
+const useStyles = makeStyles((theme) => ({}));
 
-export default function IconsGroup(props) {
-  // const classes = useStyles();
-  // const [menuOpen, setMenuOpen] = React.useState(false);
-  // const anchorRef = React.useRef(null);
-  // const prevOpen = React.useRef(menuOpen);
+export default function MenuListComposition() {
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef(null);
 
-  // const handleAccountInfoMenuToggle = () => {
-  //   setMenuOpen((prevOpen) => !prevOpen);
-  // };
-  // const handleAccountInfoMenuClose = (event) => {
-  //   if (anchorRef.current && anchorRef.current.contains(event.target)) {
-  //     return;
-  //   }
-  //   setMenuOpen(false);
-  // };
-  // const handleClickColorMenu = () => {
-  //   props.serColor(true);
-  // };
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  function handleListKeyDown(event) {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      setOpen(false);
+    }
+  }
+
+  // return focus to the button when we transitioned from !open -> open
+  const prevOpen = React.useRef(open);
+  React.useEffect(() => {
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current.focus();
+    }
+
+    prevOpen.current = open;
+  }, [open]);
 
   return (
-    <div className="icons-group">
-      <IconButton aria-label="Remind me">
-        <AddAlertOutlinedIcon fontSize="small" />
-      </IconButton>
-      <IconButton aria-label="Add colaborators">
-        <PersonAddOutlinedIcon fontSize="small" />
-      </IconButton>
-      <IconButton
-        aria-label="Add colour"
-        // onClick={handleClickColorMenu}
-      >
-        <PaletteOutlinedIcon fontSize="small" />
-      </IconButton>
-      <IconButton aria-label="Add image">
-        <CropOriginalRoundedIcon fontSize="small" />
-      </IconButton>
-      <IconButton aria-label="Archive">
-        <ArchiveOutlinedIcon fontSize="small" />
-      </IconButton>
-      <IconButton aria-label="More">
-        <MoreVertRoundedIcon fontSize="small" />
-      </IconButton>
-      {/* <Popper
-        className={classes.popperMenu}
-        open={menuOpen}
-        anchorEl={anchorRef.current}
-        role={undefined}
-        transition
-        disablePortal
-      >
-        <Paper className={classes.papper}>
-          <ClickAwayListener onClickAway={handleAccountInfoMenuClose}>
-              <div className={}>
-               
-              </div>
-          </ClickAwayListener>
-        </Paper>
-      </Popper> */}
+    <div className={classes.root}>
+      <div>
+        <Button
+          ref={anchorRef}
+          aria-controls={open ? "menu-list-grow" : undefined}
+          aria-haspopup="true"
+          onClick={handleToggle}
+        >
+          Toggle Menu Grow
+        </Button>
+        <Popper
+          open={open}
+          anchorEl={anchorRef.current}
+          role={undefined}
+          transition
+          disablePortal
+        >
+          {({ TransitionProps, placement }) => (
+            <Grow
+              {...TransitionProps}
+              style={{
+                transformOrigin:
+                  placement === "bottom" ? "center top" : "center bottom",
+              }}
+            >
+              <Paper>
+                <ClickAwayListener onClickAway={handleClose}>
+                  <MenuList
+                    autoFocusItem={open}
+                    id="menu-list-grow"
+                    onKeyDown={handleListKeyDown}
+                  >
+                    <MenuItem
+                      className="color-pallet"
+                      //onClick={handleClose}
+                    ></MenuItem>
+                    <MenuItem
+                      className="color-pallet"
+                      //onClick={handleClose}
+                    ></MenuItem>
+                    <MenuItem
+                      className="color-pallet"
+                      //onClick={handleClose}
+                    ></MenuItem>
+                    <MenuItem
+                      className="color-pallet"
+                      //onClick={handleClose}
+                    ></MenuItem>
+                    <MenuItem
+                      className="color-pallet"
+                      //onClick={handleClose}
+                    ></MenuItem>
+                    <MenuItem
+                      className="color-pallet"
+                      //onClick={handleClose}
+                    ></MenuItem>
+                  </MenuList>
+                </ClickAwayListener>
+              </Paper>
+            </Grow>
+          )}
+        </Popper>
+      </div>
     </div>
   );
 }
