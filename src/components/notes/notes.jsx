@@ -4,9 +4,10 @@ import DisplayNote from "../displayNote/displayNote";
 import UpdateDialog from "../updateNote/updateNote";
 import React, { useEffect } from "react";
 import NoteService from "../../services/noteService";
+import cpContextProvider from "./cpContextProvider";
 
 const Service = new NoteService();
-const UpdateContext = React.createContext("updateNote");
+const openColorPallet = React.createContext();
 
 export default function Notes() {
   const [open, setOpen] = React.useState(false);
@@ -48,11 +49,13 @@ export default function Notes() {
         </div>
         <div className="display-note-container">
           {/* <div className="display-note-wrapper"> */}
-          <DisplayNote
-            dialogOpen={handleClickUpdateDialogOpen}
-            //displayNote={displayNote}
-            notes={notes}
-          />
+          <cpContextProvider>
+            <DisplayNote
+              dialogOpen={handleClickUpdateDialogOpen}
+              displayNote={displayNote}
+              notes={notes}
+            />
+          </cpContextProvider>
           {/* </div> */}
         </div>
       </div>

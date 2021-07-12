@@ -14,7 +14,7 @@ import CardActions from "@material-ui/core/CardActions";
 import IconButton from "@material-ui/core/IconButton";
 import EmojiFlagsRoundedIcon from "@material-ui/icons/EmojiFlagsRounded";
 import IconsGroup from "../icons/icons";
-import Snackbar from "@material-ui/core/Snackbar";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 const Service = new NoteService();
 
@@ -23,8 +23,6 @@ export default function UpdateNoteDialog(props) {
   const [id, setId] = React.useState("");
   const [updatedTitle, setUpdatedTitle] = React.useState("");
   const [updatedContent, setUpdatedContent] = React.useState("");
-  // const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-  // const [snackbarMessage, setSnackbarMessage] = React.useState(false);
 
   const updateNote = () => {
     if (validate()) {
@@ -37,19 +35,15 @@ export default function UpdateNoteDialog(props) {
       Service.updateNote(noteUpdateData, token)
         .then((noteUpdateData) => {
           console.log(noteUpdateData);
-          // setSnackbarOpen(true);
-          // setSnackbarMessage("Note successfully updated");
-          props.close();
           props.displayNote();
+          props.close();
         })
         .catch((error) => {
           console.log("Data posting error: ", error);
-          // setSnackbarOpen(true);
-          // setSnackbarMessage("Data posting error");
         });
     } else {
-      // setSnackbarOpen(true);
-      // setSnackbarMessage("Validation error");
+      console.info("Update note :: empty data");
+      props.close();
     }
   };
   const validate = () => {
@@ -62,13 +56,11 @@ export default function UpdateNoteDialog(props) {
     }
     return valid;
   };
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    props.close();
-    // setSnackbarOpen(false);
-  };
+
+  // const handleClickAway = () => {
+  //   props.close();
+  // };
+
   React.useEffect(() => {
     if (props.data) {
       setUpdatedTitle(props.data.title);
@@ -86,6 +78,7 @@ export default function UpdateNoteDialog(props) {
 
   return (
     <div>
+      {/* <ClickAwayListener onClickAway={handleClickAway}> */}
       <Dialog open={props.open} maxWidth="md" className="update-note-dialog">
         <DialogContent className="dialog-content">
           <DialogContentText tabIndex={-1}>
@@ -134,16 +127,7 @@ export default function UpdateNoteDialog(props) {
           </Button>
         </DialogActions>
       </Dialog>
-      {/* <Snackbar
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
-        }}
-        open={snackbarOpen}
-        autoHideDuration={3000}
-        onClose={handleClose}
-        message={snackbarMessage}
-      /> */}
+      {/* </ClickAwayListener> */}
     </div>
   );
 }

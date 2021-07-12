@@ -1,18 +1,12 @@
 import "./displayNoteStyles.scss";
 import React, { useEffect } from "react";
-import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
-import IconButton from "@material-ui/core/IconButton";
-import EmojiFlagsRoundedIcon from "@material-ui/icons/EmojiFlagsRounded";
 import IconsGroup from "../icons/icons";
 import UpdateDialog from "../updateNote/updateNote";
-import NoteService from "../../services/noteService";
-
-const Service = new NoteService();
 
 export default function DisplayNotes(props) {
   // const [notes, setNotes] = React.useState([]);
@@ -25,7 +19,6 @@ export default function DisplayNotes(props) {
     e.preventDefault();
     setUpdateNoteData(data);
     setOpen(true);
-    console.log("clicked in display notes");
   };
 
   const handleClickUpdateDialogClose = () => {
@@ -92,6 +85,7 @@ export default function DisplayNotes(props) {
         open={open}
         data={updateNoteData}
         close={handleClickUpdateDialogClose}
+        displayNote={props.displayNote}
       />
     </React.Fragment>
   );
