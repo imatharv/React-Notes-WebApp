@@ -15,6 +15,7 @@ import IconButton from "@material-ui/core/IconButton";
 import EmojiFlagsRoundedIcon from "@material-ui/icons/EmojiFlagsRounded";
 import IconsGroup from "../icons/icons";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import cpContext from "../notes/cpContext";
 
 const Service = new NoteService();
 
@@ -56,11 +57,6 @@ export default function UpdateNoteDialog(props) {
     }
     return valid;
   };
-
-  // const handleClickAway = () => {
-  //   props.close();
-  // };
-
   React.useEffect(() => {
     if (props.data) {
       setUpdatedTitle(props.data.title);
@@ -76,9 +72,14 @@ export default function UpdateNoteDialog(props) {
     setUpdatedContent(event.target.value);
   };
 
+  // handleToggle={() => context.handleToggle}
+  // handleClose={() => context.handleClose}
+
   return (
     <div>
-      {/* <ClickAwayListener onClickAway={handleClickAway}> */}
+      {/* <cpContext.Consumer>
+        {(context) => ( */}
+      {/* // <ClickAwayListener onClickAway={handleClickAway}> */}
       <Dialog open={props.open} maxWidth="md" className="update-note-dialog">
         <DialogContent className="dialog-content">
           <DialogContentText tabIndex={-1}>
@@ -121,13 +122,21 @@ export default function UpdateNoteDialog(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <IconsGroup />
+          <IconsGroup
+            cpOpen={props.cpOpen}
+            anchorRef={props.anchorRef}
+            handleToggle={props.handleToggle}
+            handleClose={props.handleClose}
+            handleListKeyDown={props.handleListKeyDown}
+          />
           <Button onClick={updateNote} className="dialog-close-button">
             Close
           </Button>
         </DialogActions>
       </Dialog>
-      {/* </ClickAwayListener> */}
+      {/* // </ClickAwayListener> */}
+      {/* )}
+      </cpContext.Consumer> */}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import "./colorPattetStyles.scss";
+import "./colorPalletStyles.scss";
 import React from "react";
 import Button from "@material-ui/core/Button";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
@@ -11,104 +11,67 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({}));
 
-export default function MenuListComposition() {
+export default function ColorPalletMenu(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef(null);
-
-  const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
+  const handleClose = () => {
+    props.handleClose();
   };
-
-  const handleClose = (event) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
-    }
-
-    setOpen(false);
+  const handleListKeyDown = () => {
+    props.handleListKeyDown();
   };
-
-  function handleListKeyDown(event) {
-    if (event.key === "Tab") {
-      event.preventDefault();
-      setOpen(false);
-    }
-  }
-
-  // return focus to the button when we transitioned from !open -> open
-  const prevOpen = React.useRef(open);
-  React.useEffect(() => {
-    if (prevOpen.current === true && open === false) {
-      anchorRef.current.focus();
-    }
-
-    prevOpen.current = open;
-  }, [open]);
-
   return (
-    <div className={classes.root}>
-      <div>
-        <Button
-          ref={anchorRef}
-          aria-controls={open ? "menu-list-grow" : undefined}
-          aria-haspopup="true"
-          onClick={handleToggle}
+    <Popper
+      open={props.cpOpen}
+      anchorEl={props.anchorRef}
+      role={undefined}
+      className="color-pallet-popper"
+      transition
+      disablePortal
+    >
+      {({ TransitionProps, placement }) => (
+        <Grow
+          {...TransitionProps}
+          style={{
+            transformOrigin:
+              placement === "bottom" ? "center top" : "center bottom",
+          }}
         >
-          Toggle Menu Grow
-        </Button>
-        <Popper
-          open={open}
-          anchorEl={anchorRef.current}
-          role={undefined}
-          transition
-          disablePortal
-        >
-          {({ TransitionProps, placement }) => (
-            <Grow
-              {...TransitionProps}
-              style={{
-                transformOrigin:
-                  placement === "bottom" ? "center top" : "center bottom",
-              }}
-            >
-              <Paper>
-                <ClickAwayListener onClickAway={handleClose}>
-                  <MenuList
-                    autoFocusItem={open}
-                    id="menu-list-grow"
-                    onKeyDown={handleListKeyDown}
-                  >
-                    <MenuItem
-                      className="color-pallet"
-                      //onClick={handleClose}
-                    ></MenuItem>
-                    <MenuItem
-                      className="color-pallet"
-                      //onClick={handleClose}
-                    ></MenuItem>
-                    <MenuItem
-                      className="color-pallet"
-                      //onClick={handleClose}
-                    ></MenuItem>
-                    <MenuItem
-                      className="color-pallet"
-                      //onClick={handleClose}
-                    ></MenuItem>
-                    <MenuItem
-                      className="color-pallet"
-                      //onClick={handleClose}
-                    ></MenuItem>
-                    <MenuItem
-                      className="color-pallet"
-                      //onClick={handleClose}
-                    ></MenuItem>
-                  </MenuList>
-                </ClickAwayListener>
-              </Paper>
-            </Grow>
-          )}
-        </Popper>
-      </div>
-    </div>
+          <div className="color-pallet-container">
+            <ClickAwayListener onClickAway={handleClose}>
+              <MenuList
+                autoFocusItem={props.cpOpen}
+                id="menu-list-grow"
+                onKeyDown={handleListKeyDown}
+              >
+                <MenuItem
+                  className="color-pallet"
+                  onClick={handleClose}
+                ></MenuItem>
+                <MenuItem
+                  className="color-pallet"
+                  onClick={handleClose}
+                ></MenuItem>
+                <MenuItem
+                  className="color-pallet"
+                  onClick={handleClose}
+                ></MenuItem>
+                <MenuItem
+                  className="color-pallet"
+                  onClick={handleClose}
+                ></MenuItem>
+                <MenuItem
+                  className="color-pallet"
+                  onClick={handleClose}
+                ></MenuItem>
+                <MenuItem
+                  className="color-pallet"
+                  onClick={handleClose}
+                ></MenuItem>
+              </MenuList>
+            </ClickAwayListener>
+          </div>
+        </Grow>
+      )}
+    </Popper>
   );
 }

@@ -41,5 +41,14 @@ $icons-dark: #424549;
 .createNote .MuiCardHeader-root {
   padding: 8px 16px !important;
 }
+.createNote .color-pallet-popper {
+  // top: 170px !important;
+  // left: 285px !important;
+  //top: 21% !important;
+  //left: 35% !important;
+  //margin-bottom: 0px !important;
+  z-index: 1000 !important;
+}
+
 @media (max-width: 630px) {
 }

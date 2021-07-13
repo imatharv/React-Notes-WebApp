@@ -3,12 +3,12 @@ import Drawer from "../../components/drawer/drawer";
 import Notes from "../../components/notes/notes";
 import "./dashboardStyles.css";
 import React from "react";
-import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import UserService from "../../services/userService";
 
 const Service = new UserService();
 
-export default function Dashboard() {
+export default function Dashboard(props) {
   const [navbarDrawerExpand, setNavbarDrawerExpand] = React.useState(false);
 
   const firstName = localStorage.getItem("firstName");
@@ -16,18 +16,11 @@ export default function Dashboard() {
   const email = localStorage.getItem("email");
 
   const logout = () => {
-      console.log("API call");
-      const token = localStorage.getItem("token"); 
-      Service.logout(token)
-        .then((data) => {
-          localStorage.clear();
-          console.log("Successfully logged out.");
-          <Redirect to="/login" />
-          //this.props.history.push("/dashboard");
-        })
-        .catch((error) => {
-          console.log("Logout error: ", error);
-        });
+    console.log("Logout call");
+    localStorage.clear();
+    console.log("Successfully logged out.");
+    // <Redirect to="/login" />;
+    props.history.push("/login");
   };
 
   const handleNavbarDrawerToggle = () => {

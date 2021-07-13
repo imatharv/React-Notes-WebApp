@@ -109,7 +109,13 @@ export default function CreateNote(props) {
               />
             </CardContent>
             <CardActions disableSpacing>
-              <IconsGroup />
+              <IconsGroup
+                cpOpen={props.cpOpen}
+                anchorRef={props.anchorRef}
+                handleToggle={props.handleToggle}
+                handleClose={props.handleClose}
+                handleListKeyDown={props.handleListKeyDown}
+              />
               <Button className="card-close-button" onClick={createNote}>
                 Close
               </Button>
