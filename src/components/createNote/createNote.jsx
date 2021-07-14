@@ -62,12 +62,11 @@ export default function CreateNote(props) {
     if (titleText.length == 0) {
       valid = false;
     }
-    if (titleText.length == 0) {
+    if (contentText.length == 0) {
       valid = false;
     }
     return valid;
   };
-
   const handleTitleInputChange = (event) => {
     setTitleText(event.target.value);
   };
@@ -110,11 +109,10 @@ export default function CreateNote(props) {
             </CardContent>
             <CardActions disableSpacing>
               <IconsGroup
-                cpOpen={props.cpOpen}
-                anchorRef={props.anchorRef}
-                handleToggle={props.handleToggle}
-                handleClose={props.handleClose}
-                handleListKeyDown={props.handleListKeyDown}
+                titleText={titleText}
+                contentText={contentText}
+                displayNote={props.displayNote}
+                parent="createNote"
               />
               <Button className="card-close-button" onClick={createNote}>
                 Close

@@ -1,5 +1,5 @@
 import "./displayNoteStyles.scss";
-import React, { useEffect } from "react";
+import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -9,11 +9,8 @@ import IconsGroup from "../icons/icons";
 import UpdateDialog from "../updateNote/updateNote";
 
 export default function DisplayNotes(props) {
-  // const [notes, setNotes] = React.useState([]);
   const [updateNoteData, setUpdateNoteData] = React.useState({});
   const [open, setOpen] = React.useState(false);
-  // const [backgroundColor, setBackgroundColor] = React.useState("black");
-  // const [textColor, setTextColor] = React.useState("white");
 
   const handleClickUpdateDialogOpen = (e, data) => {
     e.preventDefault();
@@ -25,14 +22,7 @@ export default function DisplayNotes(props) {
     setOpen(false);
   };
 
-  // const handleClickSetColors = () => {
-  //   setBackgroundColor("black");
-  //   setTextColor("red");
-  // };
-
   return (
-    // <cpContext.Consumer>
-    //   {(context) => (
     <React.Fragment>
       {props.notes
         .slice(0)
@@ -65,7 +55,7 @@ export default function DisplayNotes(props) {
                 </Typography>
               </CardContent>
               <CardActions disableSpacing className="iconbar">
-                <IconsGroup />
+                <IconsGroup noteId={data.id} />
               </CardActions>
             </Card>
           );
@@ -75,14 +65,7 @@ export default function DisplayNotes(props) {
         data={updateNoteData}
         close={handleClickUpdateDialogClose}
         displayNote={props.displayNote}
-        cpOpen={props.cpOpen}
-        anchorRef={props.anchorRef}
-        handleToggle={props.handleToggle}
-        handleClose={props.handleClose}
-        handleListKeyDown={props.handleListKeyDown}
       />
     </React.Fragment>
-    // )}
-    // </cpContext.Consumer>
   );
 }

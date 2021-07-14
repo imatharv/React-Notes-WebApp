@@ -1,20 +1,26 @@
 import "./colorPalletStyles.scss";
 import React from "react";
-import Button from "@material-ui/core/Button";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Grow from "@material-ui/core/Grow";
-import Paper from "@material-ui/core/Paper";
 import Popper from "@material-ui/core/Popper";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme) => ({}));
 
 export default function ColorPalletMenu(props) {
-  const classes = useStyles();
-  const handleClose = () => {
-    props.handleClose();
+  const colors = [
+    "#a7ffeb",
+    "#cbf0f8",
+    "#aecbfa",
+    "#d7aefb",
+    "#fdcfe8",
+    "#e6c9a8",
+    "#fff475",
+    "#f28b82",
+    "#ffffff",
+  ];
+
+  const handleClickMenuClose = (colorCode) => {
+    props.handleClose(colorCode);
   };
   const handleListKeyDown = () => {
     props.handleListKeyDown();
@@ -22,7 +28,7 @@ export default function ColorPalletMenu(props) {
   return (
     <Popper
       open={props.cpOpen}
-      anchorEl={props.anchorRef}
+      //anchorEl={props.anchorRef.current}
       role={undefined}
       className="color-pallet-popper"
       transition
@@ -37,36 +43,20 @@ export default function ColorPalletMenu(props) {
           }}
         >
           <div className="color-pallet-container">
-            <ClickAwayListener onClickAway={handleClose}>
+            <ClickAwayListener onClickAway={handleClickMenuClose}>
               <MenuList
                 autoFocusItem={props.cpOpen}
                 id="menu-list-grow"
                 onKeyDown={handleListKeyDown}
               >
-                <MenuItem
-                  className="color-pallet"
-                  onClick={handleClose}
-                ></MenuItem>
-                <MenuItem
-                  className="color-pallet"
-                  onClick={handleClose}
-                ></MenuItem>
-                <MenuItem
-                  className="color-pallet"
-                  onClick={handleClose}
-                ></MenuItem>
-                <MenuItem
-                  className="color-pallet"
-                  onClick={handleClose}
-                ></MenuItem>
-                <MenuItem
-                  className="color-pallet"
-                  onClick={handleClose}
-                ></MenuItem>
-                <MenuItem
-                  className="color-pallet"
-                  onClick={handleClose}
-                ></MenuItem>
+                {colors.map((text, index) => (
+                  <MenuItem
+                    key={index}
+                    className="color-pallet"
+                    onClick={handleClickMenuClose(text)}
+                    style={{ backgroundColor: text }}
+                  ></MenuItem>
+                ))}
               </MenuList>
             </ClickAwayListener>
           </div>

@@ -8,11 +8,82 @@ import CropOriginalRoundedIcon from "@material-ui/icons/CropOriginalRounded";
 import ArchiveOutlinedIcon from "@material-ui/icons/ArchiveOutlined";
 import MoreVertRoundedIcon from "@material-ui/icons/MoreVertRounded";
 import ColorPalletMenu from "../colorPallet/colorpallet";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Grow from "@material-ui/core/Grow";
+import Popper from "@material-ui/core/Popper";
+import MenuItem from "@material-ui/core/MenuItem";
+import MenuList from "@material-ui/core/MenuList";
+import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
+import NoteService from "../../services/noteService";
+
+const Service = new NoteService();
 
 export default function IconsGroup(props) {
-  const handleClickColorMenu = () => {
-    console.log("Clicked in icons.jsx");
-    props.handleToggle();
+  const [cpOpen, setCpOpen] = React.useState(false);
+  const [moreMenuOpen, setMoreMenuOpen] = React.useState(false);
+
+  // color-pallet-menu operations
+  const handleCpToggle = () => {
+    setCpOpen((prevOpen) => !prevOpen);
+  };
+  const handleClose = (event) => {
+    setCpOpen(false);
+  };
+  function handleListKeyDown(event) {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      setCpOpen(false);
+    }
+  }
+
+  // archives operations
+  const handleClickArchive = () => {
+    console.log("Archive API call");
+    const token = localStorage.getItem("token");
+    let noteData = {
+      noteIdList: [props.noteId],
+      isArchived: true,
+    };
+    Service.archiveNotes(noteData, token)
+      .then((noteData) => {
+        console.log(noteData);
+        props.displayNote();
+      })
+      .catch((error) => {
+        console.log("Data posting error in archives: ", error);
+      });
+  };
+
+  // trash operations
+  const handleMoreMenuToggle = () => {
+    setMoreMenuOpen((prevOpen) => !prevOpen);
+    console.log("Clicked on more icon in icon.jsx");
+  };
+  const handleClickMoreMenuClose = () => {
+    setMoreMenuOpen(false);
+  };
+  const handleMoreListKeyDown = (event) => {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      setMoreMenuOpen(false);
+    }
+  };
+  const handleClickTrash = () => {
+    console.log("Trash API call");
+    const token = localStorage.getItem("token");
+    let noteData = {
+      noteIdList: [props.noteId],
+      isDeleted: true,
+    };
+    Service.trashNotes(noteData, token)
+      .then((noteData) => {
+        console.log(noteData);
+        setMoreMenuOpen(false);
+        props.displayNote();
+      })
+      .catch((error) => {
+        console.log("Data posting error in trash: ", error);
+      });
   };
 
   return (
@@ -23,29 +94,62 @@ export default function IconsGroup(props) {
       <IconButton aria-label="Add colaborators">
         <PersonAddOutlinedIcon fontSize="small" />
       </IconButton>
+
       <div className="color-pallet-wrapper">
-        <IconButton aria-label="Add colour" onClick={handleClickColorMenu}>
+        <IconButton aria-label="Add colour" onClick={handleCpToggle}>
           <PaletteOutlinedIcon fontSize="small" />
         </IconButton>
-
         <ColorPalletMenu
-          cpOpen={props.cpOpen}
-          anchorRef={props.anchorRef}
-          handleToggle={props.handleToggle}
-          handleListKeyDown={props.handleListKeyDown}
-          handleClose={props.handleClose}
+          // anchorRef={anchorRef}
+          cpOpen={cpOpen}
+          handleListKeyDown={handleListKeyDown}
+          handleClose={handleClose}
         />
       </div>
 
       <IconButton aria-label="Add image">
         <CropOriginalRoundedIcon fontSize="small" />
       </IconButton>
-      <IconButton aria-label="Archive">
+      <IconButton aria-label="Archive" onClick={handleClickArchive}>
         <ArchiveOutlinedIcon fontSize="small" />
       </IconButton>
-      <IconButton aria-label="More">
-        <MoreVertRoundedIcon fontSize="small" />
-      </IconButton>
+
+      <div className="more-menu-wrapper">
+        <IconButton aria-label="More" onClick={handleMoreMenuToggle}>
+          <MoreVertRoundedIcon fontSize="small" />
+        </IconButton>
+        <Popper
+          open={moreMenuOpen}
+          role={undefined}
+          className="more-menu-popper"
+          transition
+          disablePortal
+        >
+          {({ TransitionProps, placement }) => (
+            <Grow
+              {...TransitionProps}
+              style={{
+                transformOrigin:
+                  placement === "bottom" ? "center top" : "center bottom",
+              }}
+            >
+              <div className="more-menu-container">
+                <ClickAwayListener onClickAway={handleClickMoreMenuClose}>
+                  <MenuList
+                    autoFocusItem={moreMenuOpen}
+                    id="menu-list-grow"
+                    onKeyDown={handleMoreListKeyDown}
+                  >
+                    <MenuItem className="more-item" onClick={handleClickTrash}>
+                      <DeleteOutlineRoundedIcon />
+                    </MenuItem>
+                  </MenuList>
+                </ClickAwayListener>
+              </div>
+            </Grow>
+          )}
+        </Popper>
+      </div>
     </div>
   );
 }

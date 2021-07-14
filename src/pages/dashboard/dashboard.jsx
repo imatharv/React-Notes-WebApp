@@ -9,6 +9,9 @@ import UserService from "../../services/userService";
 const Service = new UserService();
 
 export default function Dashboard(props) {
+  const [onDashboard, setOnDashboard] = React.useState(true);
+  const [onArchives, setOnArchives] = React.useState(false);
+  const [onTrash, setOnTrash] = React.useState(false);
   const [navbarDrawerExpand, setNavbarDrawerExpand] = React.useState(false);
 
   const firstName = localStorage.getItem("firstName");
@@ -16,10 +19,7 @@ export default function Dashboard(props) {
   const email = localStorage.getItem("email");
 
   const logout = () => {
-    console.log("Logout call");
     localStorage.clear();
-    console.log("Successfully logged out.");
-    // <Redirect to="/login" />;
     props.history.push("/login");
   };
 
@@ -37,7 +37,10 @@ export default function Dashboard(props) {
         islogout={logout}
       />
       <div className="content-wrapper">
-        <Drawer open={navbarDrawerExpand} />
+        <Drawer
+          open={navbarDrawerExpand}
+          //handleDrawerLinkClick={handleDrawerLinkClick}
+        />
         <Notes />
       </div>
     </React.Fragment>

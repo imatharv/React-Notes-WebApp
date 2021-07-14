@@ -10,17 +10,12 @@ import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import IconButton from "@material-ui/core/IconButton";
-import EmojiFlagsRoundedIcon from "@material-ui/icons/EmojiFlagsRounded";
 import IconsGroup from "../icons/icons";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import cpContext from "../notes/cpContext";
+// import EmojiFlagsRoundedIcon from "@material-ui/icons/EmojiFlagsRounded";
 
 const Service = new NoteService();
 
 export default function UpdateNoteDialog(props) {
-  //const [DialogOpen, setDialogOpen] = React.useState(props.open);
   const [id, setId] = React.useState("");
   const [updatedTitle, setUpdatedTitle] = React.useState("");
   const [updatedContent, setUpdatedContent] = React.useState("");
@@ -64,7 +59,6 @@ export default function UpdateNoteDialog(props) {
       setId(props.data.id);
     }
   }, [props.data]);
-
   const handleInputTitle = (event) => {
     setUpdatedTitle(event.target.value);
   };
@@ -72,24 +66,18 @@ export default function UpdateNoteDialog(props) {
     setUpdatedContent(event.target.value);
   };
 
-  // handleToggle={() => context.handleToggle}
-  // handleClose={() => context.handleClose}
-
   return (
     <div>
-      {/* <cpContext.Consumer>
-        {(context) => ( */}
-      {/* // <ClickAwayListener onClickAway={handleClickAway}> */}
-      <Dialog open={props.open} maxWidth="md" className="update-note-dialog">
+      <Dialog maxWidth="md" className="update-note-dialog" open={props.open}>
         <DialogContent className="dialog-content">
           <DialogContentText tabIndex={-1}>
             <Card className="updateNote">
               <CardHeader
-                action={
-                  <IconButton aria-label="Pin to top">
-                    <EmojiFlagsRoundedIcon />
-                  </IconButton>
-                }
+                // action={
+                //   <IconButton aria-label="Pin to top">
+                //     <EmojiFlagsRoundedIcon />
+                //   </IconButton>
+                // }
                 title={
                   <TextField
                     name="noteTitle"
@@ -117,26 +105,22 @@ export default function UpdateNoteDialog(props) {
                   fullWidth
                 />
               </CardContent>
-              <CardActions disableSpacing></CardActions>
             </Card>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <IconsGroup
-            cpOpen={props.cpOpen}
-            anchorRef={props.anchorRef}
-            handleToggle={props.handleToggle}
-            handleClose={props.handleClose}
-            handleListKeyDown={props.handleListKeyDown}
+            updatedTitle={updatedTitle}
+            updatedContent={updatedContent}
+            noteId={id}
+            displayNote={props.displayNote}
+            parent="updateNote"
           />
           <Button onClick={updateNote} className="dialog-close-button">
             Close
           </Button>
         </DialogActions>
       </Dialog>
-      {/* // </ClickAwayListener> */}
-      {/* )}
-      </cpContext.Consumer> */}
     </div>
   );
 }

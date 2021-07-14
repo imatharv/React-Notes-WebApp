@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    
+
     border: "none !important",
     paddingLeft: 0,
     boxShadow: "0rem 0.5rem 1rem rgba(100,100,100,0.1) !important",
@@ -63,6 +63,10 @@ export default function ActionsDrawer(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  // const handleDrawerClick = (component) => {
+  //   props.handleDrawerLinkClick(component);
+  // };
+
   // const handleDrawerToggle = () => {
   //   setOpen(!open);
   // };
@@ -84,7 +88,10 @@ export default function ActionsDrawer(props) {
       // onMouseLeave={handleDrawerToggle}
     >
       <List>
-        <ListItem button>
+        <ListItem
+          button
+          //onClick={handleDrawerClick("notes")}
+        >
           <ListItemIcon>
             <EmojiObjectsOutlinedIcon />
           </ListItemIcon>
@@ -108,13 +115,19 @@ export default function ActionsDrawer(props) {
           </ListItemIcon>
           <ListItemText>Edit labels</ListItemText>
         </ListItem>
-        <ListItem button>
+        <ListItem
+          button
+          //onClick={handleDrawerClick("archives")}
+        >
           <ListItemIcon>
             <ArchiveOutlinedIcon />
           </ListItemIcon>
           <ListItemText>Archives</ListItemText>
         </ListItem>
-        <ListItem button>
+        <ListItem
+          button
+          //onClick={handleDrawerClick("trash")}
+        >
           <ListItemIcon>
             <DeleteOutlinedIcon />
           </ListItemIcon>

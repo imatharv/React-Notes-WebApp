@@ -2,3 +2,40 @@
   display: inline;
   position: relative;
 }
+.more-menu-wrapper {
+  display: inline;
+  position: relative !important;
+}
+.more-menu-popper {
+  //bottom: 30px !important;
+  //left: 35px !important;
+  //top: unset !important;
+  z-index: 9999 !important;
+}
+.more-item {
+  padding: 5px !important;
+  margin: 0px !important;
+  content: "" !important;
+  align-self: center;
+}
+
+.more-menu-container {
+  background-color: white !important;
+  box-shadow: 0rem 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-content: flex-start !important;
+  flex-wrap: wrap !important;
+  width: 45px !important;
+  min-height: 0px !important;
+  border-radius: 10px !important;
+}
+.more-menu-container .MuiList-root {
+  display: inline !important;
+  padding: 5px !important;
+}
+.more-menu-container .MuiListItem-root {
+  display: inline-block !important;
+  min-height: unset !important;
+}
