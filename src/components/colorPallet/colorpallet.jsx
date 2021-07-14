@@ -28,7 +28,6 @@ export default function ColorPalletMenu(props) {
   return (
     <Popper
       open={props.cpOpen}
-      //anchorEl={props.anchorRef.current}
       role={undefined}
       className="color-pallet-popper"
       transition
