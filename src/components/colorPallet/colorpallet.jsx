@@ -18,9 +18,11 @@ export default function ColorPalletMenu(props) {
     "#f28b82",
     "#ffffff",
   ];
-
-  const handleClickMenuClose = (colorCode) => {
-    props.handleClose(colorCode);
+  const handleClickGetColorCode = (e, color) => {
+    props.handleClickGetColor(e, color);
+  };
+  const handleClickMenuClose = () => {
+    props.handleClose();
   };
   const handleListKeyDown = () => {
     props.handleListKeyDown();
@@ -48,12 +50,12 @@ export default function ColorPalletMenu(props) {
                 id="menu-list-grow"
                 onKeyDown={handleListKeyDown}
               >
-                {colors.map((text, index) => (
+                {colors.map((color, index) => (
                   <MenuItem
                     key={index}
                     className="color-pallet"
-                    onClick={handleClickMenuClose(text)}
-                    style={{ backgroundColor: text }}
+                    style={{ backgroundColor: color }}
+                    onClick={(e) => handleClickGetColorCode(e, color)}
                   ></MenuItem>
                 ))}
               </MenuList>

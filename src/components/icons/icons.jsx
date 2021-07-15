@@ -35,6 +35,14 @@ export default function IconsGroup(props) {
       setCpOpen(false);
     }
   }
+  const handleClickGetColor = (e, color) => {
+    if (props.parent == "viewNote") {
+      props.changeColor(e, color);
+    }
+    if (props.parent == "createNote") {
+      props.addColor(e, color);
+    }
+  };
 
   // archives operations
   const handleClickArchive = () => {
@@ -100,10 +108,11 @@ export default function IconsGroup(props) {
           <PaletteOutlinedIcon fontSize="small" />
         </IconButton>
         <ColorPalletMenu
-          // anchorRef={anchorRef}
           cpOpen={cpOpen}
           handleListKeyDown={handleListKeyDown}
           handleClose={handleClose}
+          // addColor={props.addColor}
+          handleClickGetColor={handleClickGetColor}
         />
       </div>
 

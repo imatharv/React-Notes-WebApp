@@ -26,16 +26,20 @@ export default function CreateNote(props) {
   const [expanded, setExpanded] = React.useState(false);
   const [titleText, setTitleText] = React.useState("");
   const [contentText, setContentText] = React.useState("");
+  const [bgColor, setBackgroundColor] = React.useState("#ffffff");
 
   const handleClickAway = () => {
     //createNote();
     setExpanded(false);
   };
-
   const handleExpandClick = () => {
     setExpanded(true);
   };
-
+  const addColor = (e, color) => {
+    e.stopPropagation();
+    setBackgroundColor(color);
+    console.log(bgColor);
+  };
   const createNote = (event) => {
     if (validate()) {
       console.log("API call");
@@ -43,6 +47,7 @@ export default function CreateNote(props) {
       let noteData = new FormData(); // Currently empty
       noteData.append("title", titleText);
       noteData.append("description", contentText);
+      noteData.append("color", bgColor);
       Service.createNote(noteData, token)
         .then((noteData) => {
           console.log(noteData);
@@ -77,7 +82,11 @@ export default function CreateNote(props) {
   return (
     <React.Fragment>
       <ClickAwayListener onClickAway={handleClickAway}>
-        <Card className="createNote">
+        <Card
+          className="createNote"
+          style={{ backgroundColor: bgColor }}
+          //style={{ backgroundColor: "#ffdfda" }}
+        >
           <CardHeader
             title={
               <TextField
@@ -112,6 +121,7 @@ export default function CreateNote(props) {
                 titleText={titleText}
                 contentText={contentText}
                 displayNote={props.displayNote}
+                addColor={addColor}
                 parent="createNote"
               />
               <Button className="card-close-button" onClick={createNote}>

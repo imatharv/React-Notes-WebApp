@@ -69,9 +69,15 @@ export default function UpdateNoteDialog(props) {
   return (
     <div>
       <Dialog maxWidth="md" className="update-note-dialog" open={props.open}>
-        <DialogContent className="dialog-content">
+        <DialogContent
+          className="dialog-content"
+          style={{ backgroundColor: props.bgColor }}
+        >
           <DialogContentText tabIndex={-1}>
-            <Card className="updateNote">
+            <Card
+              className="updateNote"
+              style={{ backgroundColor: props.bgColor }}
+            >
               <CardHeader
                 // action={
                 //   <IconButton aria-label="Pin to top">
@@ -108,13 +114,14 @@ export default function UpdateNoteDialog(props) {
             </Card>
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
+        <DialogActions style={{ backgroundColor: props.bgColor }}>
           <IconsGroup
             updatedTitle={updatedTitle}
             updatedContent={updatedContent}
             noteId={id}
             displayNote={props.displayNote}
-            parent="updateNote"
+            parent="viewNote"
+            changeColor={props.changeColor}
           />
           <Button onClick={updateNote} className="dialog-close-button">
             Close

@@ -1,17 +1,16 @@
 import Navigation from "../../components/navbar/navbar";
 import Drawer from "../../components/drawer/drawer";
 import Notes from "../../components/notes/notes";
+import UserService from "../../services/userService";
+import Archive from "../../components/archives/archives";
+import Trash from "../../components/trash/trash";
 import "./dashboardStyles.css";
 import React from "react";
-import { Redirect } from "react-router-dom";
-import UserService from "../../services/userService";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 
 const Service = new UserService();
 
 export default function Dashboard(props) {
-  const [onDashboard, setOnDashboard] = React.useState(true);
-  const [onArchives, setOnArchives] = React.useState(false);
-  const [onTrash, setOnTrash] = React.useState(false);
   const [navbarDrawerExpand, setNavbarDrawerExpand] = React.useState(false);
 
   const firstName = localStorage.getItem("firstName");
@@ -21,6 +20,16 @@ export default function Dashboard(props) {
   const logout = () => {
     localStorage.clear();
     props.history.push("/login");
+  };
+
+  const navigateToNotes = () => {
+    props.history.push("/dashboard/notes");
+  };
+  const navigateToArchives = () => {
+    props.history.push("/dashboard/archives");
+  };
+  const navigateToTrash = () => {
+    props.history.push("/dashboard/trash");
   };
 
   const handleNavbarDrawerToggle = () => {
@@ -39,9 +48,13 @@ export default function Dashboard(props) {
       <div className="content-wrapper">
         <Drawer
           open={navbarDrawerExpand}
-          //handleDrawerLinkClick={handleDrawerLinkClick}
+          navigateToNotes={navigateToNotes}
+          navigateToArchives={navigateToArchives}
+          navigateToTrash={navigateToTrash}
         />
-        <Notes />
+        <Route exact path="/dashboard/notes" component={Notes} />
+        <Route exact path="/dashboard/archives" component={Archive} />
+        <Route exact path="/dashboard/trash" component={Trash} />
       </div>
     </React.Fragment>
   );

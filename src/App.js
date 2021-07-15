@@ -21,7 +21,7 @@ function App() {
           <Route exact path = "/forget-password" component = {ForgetPasswordPage} />
           <Route exact path = "/resetpassword/:token" component = {ResetPasswordPage} />
           {/* <Route exact path = "/dashboard" component = {Dashboard} /> */}
-          <ProtectedRoute path = "/dashboard" exact component={Dashboard} />
+          <ProtectedRoute path = "/dashboard" component={Dashboard} />
         </Switch>
       </BrowserRouter>
     </React.Fragment>

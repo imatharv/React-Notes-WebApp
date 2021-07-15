@@ -26,4 +26,7 @@ export default class NotesService {
     getTrashNotes = (token) => {
         return axios.getMethod(`${this.baseURL}notes/getTrashNotesList`, { headers: {"Authorization" : token} });
     }
+    changeColor = (data, token) => {
+        return axios.postMethod(`${this.baseURL}notes/changesColorNotes`, data, { headers: {"Authorization" : token} });
+    }
 }

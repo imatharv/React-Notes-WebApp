@@ -12,9 +12,8 @@ export default function Trash() {
     const token = localStorage.getItem("token");
     Service.getTrashNotes(token)
       .then((notedata) => {
+        setNotes(notedata.data.data.data);
         console.log(notedata);
-        //   console.log(noteData.data.data.data);
-        //   setNotes(noteData.data.data.data);
       })
       .catch((error) => {
         console.log("Data fetch error in trash: ", error);
@@ -23,5 +22,11 @@ export default function Trash() {
   useEffect(() => {
     displayNote();
   }, []);
-  return <DisplayNotes notes={notes} />;
+  return (
+    <div className="dashboard-notes-container">
+      <div className="display-note-container">
+        <DisplayNotes notes={notes} />
+      </div>
+    </div>
+  );
 }

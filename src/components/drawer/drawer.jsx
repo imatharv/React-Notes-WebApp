@@ -63,6 +63,16 @@ export default function ActionsDrawer(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  const navigateToNotes = () => {
+    props.navigateToNotes();
+  };
+  const navigateToArchives = () => {
+    props.navigateToArchives();
+  };
+  const navigateToTrash = () => {
+    props.navigateToTrash();
+  };
+
   // const handleDrawerClick = (component) => {
   //   props.handleDrawerLinkClick(component);
   // };
@@ -88,10 +98,7 @@ export default function ActionsDrawer(props) {
       // onMouseLeave={handleDrawerToggle}
     >
       <List>
-        <ListItem
-          button
-          //onClick={handleDrawerClick("notes")}
-        >
+        <ListItem button onClick={props.navigateToNotes}>
           <ListItemIcon>
             <EmojiObjectsOutlinedIcon />
           </ListItemIcon>
@@ -115,19 +122,13 @@ export default function ActionsDrawer(props) {
           </ListItemIcon>
           <ListItemText>Edit labels</ListItemText>
         </ListItem>
-        <ListItem
-          button
-          //onClick={handleDrawerClick("archives")}
-        >
+        <ListItem button onClick={props.navigateToArchives}>
           <ListItemIcon>
             <ArchiveOutlinedIcon />
           </ListItemIcon>
           <ListItemText>Archives</ListItemText>
         </ListItem>
-        <ListItem
-          button
-          //onClick={handleDrawerClick("trash")}
-        >
+        <ListItem button onClick={props.navigateToTrash}>
           <ListItemIcon>
             <DeleteOutlinedIcon />
           </ListItemIcon>
