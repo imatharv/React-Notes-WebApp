@@ -11,6 +11,8 @@ import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import IconsGroup from "../icons/icons";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+
 // import EmojiFlagsRoundedIcon from "@material-ui/icons/EmojiFlagsRounded";
 
 const Service = new NoteService();
@@ -65,10 +67,14 @@ export default function UpdateNoteDialog(props) {
   const handleInputContent = (event) => {
     setUpdatedContent(event.target.value);
   };
+  // const handleClickAway = () => {
+  //   props.close;
+  // }
 
   return (
     <div>
       <Dialog maxWidth="md" className="update-note-dialog" open={props.open}>
+        {/* <ClickAwayListener onClickAway={props.close}> */}
         <DialogContent
           className="dialog-content"
           style={{ backgroundColor: props.bgColor }}
@@ -127,6 +133,7 @@ export default function UpdateNoteDialog(props) {
             Close
           </Button>
         </DialogActions>
+        {/* </ClickAwayListener> */}
       </Dialog>
     </div>
   );

@@ -48,6 +48,7 @@ export default function Dashboard(props) {
       <div className="content-wrapper">
         <Drawer
           open={navbarDrawerExpand}
+          handleNavbarDrawerToggle={handleNavbarDrawerToggle}
           navigateToNotes={navigateToNotes}
           navigateToArchives={navigateToArchives}
           navigateToTrash={navigateToTrash}

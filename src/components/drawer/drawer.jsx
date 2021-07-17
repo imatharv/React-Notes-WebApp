@@ -13,6 +13,7 @@ import LabelOutlinedIcon from "@material-ui/icons/LabelOutlined";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import ArchiveOutlinedIcon from "@material-ui/icons/ArchiveOutlined";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 const drawerWidth = 220;
 
@@ -63,15 +64,9 @@ export default function ActionsDrawer(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  const navigateToNotes = () => {
-    props.navigateToNotes();
-  };
-  const navigateToArchives = () => {
-    props.navigateToArchives();
-  };
-  const navigateToTrash = () => {
-    props.navigateToTrash();
-  };
+  // const handleClickAwayCloseDrawer = () => {
+  //   props.handleNavbarDrawerToggle();
+  // };
 
   // const handleDrawerClick = (component) => {
   //   props.handleDrawerLinkClick(component);
@@ -82,6 +77,7 @@ export default function ActionsDrawer(props) {
   // };
 
   return (
+    // <ClickAwayListener onClickAway={handleClickAwayCloseDrawer}>
     <Drawer
       variant="permanent"
       className={clsx(classes.drawer, {
@@ -136,5 +132,6 @@ export default function ActionsDrawer(props) {
         </ListItem>
       </List>
     </Drawer>
+    // </ClickAwayListener>
   );
 }
