@@ -31,6 +31,7 @@ export default function CreateNote(props) {
   const handleClickAway = () => {
     //createNote();
     setExpanded(false);
+    setBackgroundColor("#ffffff");
   };
   const handleExpandClick = () => {
     setExpanded(true);
@@ -52,6 +53,7 @@ export default function CreateNote(props) {
         .then((noteData) => {
           console.log(noteData);
           setExpanded(false);
+          setBackgroundColor("#ffffff");
           props.displayNote();
         })
         .catch((error) => {
@@ -60,6 +62,7 @@ export default function CreateNote(props) {
     } else {
       console.info("Create note :: empty data");
       setExpanded(false);
+      setBackgroundColor("#ffffff");
     }
   };
   const validate = () => {

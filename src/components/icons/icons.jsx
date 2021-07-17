@@ -6,6 +6,9 @@ import PersonAddOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
 import PaletteOutlinedIcon from "@material-ui/icons/PaletteOutlined";
 import CropOriginalRoundedIcon from "@material-ui/icons/CropOriginalRounded";
 import ArchiveOutlinedIcon from "@material-ui/icons/ArchiveOutlined";
+import UnarchiveOutlinedIcon from "@material-ui/icons/UnarchiveOutlined";
+import RestoreFromTrashRoundedIcon from "@material-ui/icons/RestoreFromTrashRounded";
+import DeleteForeverRoundedIcon from "@material-ui/icons/DeleteForeverRounded";
 import MoreVertRoundedIcon from "@material-ui/icons/MoreVertRounded";
 import ColorPalletMenu from "../colorPallet/colorpallet";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
@@ -96,69 +99,95 @@ export default function IconsGroup(props) {
 
   return (
     <div className="icons-group">
-      <IconButton aria-label="Remind me">
-        <AddAlertOutlinedIcon fontSize="small" />
-      </IconButton>
-      <IconButton aria-label="Add colaborators">
-        <PersonAddOutlinedIcon fontSize="small" />
-      </IconButton>
+      {props.isDeleted ? (
+        <div className="icons-group">
+          <IconButton aria-label="Archive">
+            <RestoreFromTrashRoundedIcon fontSize="small" />
+          </IconButton>
+          <IconButton aria-label="Archive">
+            <DeleteForeverRoundedIcon fontSize="small" />
+          </IconButton>
+        </div>
+      ) : (
+        <div className="icons-group">
+          <IconButton aria-label="Remind me">
+            <AddAlertOutlinedIcon fontSize="small" />
+          </IconButton>
+          <IconButton aria-label="Add colaborators">
+            <PersonAddOutlinedIcon fontSize="small" />
+          </IconButton>
 
-      <div className="color-pallet-wrapper">
-        <IconButton aria-label="Add colour" onClick={handleCpToggle}>
-          <PaletteOutlinedIcon fontSize="small" />
-        </IconButton>
-        <ColorPalletMenu
-          cpOpen={cpOpen}
-          handleListKeyDown={handleListKeyDown}
-          handleClose={handleClose}
-          // addColor={props.addColor}
-          handleClickGetColor={handleClickGetColor}
-        />
-      </div>
+          <div className="color-pallet-wrapper">
+            <IconButton aria-label="Add colour" onClick={handleCpToggle}>
+              <PaletteOutlinedIcon fontSize="small" />
+            </IconButton>
+            <ColorPalletMenu
+              cpOpen={cpOpen}
+              handleListKeyDown={handleListKeyDown}
+              handleClose={handleClose}
+              // addColor={props.addColor}
+              handleClickGetColor={handleClickGetColor}
+            />
+          </div>
 
-      <IconButton aria-label="Add image">
-        <CropOriginalRoundedIcon fontSize="small" />
-      </IconButton>
-      <IconButton aria-label="Archive" onClick={handleClickArchive}>
-        <ArchiveOutlinedIcon fontSize="small" />
-      </IconButton>
+          <IconButton aria-label="Add image">
+            <CropOriginalRoundedIcon fontSize="small" />
+          </IconButton>
 
-      <div className="more-menu-wrapper">
-        <IconButton aria-label="More" onClick={handleMoreMenuToggle}>
-          <MoreVertRoundedIcon fontSize="small" />
-        </IconButton>
-        <Popper
-          open={moreMenuOpen}
-          role={undefined}
-          className="more-menu-popper"
-          transition
-          disablePortal
-        >
-          {({ TransitionProps, placement }) => (
-            <Grow
-              {...TransitionProps}
-              style={{
-                transformOrigin:
-                  placement === "bottom" ? "center top" : "center bottom",
-              }}
+          {props.isArchived ? (
+            <IconButton
+              aria-label="Archive"
+              //onClick={handleClickUnArchive}
             >
-              <div className="more-menu-container">
-                <ClickAwayListener onClickAway={handleClickMoreMenuClose}>
-                  <MenuList
-                    autoFocusItem={moreMenuOpen}
-                    id="menu-list-grow"
-                    onKeyDown={handleMoreListKeyDown}
-                  >
-                    <MenuItem className="more-item" onClick={handleClickTrash}>
-                      <DeleteOutlineRoundedIcon />
-                    </MenuItem>
-                  </MenuList>
-                </ClickAwayListener>
-              </div>
-            </Grow>
+              <UnarchiveOutlinedIcon fontSize="small" />
+            </IconButton>
+          ) : (
+            <IconButton aria-label="Archive" onClick={handleClickArchive}>
+              <ArchiveOutlinedIcon fontSize="small" />
+            </IconButton>
           )}
-        </Popper>
-      </div>
+
+          <div className="more-menu-wrapper">
+            <IconButton aria-label="More" onClick={handleMoreMenuToggle}>
+              <MoreVertRoundedIcon fontSize="small" />
+            </IconButton>
+            <Popper
+              open={moreMenuOpen}
+              role={undefined}
+              className="more-menu-popper"
+              transition
+              disablePortal
+            >
+              {({ TransitionProps, placement }) => (
+                <Grow
+                  {...TransitionProps}
+                  style={{
+                    transformOrigin:
+                      placement === "bottom" ? "center top" : "center bottom",
+                  }}
+                >
+                  <div className="more-menu-container">
+                    <ClickAwayListener onClickAway={handleClickMoreMenuClose}>
+                      <MenuList
+                        autoFocusItem={moreMenuOpen}
+                        id="menu-list-grow"
+                        onKeyDown={handleMoreListKeyDown}
+                      >
+                        <MenuItem
+                          className="more-item"
+                          onClick={handleClickTrash}
+                        >
+                          <DeleteOutlineRoundedIcon />
+                        </MenuItem>
+                      </MenuList>
+                    </ClickAwayListener>
+                  </div>
+                </Grow>
+              )}
+            </Popper>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -15,8 +15,30 @@ export default function Notes() {
     Service.getNote(token)
       .then((noteData) => {
         console.log(noteData.data.data.data);
+        let data = noteData.data.data.data;
+
         //filter data
-        setNotes(noteData.data.data.data);
+        let newArray = data.filter(function (e) {
+          return e.isArchived == false && e.isDeleted == false;
+        });
+        setNotes(newArray);
+
+        // let dataLength = noteData.data.data.data.length;
+        // for (let i = 0; i <= dataLength; i++) {
+        //   if (data[i].isArchived == false && data[i].isDeleted == false) {
+        //     console.log(data[i]);
+        //     //setNotes(data[i]);
+        //     setNotes([...notes.slice(0, i), data[i], ...notes.slice(i + 1)]);
+        //   }
+        // }
+
+        // data.map((object) => {
+        //   if (object.isArchived == false && object.isDeleted == false) {
+        //     console.log(object);
+        //     setNotes(object);
+        //   }
+        // });
+        //setNotes(noteData.data.data.data);
       })
       .catch((error) => {
         console.log("Data fetch error: ", error);

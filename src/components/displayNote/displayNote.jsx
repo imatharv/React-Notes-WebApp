@@ -14,11 +14,12 @@ const Service = new NoteService();
 export default function DisplayNotes(props) {
   const [updateNoteData, setUpdateNoteData] = React.useState({});
   const [open, setOpen] = React.useState(false);
-  const [background, setBackgroundColor] = React.useState(props.color);
+  const [background, setBackgroundColor] = React.useState("");
 
-  const handleClickUpdateDialogOpen = (e, data) => {
+  const handleClickUpdateDialogOpen = (e, data, color) => {
     e.preventDefault();
     setUpdateNoteData(data);
+    setBackgroundColor(color);
     setOpen(true);
   };
 
@@ -29,11 +30,10 @@ export default function DisplayNotes(props) {
   // color operations
   const changeColor = (color) => {
     setBackgroundColor(color);
-    console.log("Change color API call " + background);
     const token = localStorage.getItem("token");
     let noteData = {
       noteIdList: [props.noteId],
-      color: color,
+      color: background,
     };
     Service.changeColor(noteData, token)
       .then((noteData) => {
@@ -55,8 +55,8 @@ export default function DisplayNotes(props) {
             <Card
               className="displayNote"
               key={data.id}
-              style={{ backgroundColor: background }}
-              onClick={(e) => handleClickUpdateDialogOpen(e, data)}
+              style={{ backgroundColor: data.color }}
+              onClick={(e) => handleClickUpdateDialogOpen(e, data, data.color)}
             >
               <CardHeader
                 title={
@@ -81,6 +81,8 @@ export default function DisplayNotes(props) {
               <CardActions disableSpacing className="iconbar">
                 <IconsGroup
                   noteId={data.id}
+                  isArchived={data.isArchived}
+                  isDeleted={data.isDeleted}
                   parent="viewNote"
                   changeColor={changeColor}
                 />

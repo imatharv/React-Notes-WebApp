@@ -11,9 +11,14 @@ export default function Trash() {
     console.log("Trash API call");
     const token = localStorage.getItem("token");
     Service.getTrashNotes(token)
-      .then((notedata) => {
-        setNotes(notedata.data.data.data);
-        console.log(notedata);
+      .then((noteData) => {
+        console.log(noteData.data.data.data);
+        let data = noteData.data.data.data;
+        //filter data
+        let newArray = data.filter(function (e) {
+          return e.isArchived == false && e.isDeleted == true;
+        });
+        setNotes(newArray);
       })
       .catch((error) => {
         console.log("Data fetch error in trash: ", error);
