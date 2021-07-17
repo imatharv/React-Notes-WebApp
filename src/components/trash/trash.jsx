@@ -8,7 +8,6 @@ export default function Trash() {
   const [notes, setNotes] = React.useState([]);
 
   const displayNote = () => {
-    console.log("Trash API call");
     const token = localStorage.getItem("token");
     Service.getTrashNotes(token)
       .then((noteData) => {
@@ -30,7 +29,7 @@ export default function Trash() {
   return (
     <div className="dashboard-notes-container">
       <div className="display-note-container">
-        <DisplayNotes notes={notes} />
+        <DisplayNotes notes={notes} displayNote={displayNote} />
       </div>
     </div>
   );

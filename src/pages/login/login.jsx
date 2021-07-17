@@ -125,17 +125,17 @@ export default class LoginPage extends Component {
       Service.login(data)
         .then((data) => {
           console.log(data);
-          this.setState({
-            open: true,
-            SnackbarMessage: "Login successful",
-            SnackbarStyle: "snackbar-success",
-          });
+          // this.setState({
+          //   open: true,
+          //   SnackbarMessage: "Login successful",
+          //   SnackbarStyle: "snackbar-success",
+          // });
           localStorage.setItem("firstName", data.data.firstName);
           localStorage.setItem("lastName", data.data.lastName);
           localStorage.setItem("email", data.data.email);
           localStorage.setItem("token", data.data.id);
 
-          this.props.history.push("/dashboard");
+          this.props.history.push("/dashboard/notes");
         })
         .catch((error) => {
           console.log("error: ", error);

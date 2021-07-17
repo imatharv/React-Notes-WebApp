@@ -18,6 +18,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
 import NoteService from "../../services/noteService";
+import { FormatListNumberedTwoTone } from "@material-ui/icons";
 
 const Service = new NoteService();
 
@@ -64,6 +65,22 @@ export default function IconsGroup(props) {
         console.log("Data posting error in archives: ", error);
       });
   };
+  const handleClickUnArchive = () => {
+    console.log("Unrchive API call");
+    const token = localStorage.getItem("token");
+    let noteData = {
+      noteIdList: [props.noteId],
+      isArchived: FormatListNumberedTwoTone,
+    };
+    Service.archiveNotes(noteData, token)
+      .then((noteData) => {
+        console.log(noteData);
+        props.displayNote();
+      })
+      .catch((error) => {
+        console.log("Data posting error in unarchives: ", error);
+      });
+  };
 
   // trash operations
   const handleMoreMenuToggle = () => {
@@ -96,15 +113,49 @@ export default function IconsGroup(props) {
         console.log("Data posting error in trash: ", error);
       });
   };
+  const handleClickUnTrash = () => {
+    console.log("Untrash API call");
+    const token = localStorage.getItem("token");
+    let noteData = {
+      noteIdList: [props.noteId],
+      isDeleted: false,
+    };
+    Service.trashNotes(noteData, token)
+      .then((noteData) => {
+        console.log(noteData);
+        setMoreMenuOpen(false);
+        props.displayNote();
+      })
+      .catch((error) => {
+        console.log("Data posting error in untrash: ", error);
+      });
+  };
+  const handleClickDeleteForever = () => {
+    console.log("Delete forever API call");
+    const token = localStorage.getItem("token");
+    let noteData = {
+      noteIdList: [props.noteId],
+      //isDeleted: false,
+    };
+    Service.deleteForever(noteData, token)
+      .then((noteData) => {
+        console.log(noteData);
+        setMoreMenuOpen(false);
+        props.displayNote();
+      })
+      .catch((error) => {
+        console.log("Data posting error in delete forever: ", error);
+      });
+  };
 
   return (
     <div className="icons-group">
       {props.isDeleted ? (
         <div className="icons-group">
-          <IconButton aria-label="Archive">
+          <IconButton aria-label="Archive" onClick={handleClickUnTrash}>
             <RestoreFromTrashRoundedIcon fontSize="small" />
           </IconButton>
-          <IconButton aria-label="Archive">
+          <IconButton aria-label="Archive" onClick={handleClickDeleteForever}>
             <DeleteForeverRoundedIcon fontSize="small" />
           </IconButton>
         </div>
@@ -135,10 +186,7 @@ export default function IconsGroup(props) {
           </IconButton>
 
           {props.isArchived ? (
-            <IconButton
-              aria-label="Archive"
-              //onClick={handleClickUnArchive}
-            >
+            <IconButton aria-label="Unarchive" onClick={handleClickUnArchive}>
               <UnarchiveOutlinedIcon fontSize="small" />
             </IconButton>
           ) : (

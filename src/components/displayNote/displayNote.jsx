@@ -56,7 +56,6 @@ export default function DisplayNotes(props) {
               className="displayNote"
               key={data.id}
               style={{ backgroundColor: data.color }}
-              onClick={(e) => handleClickUpdateDialogOpen(e, data, data.color)}
             >
               <CardHeader
                 title={
@@ -69,7 +68,12 @@ export default function DisplayNotes(props) {
                   </Typography>
                 }
               />
-              <CardContent>
+
+              <CardContent
+                onClick={(e) =>
+                  handleClickUpdateDialogOpen(e, data, data.color)
+                }
+              >
                 <Typography
                   name="noteContent"
                   className="noteContent"
@@ -85,6 +89,7 @@ export default function DisplayNotes(props) {
                   isDeleted={data.isDeleted}
                   parent="viewNote"
                   changeColor={changeColor}
+                  displayNote={props.displayNote}
                 />
               </CardActions>
             </Card>

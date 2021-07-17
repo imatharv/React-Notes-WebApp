@@ -39,7 +39,7 @@ export default function Trash() {
   return (
     <div className="dashboard-notes-container">
       <div className="display-note-container">
-        <DisplayNotes notes={notes} />
+        <DisplayNotes notes={notes} displayNote={displayNote} />
       </div>
     </div>
   );

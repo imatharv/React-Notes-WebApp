@@ -29,4 +29,7 @@ export default class NotesService {
     changeColor = (data, token) => {
         return axios.postMethod(`${this.baseURL}notes/changesColorNotes`, data, { headers: {"Authorization" : token} });
     }
+    deleteForever = (data, token) => {
+        return axios.postMethod(`${this.baseURL}notes/deleteForeverNotes`, data, { headers: {"Authorization" : token} });
+    }
 }
