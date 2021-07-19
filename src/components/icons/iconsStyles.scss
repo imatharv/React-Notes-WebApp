@@ -7,10 +7,11 @@
   position: relative !important;
 }
 .more-menu-popper {
-  //bottom: 30px !important;
-  //left: 35px !important;
-  //top: unset !important;
-  z-index: 9999 !important;
+  top: -55px !important;
+  left: 0px !important;
+  bottom: unset !important;
+  position: absolute !important;
+  z-index: 1000 !important;
 }
 .more-item {
   padding: 5px !important;

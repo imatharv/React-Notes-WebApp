@@ -16,16 +16,19 @@
   justify-content: flex-start !important;
   align-content: flex-end !important;
   flex-wrap: wrap !important;
-  min-width: 112px !important;
+  width: 112px !important;
   min-height: 50px !important;
   border-radius: 10px !important;
 }
 
 .color-pallet-popper {
-  bottom: 30px !important;
-  left: -35px !important;
-  top: unset !important;
-  z-index: 9999 !important;
+  top: -120px !important;
+  left: 0px !important;
+  bottom: unset !important;
+  position: absolute !important;
+  //margin-bottom: 55px !important;
+  // margin-left: 55px !important;
+  z-index: 1000 !important;
 }
 
 .color-pallet-container .MuiList-root {

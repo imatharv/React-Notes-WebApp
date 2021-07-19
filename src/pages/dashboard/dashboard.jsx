@@ -7,6 +7,7 @@ import Trash from "../../components/trash/trash";
 import "./dashboardStyles.css";
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { Profiler } from "react";
 
 const Service = new UserService();
 
@@ -21,7 +22,6 @@ export default function Dashboard(props) {
     localStorage.clear();
     props.history.push("/login");
   };
-
   const navigateToNotes = () => {
     props.history.push("/dashboard/notes");
   };
@@ -31,11 +31,16 @@ export default function Dashboard(props) {
   const navigateToTrash = () => {
     props.history.push("/dashboard/trash");
   };
-
   const handleNavbarDrawerToggle = () => {
     setNavbarDrawerExpand(!navbarDrawerExpand);
   };
-
+  function onRenderCallback(actualDuration, interactions) {
+    console.log("Time spent rendering the comitted update :: ", actualDuration);
+    console.log(
+      "Set of interactions belonging to this update :: ",
+      interactions
+    );
+  }
   return (
     <React.Fragment>
       <Navigation
@@ -53,9 +58,11 @@ export default function Dashboard(props) {
           navigateToArchives={navigateToArchives}
           navigateToTrash={navigateToTrash}
         />
-        <Route exact path="/dashboard/notes" component={Notes} />
-        <Route exact path="/dashboard/archives" component={Archive} />
-        <Route exact path="/dashboard/trash" component={Trash} />
+        <Profiler id="Navigation" onRender={onRenderCallback}>
+          <Route exact path="/dashboard/notes" component={Notes} />
+          <Route exact path="/dashboard/archives" component={Archive} />
+          <Route exact path="/dashboard/trash" component={Trash} />
+        </Profiler>
       </div>
     </React.Fragment>
   );

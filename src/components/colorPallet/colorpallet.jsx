@@ -32,6 +32,14 @@ export default function ColorPalletMenu(props) {
       open={props.cpOpen}
       role={undefined}
       className="color-pallet-popper"
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "left",
+      }}
+      transformOrigin={{
+        vertical: "bottom",
+        horizontal: "left",
+      }}
       transition
       disablePortal
     >
@@ -40,7 +48,7 @@ export default function ColorPalletMenu(props) {
           {...TransitionProps}
           style={{
             transformOrigin:
-              placement === "bottom" ? "center top" : "center bottom",
+              placement === "top" ? "center bottom" : "center top",
           }}
         >
           <div className="color-pallet-container">
