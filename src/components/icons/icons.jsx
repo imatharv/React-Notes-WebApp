@@ -189,7 +189,6 @@ export default function IconsGroup(props) {
             parent={props.parent}
             getCollaboratingUser={props.getCollaboratingUser}
             displayNote={props.displayNote}
-            // handleClickCloseCollabDialog={props.handleClickCloseCollabDialog}
           />
 
           <div className="color-pallet-wrapper">
