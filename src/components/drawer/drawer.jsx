@@ -93,7 +93,7 @@ export default function ActionsDrawer(props) {
       // onMouseEnter={handleDrawerToggle}
       // onMouseLeave={handleDrawerToggle}
     >
-      <List>
+      <List className="drawer-expanded">
         <ListItem button onClick={props.navigateToNotes}>
           <ListItemIcon>
             <EmojiObjectsOutlinedIcon />

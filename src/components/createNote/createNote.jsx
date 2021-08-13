@@ -122,6 +122,7 @@ export default function CreateNote(props) {
             <CardActions disableSpacing>
               <IconsGroup
                 titleText={titleText}
+                className="icons-group-create-note"
                 contentText={contentText}
                 displayNote={props.displayNote}
                 addColor={addColor}

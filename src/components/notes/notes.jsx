@@ -2,12 +2,17 @@ import "./notesStyles.scss";
 import CreateNote from "../createNote/createNote";
 import DisplayNote from "../displayNote/displayNote";
 import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { useLocation } from "react-router-dom";
 import NoteService from "../../services/noteService";
 
 const Service = new NoteService();
 
-export default function Notes() {
+function Notes(props) {
+  const location = useLocation();
+
   const [notes, setNotes] = React.useState([]);
+  const [searchData, setSearchData] = React.useState([]);
 
   const displayNote = () => {
     console.log("API call");
@@ -22,31 +27,46 @@ export default function Notes() {
           return e.isArchived == false && e.isDeleted == false;
         });
         setNotes(newArray);
-
-        // let dataLength = noteData.data.data.data.length;
-        // for (let i = 0; i <= dataLength; i++) {
-        //   if (data[i].isArchived == false && data[i].isDeleted == false) {
-        //     console.log(data[i]);
-        //     //setNotes(data[i]);
-        //     setNotes([...notes.slice(0, i), data[i], ...notes.slice(i + 1)]);
-        //   }
-        // }
-
-        // data.map((object) => {
-        //   if (object.isArchived == false && object.isDeleted == false) {
-        //     console.log(object);
-        //     setNotes(object);
-        //   }
-        // });
-        //setNotes(noteData.data.data.data);
       })
       .catch((error) => {
         console.log("Data fetch error: ", error);
       });
   };
+
+  let filteredNotes = notes;
+  // if (searchData != "") {
+  //   filteredNotes = notes.filter((i) =>
+  //     i.title.toLowerCase().includes(searchData.toLowerCase())
+  //   );
+  // }
+
+  // const search = (searchedString) => {
+  //   if (searchedString.length == "") {
+  //     setNotes(notes);
+  //   }
+  //   if (searchedString.length >= 3) {
+  //     let notesData = [];
+  //     Object.keys(notes).map((i) => {
+  //       // creating array of number of objects in products
+  //       let key = i;
+  //       notesData.push(notes[key]); // pushing a perticular product at a perticular position...
+  //       const posts = notesData.filter((note) => {
+  //         return note.title
+  //           .toLowerCase()
+  //           .includes(searchedString.toLowerCase());
+  //       });
+  //       //setFilteredNotes(posts);
+  //       setNotes(posts);
+  //     });
+  //   } else {
+  //     setNotes(notes);
+  //   }
+  // };
+
   useEffect(() => {
     displayNote();
-  }, []);
+    setSearchData(props.searchData);
+  }, [props]);
 
   return (
     <React.Fragment>
@@ -56,10 +76,18 @@ export default function Notes() {
         </div>
         <div className="display-note-container">
           {/* <div className="display-note-wrapper"> */}
-          <DisplayNote displayNote={displayNote} notes={notes} />
+          <DisplayNote displayNote={displayNote} notes={filteredNotes} />
           {/* </div> */}
         </div>
       </div>
     </React.Fragment>
   );
 }
+
+function mapStateToProps(state) {
+  console.log(state);
+  // return {
+  //   searchData: state.searchBarReducer.searchData,
+  // };
+}
+export default connect(mapStateToProps)(Notes);

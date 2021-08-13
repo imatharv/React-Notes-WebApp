@@ -41,9 +41,29 @@ export default function IconsGroup(props) {
   }
   const handleClickGetColor = (e, color) => {
     if (props.parent == "viewNote") {
-      props.changeColor(e, color);
+      // console.log("viewNote");
+      // console.log("color");
+      // console.log(props.noteId);
+      //props.changeColor(color, props.noteId);
+      //console.log(props.noteId);
+      //setBackgroundColor(color);
+      //
+      const token = localStorage.getItem("token");
+      let noteData = {
+        noteIdList: [props.noteId],
+        color: color,
+      };
+      Service.changeColor(noteData, token)
+        .then((noteData) => {
+          console.log(noteData);
+          props.displayNote();
+        })
+        .catch((error) => {
+          console.log("Data posting error in change color: ", error);
+        });
     }
     if (props.parent == "createNote") {
+      console.log("createNote");
       props.addColor(e, color);
     }
   };
@@ -70,7 +90,7 @@ export default function IconsGroup(props) {
     const token = localStorage.getItem("token");
     let noteData = {
       noteIdList: [props.noteId],
-      isArchived: FormatListNumberedTwoTone,
+      isArchived: false,
     };
     Service.archiveNotes(noteData, token)
       .then((noteData) => {
@@ -176,7 +196,8 @@ export default function IconsGroup(props) {
               cpOpen={cpOpen}
               handleListKeyDown={handleListKeyDown}
               handleClose={handleClose}
-              // addColor={props.addColor}
+              //addColor={props.addColor}
+              // handleClickGetColor={handleClickGetColor(props.id)}
               handleClickGetColor={handleClickGetColor}
             />
           </div>

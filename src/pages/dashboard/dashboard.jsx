@@ -13,16 +13,25 @@ const Service = new UserService();
 
 export default function Dashboard(props) {
   const [navbarDrawerExpand, setNavbarDrawerExpand] = React.useState(false);
+  const [searchedTerm, setSearchedTerm] = React.useState("");
 
   const firstName = localStorage.getItem("firstName");
   const lastName = localStorage.getItem("lastName");
   const email = localStorage.getItem("email");
+
+  const handleSearchInput = (term) => {
+    setSearchedTerm(term);
+  };
 
   const logout = () => {
     localStorage.clear();
     props.history.push("/login");
   };
   const navigateToNotes = () => {
+    // props.history.push({
+    //   pathname: "/dashboard/order",
+    //   state: { searchTerm: searchedTerm },
+    // });
     props.history.push("/dashboard/notes");
   };
   const navigateToArchives = () => {
@@ -49,6 +58,7 @@ export default function Dashboard(props) {
         firstName={firstName}
         lastName={lastName}
         islogout={logout}
+        handleSearchInput={handleSearchInput}
       />
       <div className="content-wrapper">
         <Drawer
@@ -59,7 +69,12 @@ export default function Dashboard(props) {
           navigateToTrash={navigateToTrash}
         />
         <Profiler id="Navigation" onRender={onRenderCallback}>
-          <Route exact path="/dashboard/notes" component={Notes} />
+          <Route
+            exact
+            path="/dashboard/notes"
+            component={() => <Notes searchTerm={searchedTerm} />}
+          />
+          {/* <Route exact path="/dashboard/notes" component={Notes} /> */}
           <Route exact path="/dashboard/archives" component={Archive} />
           <Route exact path="/dashboard/trash" component={Trash} />
         </Profiler>

@@ -1,5 +1,6 @@
 import "./navbarStyles.scss";
 import React from "react";
+import { connect } from "react-redux";
 import clsx from "clsx";
 import { fade, makeStyles, useTheme } from "@material-ui/core/styles";
 import blueGrey from "@material-ui/core/colors/blueGrey";
@@ -137,7 +138,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navigation(props) {
+function Navigation(props) {
   const classes = useStyles();
   const [menuOpen, setMenuOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -145,8 +146,7 @@ export default function Navigation(props) {
 
   const handleClickLogout = () => {
     props.islogout();
-  }
-
+  };
   const handleNavbarDrawerToggle = () => {
     props.drawerExpand();
   };
@@ -165,6 +165,9 @@ export default function Navigation(props) {
       setMenuOpen(false);
     }
   }
+  const handleSearchInputText = (e) => {
+    props.dispatch({ type: "Search", searchData: e.target.value });
+  };
   React.useEffect(() => {
     if (prevOpen.current === true && menuOpen === false) {
       anchorRef.current.focus();
@@ -180,7 +183,7 @@ export default function Navigation(props) {
           aria-label="open drawer"
           onClick={handleNavbarDrawerToggle}
           edge="start"
-          className={clsx(classes.menuButton)}
+          className="{clsx(classes.menuButton)} navbar-drawer-toggle"
         >
           <MenuIcon />
         </IconButton>
@@ -207,6 +210,7 @@ export default function Navigation(props) {
               input: classes.inputInput,
             }}
             inputProps={{ "aria-label": "search" }}
+            onChange={handleSearchInputText}
           />
         </div>
         <div className={classes.avatarWrapper}>
@@ -214,6 +218,7 @@ export default function Navigation(props) {
             ref={anchorRef}
             aria-controls={menuOpen ? "menu-list-grow" : undefined}
             aria-haspopup="true"
+            className="account-info-menu-toggle"
             onClick={handleAccountInfoMenuToggle}
           >
             <Avatar className={classes.avatar}>A</Avatar>
@@ -229,6 +234,7 @@ export default function Navigation(props) {
             <Paper className={classes.papper}>
               <ClickAwayListener onClickAway={handleAccountInfoMenuClose}>
                 <MenuList
+                  className="popper-menu"
                   autoFocusItem={menuOpen}
                   id="menu-list-grow"
                   onKeyDown={handleListKeyDown}
@@ -273,3 +279,10 @@ export default function Navigation(props) {
     </AppBar>
   );
 }
+function mapStateToProps(state) {
+  console.log(state);
+  // return {
+  //   searchData: state.searchBarReducer.searchData,
+  // };
+}
+export default connect(mapStateToProps)(Navigation);

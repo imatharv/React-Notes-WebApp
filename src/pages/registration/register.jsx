@@ -68,9 +68,7 @@ export default class RegistrationPage extends Component {
       cnf_passwordError: false,
       cnf_passwordErrorMsg: "",
     });
-
     let valid = true;
-
     // validating first name
     if (this.state.fname.length != 0) {
       if (/^[A-Za-z]{1}[a-z]{2,}/.test(this.state.fname)) {
@@ -92,7 +90,6 @@ export default class RegistrationPage extends Component {
         fnameErrorMsg: "First name is required",
       });
     }
-
     // validating last name
     if (this.state.lname.length != 0) {
       if (/^[A-Za-z]{1}[a-z]{2,}/.test(this.state.lname)) {
@@ -114,7 +111,6 @@ export default class RegistrationPage extends Component {
         lnameErrorMsg: "Last name is required",
       });
     }
-
     // validating email address
     if (this.state.email.length != 0) {
       if (
@@ -140,7 +136,6 @@ export default class RegistrationPage extends Component {
         emailErrorMsg: "Email is required",
       });
     }
-
     //validating password
     if (this.state.password.length != 0) {
       if (
@@ -167,7 +162,6 @@ export default class RegistrationPage extends Component {
         passwordErrorMsg: "Password is required",
       });
     }
-
     // Valildating confirm password
     if (this.state.cnf_password.length != 0) {
       if (this.state.password === this.state.cnf_password) {
@@ -189,7 +183,6 @@ export default class RegistrationPage extends Component {
         cnf_passwordErrorMsg: "Confirm password is required",
       });
     }
-
     return valid;
   };
 
@@ -232,8 +225,8 @@ export default class RegistrationPage extends Component {
 
   render() {
     return (
-      <Container className="py-3 px-0 signup-page-container ">
-        <Card className="shadow p-2 p-sm-3 component-card">
+      <Container className="py-3 px-0 signup-page-container mt-5">
+        <Card className="shadow p-2 p-sm-3 component-card mt-5">
           <CardContent className="p-1 p-sm-3">
             <Grid
               container

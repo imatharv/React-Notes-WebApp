@@ -7,7 +7,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import IconsGroup from "../icons/icons";
-import UpdateDialog from "../updateNote/updateNote";
+import UpdateNoteDialog from "../updateNote/updateNote";
 
 const Service = new NoteService();
 
@@ -28,22 +28,24 @@ export default function DisplayNotes(props) {
   };
 
   // color operations
-  const changeColor = (color) => {
-    setBackgroundColor(color);
-    const token = localStorage.getItem("token");
-    let noteData = {
-      noteIdList: [props.noteId],
-      color: background,
-    };
-    Service.changeColor(noteData, token)
-      .then((noteData) => {
-        console.log(noteData);
-        //props.displayNote();
-      })
-      .catch((error) => {
-        console.log("Data posting error in change color: ", error);
-      });
-  };
+  // const changeColor = (e, color, id) => {
+  //  setBackgroundColor(color);
+  //  const token = localStorage.getItem("token");
+  //  console.log("NoteId in color change :: ", id);
+  //  Cannot getting current note id here
+  //  let noteData = {
+  //    //noteIdList: id,
+  //    color: color,
+  //  };
+  //  Service.changeColor(noteData, token)
+  //   .then((noteData) => {
+  //     console.log(noteData);
+  //     //props.displayNote();
+  //   })
+  //   .catch((error) => {
+  //     console.log("Data posting error in change color: ", error);
+  //   });
+  // };
 
   return (
     <React.Fragment>
@@ -88,20 +90,20 @@ export default function DisplayNotes(props) {
                   isArchived={data.isArchived}
                   isDeleted={data.isDeleted}
                   parent="viewNote"
-                  changeColor={changeColor}
+                  // changeColor={changeColor}
                   displayNote={props.displayNote}
                 />
               </CardActions>
             </Card>
           );
         })}
-      <UpdateDialog
+      <UpdateNoteDialog
         bgColor={background}
         open={open}
         data={updateNoteData}
         close={handleClickUpdateDialogClose}
         displayNote={props.displayNote}
-        changeColor={changeColor}
+        //changeColor={changeColor}
       />
     </React.Fragment>
   );
