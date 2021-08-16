@@ -189,7 +189,6 @@ export default function IconsGroup(props) {
             parent={props.parent}
             getCollaboratingUser={props.getCollaboratingUser}
             displayNote={props.displayNote}
-            // collabDialogOpen={props.collabDialogOpen}
             // handleClickCloseCollabDialog={props.handleClickCloseCollabDialog}
           />
 
