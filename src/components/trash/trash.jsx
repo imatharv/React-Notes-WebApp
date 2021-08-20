@@ -11,7 +11,6 @@ export default function Trash() {
     const token = localStorage.getItem("token");
     Service.getTrashNotes(token)
       .then((noteData) => {
-        console.log(noteData.data.data.data);
         let data = noteData.data.data.data;
         //filter data
         let newArray = data.filter(function (e) {

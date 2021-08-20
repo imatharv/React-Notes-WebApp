@@ -9,7 +9,6 @@ export default function Trash() {
   const [notes, setNotes] = React.useState([]);
 
   const displayNote = () => {
-    console.log("Archives Get API call");
     const token = localStorage.getItem("token");
     Service.getArchiveNotes(token)
       .then((noteData) => {
@@ -19,15 +18,6 @@ export default function Trash() {
           return e.isArchived == true && e.isDeleted == false;
         });
         setNotes(newArray);
-        console.log(noteData);
-        // for (let i=0; i<notedata.data.data.data.length; i++) {
-        //   setNotes(notedata.data.data.data[i]);
-        // }
-        // if (
-        //   notedata.data.data.data.isArchived == true &&
-        //   notedata.data.data.data.isDeleted !== true
-        // )
-        //setNotes(notedata.data.data.data);
       })
       .catch((error) => {
         console.log("Data fetch error in archives: ", error);

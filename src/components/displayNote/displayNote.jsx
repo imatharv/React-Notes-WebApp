@@ -59,41 +59,43 @@ export default function DisplayNotes(props) {
               key={data.id}
               style={{ backgroundColor: data.color }}
             >
-              <CardHeader
-                title={
-                  <Typography
-                    name="noteTitle"
-                    className="noteTitle"
-                    id="noteTitle"
-                  >
-                    {data.title}
-                  </Typography>
-                }
-              />
-
-              <CardContent
-                onClick={(e) =>
-                  handleClickUpdateDialogOpen(e, data, data.color)
-                }
-              >
-                <Typography
-                  name="noteContent"
-                  className="noteContent"
-                  id="noteContent"
-                >
-                  {data.description}
-                </Typography>
-              </CardContent>
-              <CardActions disableSpacing className="iconbar">
-                <IconsGroup
-                  noteId={data.id}
-                  isArchived={data.isArchived}
-                  isDeleted={data.isDeleted}
-                  parent="viewNote"
-                  // changeColor={changeColor}
-                  displayNote={props.displayNote}
+              <div style={{ position: "relative" }}>
+                <CardHeader
+                  title={
+                    <Typography
+                      name="noteTitle"
+                      className="noteTitle"
+                      id="noteTitle"
+                    >
+                      {data.title}
+                    </Typography>
+                  }
                 />
-              </CardActions>
+
+                <CardContent
+                  onClick={(e) =>
+                    handleClickUpdateDialogOpen(e, data, data.color)
+                  }
+                >
+                  <Typography
+                    name="noteContent"
+                    className="noteContent"
+                    id="noteContent"
+                  >
+                    {data.description}
+                  </Typography>
+                </CardContent>
+                <CardActions disableSpacing className="iconbar">
+                  <IconsGroup
+                    noteId={data.id}
+                    isArchived={data.isArchived}
+                    isDeleted={data.isDeleted}
+                    parent="viewNote"
+                    // changeColor={changeColor}
+                    displayNote={props.displayNote}
+                  />
+                </CardActions>
+              </div>
             </Card>
           );
         })}

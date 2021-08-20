@@ -141,6 +141,7 @@ const useStyles = makeStyles((theme) => ({
 function Navigation(props) {
   const classes = useStyles();
   const [menuOpen, setMenuOpen] = React.useState(false);
+  const [title, setTitle] = React.useState("FundooNotes");
   const anchorRef = React.useRef(null);
   const prevOpen = React.useRef(menuOpen);
 
@@ -174,6 +175,9 @@ function Navigation(props) {
     }
     prevOpen.current = menuOpen;
   }, [menuOpen]);
+  React.useEffect(() => {
+    setTitle(props.title);
+  }, [props]);
 
   return (
     <AppBar position="fixed" className={clsx(classes.appBar)}>
@@ -195,7 +199,7 @@ function Navigation(props) {
             alt="logo"
           />
           <Typography variant="h6" className={classes.headerTitle} noWrap>
-            FundooNotes
+            {title}
           </Typography>
         </div>
 
@@ -280,9 +284,8 @@ function Navigation(props) {
   );
 }
 function mapStateToProps(state) {
-  console.log(state);
-  // return {
-  //   searchData: state.searchBarReducer.searchData,
-  // };
+  return {
+    title: state.titleReducer.title,
+  };
 }
 export default connect(mapStateToProps)(Navigation);

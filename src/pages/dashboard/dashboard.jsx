@@ -6,15 +6,15 @@ import Archive from "../../components/archives/archives";
 import Trash from "../../components/trash/trash";
 import "./dashboardStyles.css";
 import React from "react";
+import { connect } from "react-redux";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { Profiler } from "react";
 
 const Service = new UserService();
 
-export default function Dashboard(props) {
+function Dashboard(props) {
   const [navbarDrawerExpand, setNavbarDrawerExpand] = React.useState(false);
   const [searchedTerm, setSearchedTerm] = React.useState("");
-
   const firstName = localStorage.getItem("firstName");
   const lastName = localStorage.getItem("lastName");
   const email = localStorage.getItem("email");
@@ -32,24 +32,27 @@ export default function Dashboard(props) {
     //   pathname: "/dashboard/order",
     //   state: { searchTerm: searchedTerm },
     // });
+    props.dispatch({ type: "Notes" });
     props.history.push("/dashboard/notes");
   };
   const navigateToArchives = () => {
+    props.dispatch({ type: "Archives" });
     props.history.push("/dashboard/archives");
   };
   const navigateToTrash = () => {
+    props.dispatch({ type: "Trash" });
     props.history.push("/dashboard/trash");
   };
   const handleNavbarDrawerToggle = () => {
     setNavbarDrawerExpand(!navbarDrawerExpand);
   };
-  function onRenderCallback(actualDuration, interactions) {
-    console.log("Time spent rendering the comitted update :: ", actualDuration);
-    console.log(
-      "Set of interactions belonging to this update :: ",
-      interactions
-    );
-  }
+  // function onRenderCallback(actualDuration, interactions) {
+  //   // console.log("Time spent rendering the comitted update :: ", actualDuration);
+  //   // console.log(
+  //   //   "Set of interactions belonging to this update :: ",
+  //   //   interactions
+  //   // );
+  // }
   return (
     <React.Fragment>
       <Navigation
@@ -68,17 +71,19 @@ export default function Dashboard(props) {
           navigateToArchives={navigateToArchives}
           navigateToTrash={navigateToTrash}
         />
-        <Profiler id="Navigation" onRender={onRenderCallback}>
-          <Route
-            exact
-            path="/dashboard/notes"
-            component={() => <Notes searchTerm={searchedTerm} />}
-          />
-          {/* <Route exact path="/dashboard/notes" component={Notes} /> */}
-          <Route exact path="/dashboard/archives" component={Archive} />
-          <Route exact path="/dashboard/trash" component={Trash} />
-        </Profiler>
+        {/* <Profiler id="Navigation" onRender={onRenderCallback}> */}
+        <Route
+          exact
+          path="/dashboard/notes"
+          component={() => <Notes searchTerm={searchedTerm} />}
+        />
+        {/* <Route exact path="/dashboard/notes" component={Notes} /> */}
+        <Route exact path="/dashboard/archives" component={Archive} />
+        <Route exact path="/dashboard/trash" component={Trash} />
+        {/* </Profiler> */}
       </div>
     </React.Fragment>
   );
 }
+
+export default connect()(Dashboard);

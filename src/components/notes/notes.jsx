@@ -12,16 +12,13 @@ function Notes(props) {
   const location = useLocation();
 
   const [notes, setNotes] = React.useState([]);
-  const [searchData, setSearchData] = React.useState([]);
+  const [searchTerm, setSearchTerm] = React.useState([]);
 
   const displayNote = () => {
-    console.log("API call");
     const token = localStorage.getItem("token");
     Service.getNote(token)
       .then((noteData) => {
-        console.log(noteData.data.data.data);
         let data = noteData.data.data.data;
-
         //filter data
         let newArray = data.filter(function (e) {
           return e.isArchived == false && e.isDeleted == false;
@@ -34,38 +31,15 @@ function Notes(props) {
   };
 
   let filteredNotes = notes;
-  // if (searchData != "") {
-  //   filteredNotes = notes.filter((i) =>
-  //     i.title.toLowerCase().includes(searchData.toLowerCase())
-  //   );
-  // }
-
-  // const search = (searchedString) => {
-  //   if (searchedString.length == "") {
-  //     setNotes(notes);
-  //   }
-  //   if (searchedString.length >= 3) {
-  //     let notesData = [];
-  //     Object.keys(notes).map((i) => {
-  //       // creating array of number of objects in products
-  //       let key = i;
-  //       notesData.push(notes[key]); // pushing a perticular product at a perticular position...
-  //       const posts = notesData.filter((note) => {
-  //         return note.title
-  //           .toLowerCase()
-  //           .includes(searchedString.toLowerCase());
-  //       });
-  //       //setFilteredNotes(posts);
-  //       setNotes(posts);
-  //     });
-  //   } else {
-  //     setNotes(notes);
-  //   }
-  // };
+  if (searchTerm != "") {
+    filteredNotes = notes.filter((i) =>
+      i.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
 
   useEffect(() => {
     displayNote();
-    setSearchData(props.searchData);
+    setSearchTerm(props.searchData);
   }, [props]);
 
   return (
@@ -85,9 +59,8 @@ function Notes(props) {
 }
 
 function mapStateToProps(state) {
-  console.log(state);
-  // return {
-  //   searchData: state.searchBarReducer.searchData,
-  // };
+  return {
+    searchData: state.searchReducer.searchData,
+  };
 }
 export default connect(mapStateToProps)(Notes);
