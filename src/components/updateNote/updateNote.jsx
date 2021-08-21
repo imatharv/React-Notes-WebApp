@@ -21,6 +21,7 @@ export default function UpdateNoteDialog(props) {
   const [id, setId] = React.useState("");
   const [updatedTitle, setUpdatedTitle] = React.useState("");
   const [updatedContent, setUpdatedContent] = React.useState("");
+  const [dialogBgColor, setDialogBgColor] = React.useState("");
 
   const updateNote = () => {
     if (validate()) {
@@ -56,8 +57,10 @@ export default function UpdateNoteDialog(props) {
   };
   React.useEffect(() => {
     if (props.data) {
+      console.log(props.data);
       setUpdatedTitle(props.data.title);
       setUpdatedContent(props.data.description);
+      setDialogBgColor(props.data.color);
       setId(props.data.id);
     }
   }, [props.data]);
@@ -67,9 +70,9 @@ export default function UpdateNoteDialog(props) {
   const handleInputContent = (event) => {
     setUpdatedContent(event.target.value);
   };
-  // const handleClickAway = () => {
-  //   props.close;
-  // }
+  const changeColor = (color) => {
+    setDialogBgColor(color);
+  };
 
   return (
     <div>
@@ -77,12 +80,12 @@ export default function UpdateNoteDialog(props) {
         {/* <ClickAwayListener onClickAway={props.close}> */}
         <DialogContent
           className="dialog-content"
-          style={{ backgroundColor: props.bgColor }}
+          style={{ backgroundColor: dialogBgColor }}
         >
           <DialogContentText tabIndex={-1}>
             <Card
               className="updateNote"
-              style={{ backgroundColor: props.bgColor }}
+              style={{ backgroundColor: dialogBgColor }}
             >
               <CardHeader
                 // action={
@@ -120,14 +123,14 @@ export default function UpdateNoteDialog(props) {
             </Card>
           </DialogContentText>
         </DialogContent>
-        <DialogActions style={{ backgroundColor: props.bgColor }}>
+        <DialogActions style={{ backgroundColor: dialogBgColor }}>
           <IconsGroup
             updatedTitle={updatedTitle}
             updatedContent={updatedContent}
             noteId={id}
             displayNote={props.displayNote}
             parent="viewNote"
-            changeColor={props.changeColor}
+            changeColor={changeColor}
           />
           <Button onClick={updateNote} className="dialog-close-button">
             Close

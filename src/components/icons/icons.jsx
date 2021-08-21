@@ -41,13 +41,6 @@ export default function IconsGroup(props) {
   }
   const handleClickGetColor = (e, color) => {
     if (props.parent == "viewNote") {
-      // console.log("viewNote");
-      // console.log("color");
-      // console.log(props.noteId);
-      //props.changeColor(color, props.noteId);
-      //console.log(props.noteId);
-      //setBackgroundColor(color);
-      //
       const token = localStorage.getItem("token");
       let noteData = {
         noteIdList: [props.noteId],
@@ -55,7 +48,7 @@ export default function IconsGroup(props) {
       };
       Service.changeColor(noteData, token)
         .then((noteData) => {
-          console.log(noteData);
+          props.changeColor(color);
           props.displayNote();
         })
         .catch((error) => {
