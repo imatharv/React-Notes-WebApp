@@ -91,7 +91,6 @@ export default function IconsGroup(props) {
       });
   };
   const handleClickUnArchive = () => {
-    console.log("Unrchive API call");
     const token = localStorage.getItem("token");
     let noteData = {
       noteIdList: [props.noteId],
