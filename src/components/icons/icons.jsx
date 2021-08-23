@@ -110,7 +110,6 @@ export default function IconsGroup(props) {
   // trash operations
   const handleMoreMenuToggle = () => {
     setMoreMenuOpen((prevOpen) => !prevOpen);
-    console.log("Clicked on more icon in icon.jsx");
   };
   const handleClickMoreMenuClose = () => {
     setMoreMenuOpen(false);
