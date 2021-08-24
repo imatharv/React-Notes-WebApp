@@ -8,6 +8,8 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import IconsGroup from "../icons/icons";
 import UpdateNoteDialog from "../updateNote/updateNote";
+import PersonOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
+import Avatar from "@material-ui/core/Avatar";
 
 const Service = new NoteService();
 
@@ -72,18 +74,26 @@ export default function DisplayNotes(props) {
                   }
                 />
 
-                <CardContent
-                  onClick={(e) =>
-                    handleClickUpdateDialogOpen(e, data, data.color)
-                  }
-                >
+                <CardContent>
                   <Typography
                     name="noteContent"
                     className="noteContent"
                     id="noteContent"
+                    onClick={(e) =>
+                      handleClickUpdateDialogOpen(e, data, data.color)
+                    }
                   >
                     {data.description}
                   </Typography>
+                  <div className="row justify-content-start align-items-center">
+                    {data.collaborators.map((index, collaborator) => (
+                      <div className="col-1" key={index}>
+                        <Avatar className="show-collaborator-icon">
+                          <PersonOutlinedIcon className="person-icon" />
+                        </Avatar>
+                      </div>
+                    ))}
+                  </div>
                 </CardContent>
                 <CardActions disableSpacing className="iconbar">
                   <IconsGroup

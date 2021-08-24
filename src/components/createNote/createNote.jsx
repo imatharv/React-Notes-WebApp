@@ -27,6 +27,7 @@ export default function CreateNote(props) {
   const [titleText, setTitleText] = React.useState("");
   const [contentText, setContentText] = React.useState("");
   const [bgColor, setBackgroundColor] = React.useState("#ffffff");
+  //const [collaboratingUser, setCollaboratingUser] = React.useState([]);
 
   const handleClickAway = () => {
     //createNote();
@@ -41,14 +42,28 @@ export default function CreateNote(props) {
     setBackgroundColor(color);
     console.log(bgColor);
   };
+  let collaboratingUsers = [];
+  const getCollaboratingUser = (user) => {
+    console.log(user);
+    for (let i = 0; i < user.length; i++) {
+      collaboratingUsers.push({
+        firstName: user[i].firstName,
+        lastName: user[i].lastName,
+        email: user[i].email,
+        userId: user[i].userId,
+      });
+    }
+
+    console.log(collaboratingUsers);
+  };
   const createNote = (event) => {
     if (validate()) {
-      console.log("API call");
       const token = localStorage.getItem("token");
       let noteData = new FormData(); // Currently empty
       noteData.append("title", titleText);
       noteData.append("description", contentText);
       noteData.append("color", bgColor);
+      noteData.append("collaberators", collaboratingUsers);
       Service.createNote(noteData, token)
         .then((noteData) => {
           console.log(noteData);
@@ -57,10 +72,9 @@ export default function CreateNote(props) {
           props.displayNote();
         })
         .catch((error) => {
-          console.log("Data posting error: ", error);
+          console.log("Data posting error in create note: ", error);
         });
     } else {
-      console.info("Create note :: empty data");
       setExpanded(false);
       setBackgroundColor("#ffffff");
     }
@@ -85,11 +99,7 @@ export default function CreateNote(props) {
   return (
     <React.Fragment>
       <ClickAwayListener onClickAway={handleClickAway}>
-        <Card
-          className="createNote"
-          style={{ backgroundColor: bgColor }}
-          //style={{ backgroundColor: "#ffdfda" }}
-        >
+        <Card className="createNote" style={{ backgroundColor: bgColor }}>
           <CardHeader
             title={
               <TextField
@@ -127,6 +137,7 @@ export default function CreateNote(props) {
                 displayNote={props.displayNote}
                 addColor={addColor}
                 parent="createNote"
+                getCollaboratingUser={getCollaboratingUser}
               />
               <Button className="card-close-button" onClick={createNote}>
                 Close

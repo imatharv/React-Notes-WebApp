@@ -19,11 +19,13 @@ function Notes(props) {
     Service.getNote(token)
       .then((noteData) => {
         let data = noteData.data.data.data;
+
         //filter data
         let newArray = data.filter(function (e) {
           return e.isArchived == false && e.isDeleted == false;
         });
         setNotes(newArray);
+        console.log(newArray);
       })
       .catch((error) => {
         console.log("Data fetch error: ", error);

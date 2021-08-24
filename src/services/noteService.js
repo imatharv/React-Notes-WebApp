@@ -28,9 +28,17 @@ export default class NotesService {
     }
     changeColor = (data, token) => {
         return axios.postMethod(`${this.baseURL}notes/changesColorNotes`, data, { headers: {"Authorization" : token} });
-
     }
     deleteForever = (data, token) => {
         return axios.postMethod(`${this.baseURL}notes/deleteForeverNotes`, data, { headers: {"Authorization" : token} });
     }
+    SearchUserList = (data, token) => {
+        return axios.postMethod(`${this.baseURL}user/searchUserList`,data, { headers: {"Authorization" : token} });
+    };
+    AddCollaborator = (id, data, token) => {
+        return axios.postMethod(`${this.baseURL}notes/${id}/AddcollaboratorsNotes`, data,{ headers: {"Authorization" : token} });
+    };
+    RemoveCollaborator = (id, userId, token) => {
+        return axios.deleteMethod(`${this.baseURL}notes/${id}/removeCollaboratorsNotes/${userId}`,{ headers: {"Authorization" : token} });
+    };
 }

@@ -1,5 +1,5 @@
 import "./iconsStyles.scss";
-import React from "react";
+import React, { useRef } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import AddAlertOutlinedIcon from "@material-ui/icons/AddAlertOutlined";
 import PersonAddOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
@@ -18,6 +18,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
 import NoteService from "../../services/noteService";
+import AddCollaborator from "../colaborator/colaborator";
 import { FormatListNumberedTwoTone } from "@material-ui/icons";
 
 const Service = new NoteService();
@@ -48,7 +49,6 @@ export default function IconsGroup(props) {
       };
       Service.changeColor(noteData, token)
         .then((noteData) => {
-          props.changeColor(color);
           props.displayNote();
         })
         .catch((error) => {
@@ -56,7 +56,6 @@ export default function IconsGroup(props) {
         });
     }
     if (props.parent == "createNote") {
-      console.log("createNote");
       props.addColor(e, color);
     }
   };
@@ -161,6 +160,26 @@ export default function IconsGroup(props) {
       });
   };
 
+  // collaborator operations
+  const addCollaborator = (user) => {
+    if (props.parent == "viewNote") {
+      console.log(user);
+      const token = localStorage.getItem("token");
+      let id = [props.noteId];
+      let data = user;
+      Service.AddCollaborator(JSON.stringify(data), id, token)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log("Data posting error in add collaborator: ", error);
+        });
+    }
+    if (props.parent == "createNote") {
+      props.getCollaboratingUser(user);
+    }
+  };
+
   return (
     <div className="icons-group">
       {props.isDeleted ? (
@@ -177,9 +196,10 @@ export default function IconsGroup(props) {
           <IconButton aria-label="Remind me">
             <AddAlertOutlinedIcon fontSize="small" />
           </IconButton>
-          <IconButton aria-label="Add colaborators">
+          {/* <IconButton aria-label="Add colaborators">
             <PersonAddOutlinedIcon fontSize="small" />
-          </IconButton>
+          </IconButton> */}
+          <AddCollaborator addCollaborator={addCollaborator} />
 
           <div className="color-pallet-wrapper">
             <IconButton aria-label="Add colour" onClick={handleCpToggle}>

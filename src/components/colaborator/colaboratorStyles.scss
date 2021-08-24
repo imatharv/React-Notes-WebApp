@@ -1,0 +1,47 @@
+.collaborator-wrapper {
+  display: inline;
+}
+.collaborator-dialog .collaborator-avatar {
+  color: #fff;
+  background-color: #673ab7;
+}
+.add-collaborator-icon {
+  background-color: rgb(238, 238, 238) !important;
+}
+.user-list-popper-wrapper {
+  z-index: 9999;
+}
+.user-list-popper {
+  box-shadow: 0rem 0.25rem 0.75rem rgba(0, 0, 0, 0.1) !important;
+  color: rgb(37, 42, 59);
+  border-radius: 0px !important;
+  border: 1px solid rgb(224, 224, 224);
+  padding: 10px;
+  max-height: 200px;
+  overflow-y: scroll;
+  min-width: 200px;
+}
+.collaborator-owner {
+  font-weight: 600 !important;
+}
+.collaborator-owner::after {
+  content: "(Owner)";
+  font-style: italic;
+  margin-left: 5px;
+  font-weight: 400;
+}
+.collaborator-user::after {
+  content: "";
+}
+#email::placeholder {
+  font-weight: 400 !important;
+  color: rgb(0, 0, 0) !important;
+}
+.collaborating-user {
+  padding: 2px;
+}
+.collaborating-user:hover {
+  background-color: rgb(242, 242, 242);
+  color: #673ab7;
+  cursor: pointer;
+}

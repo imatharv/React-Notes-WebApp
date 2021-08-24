@@ -25,7 +25,6 @@ export default function UpdateNoteDialog(props) {
 
   const updateNote = () => {
     if (validate()) {
-      console.log("API call");
       const token = localStorage.getItem("token");
       let noteUpdateData = new FormData(); // Currently empty
       noteUpdateData.append("noteId", id);
@@ -33,12 +32,11 @@ export default function UpdateNoteDialog(props) {
       noteUpdateData.append("description", updatedContent);
       Service.updateNote(noteUpdateData, token)
         .then((noteUpdateData) => {
-          console.log(noteUpdateData);
           props.displayNote();
           props.close();
         })
         .catch((error) => {
-          console.log("Data posting error: ", error);
+          console.log("Data posting error in update note: ", error);
         });
     } else {
       console.info("Update note :: empty data");
@@ -57,7 +55,6 @@ export default function UpdateNoteDialog(props) {
   };
   React.useEffect(() => {
     if (props.data) {
-      console.log(props.data);
       setUpdatedTitle(props.data.title);
       setUpdatedContent(props.data.description);
       setDialogBgColor(props.data.color);
