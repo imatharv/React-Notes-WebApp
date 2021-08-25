@@ -45,6 +45,7 @@ export default function CreateNote(props) {
   let collaboratingUsers = [];
   const getCollaboratingUser = (user) => {
     console.log(user);
+    //collaboratingUsers.push(user);
     for (let i = 0; i < user.length; i++) {
       collaboratingUsers.push({
         firstName: user[i].firstName,
@@ -53,7 +54,6 @@ export default function CreateNote(props) {
         userId: user[i].userId,
       });
     }
-
     console.log(collaboratingUsers);
   };
   const createNote = (event) => {

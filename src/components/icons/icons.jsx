@@ -167,7 +167,8 @@ export default function IconsGroup(props) {
       const token = localStorage.getItem("token");
       let id = [props.noteId];
       let data = user;
-      Service.AddCollaborator(JSON.stringify(data), id, token)
+      // Service.AddCollaborator(JSON.stringify(data), id, token)
+      Service.AddCollaborator(id, data, token)
         .then((res) => {
           console.log(res);
         })
