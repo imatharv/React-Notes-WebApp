@@ -75,7 +75,6 @@ export default function IconsGroup(props) {
 
   // archives operations
   const handleClickArchive = () => {
-    console.log("Archive API call");
     const token = localStorage.getItem("token");
     let noteData = {
       noteIdList: [props.noteId],
