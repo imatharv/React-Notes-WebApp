@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import AddAlertOutlinedIcon from "@material-ui/icons/AddAlertOutlined";
 import PersonAddOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
+import { makeStyles } from "@material-ui/core/styles";
 import PaletteOutlinedIcon from "@material-ui/icons/PaletteOutlined";
 import CropOriginalRoundedIcon from "@material-ui/icons/CropOriginalRounded";
 import ArchiveOutlinedIcon from "@material-ui/icons/ArchiveOutlined";
@@ -23,7 +24,19 @@ import { FormatListNumberedTwoTone } from "@material-ui/icons";
 
 const Service = new NoteService();
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+  input: {
+    display: "none",
+  },
+}));
+
 export default function IconsGroup(props) {
+  const classes = useStyles();
   const [cpOpen, setCpOpen] = React.useState(false);
   const [moreMenuOpen, setMoreMenuOpen] = React.useState(false);
 
@@ -143,15 +156,12 @@ export default function IconsGroup(props) {
       });
   };
   const handleClickDeleteForever = () => {
-    console.log("Delete forever API call");
     const token = localStorage.getItem("token");
     let noteData = {
       noteIdList: [props.noteId],
-      //isDeleted: false,
     };
     Service.deleteForever(noteData, token)
       .then((noteData) => {
-        console.log(noteData);
         setMoreMenuOpen(false);
         props.displayNote();
       })
@@ -180,6 +190,21 @@ export default function IconsGroup(props) {
       props.getCollaboratingUser(user);
     }
   };
+
+  // upload image operations
+  // const handleUploadImage = (e) => {
+  //   if (props.parent === "viewNote") {
+  //     console.log("viewNote", e.target.files[0].name);
+  //     props.handleNoteImage(e.target.files[0].name);
+  //   } else if (props.parent === "createNote") {
+  //     console.log("createNote", e.target.files[0].name);
+  //     props.noteImage(e.target.files[0].name);
+  //   }
+  //   // if (props.owner === "update") {
+  //   //   console.log("createNote", e.target.files[0].name);
+  //   //   props.handleNoteImage(e.target.files[0].name);
+  //   // }
+  // };
 
   return (
     <div className="icons-group">
@@ -216,9 +241,23 @@ export default function IconsGroup(props) {
             />
           </div>
 
-          <IconButton aria-label="Add image">
+          <IconButton aria-label="Add image" component="span">
             <CropOriginalRoundedIcon fontSize="small" />
           </IconButton>
+
+          {/* IMAGE UPLOAD CONTROL */}
+          {/* <input
+            accept="image/*"
+            className={classes.input}
+            id="icon-button-file"
+            type="file"
+            onChange={handleUploadImage}
+          />
+          <label htmlFor="icon-button-file" className="icon-upload">
+            <IconButton aria-label="Add image" component="span">
+              <CropOriginalRoundedIcon fontSize="small" />
+            </IconButton>
+          </label> */}
 
           {props.isArchived ? (
             <IconButton aria-label="Unarchive" onClick={handleClickUnArchive}>

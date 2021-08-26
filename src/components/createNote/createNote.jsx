@@ -27,6 +27,7 @@ export default function CreateNote(props) {
   const [titleText, setTitleText] = React.useState("");
   const [contentText, setContentText] = React.useState("");
   const [bgColor, setBackgroundColor] = React.useState("#ffffff");
+  const [image, setImage] = React.useState("");
   //const [collaboratingUser, setCollaboratingUser] = React.useState([]);
 
   const handleClickAway = () => {
@@ -64,6 +65,9 @@ export default function CreateNote(props) {
       noteData.append("description", contentText);
       noteData.append("color", bgColor);
       noteData.append("collaberators", collaboratingUsers);
+      // if (image !== undefined && image !== "") {
+      //   noteData.append("file", image);
+      // }
       Service.createNote(noteData, token)
         .then((noteData) => {
           console.log(noteData);
@@ -95,6 +99,24 @@ export default function CreateNote(props) {
   const handleContentInputChange = (event) => {
     setContentText(event.target.value);
   };
+  // const handleNoteImage = (image) => {
+  //   setImage(image);
+  // };
+  // const displayNoteImage = (image) => {
+  //   if (image !== "" && image !== undefined) {
+  //     return (
+  //       <div className="row justify-content-center align-items-center mt-3">
+  //         <div className="col-4">
+  //           <img
+  //             className="img-fluid shadow-sm border-light rounded-lg"
+  //             src={image}
+  //             alt="Note_image"
+  //           />
+  //         </div>
+  //       </div>
+  //     );
+  //   }
+  // };
 
   return (
     <React.Fragment>
@@ -128,6 +150,8 @@ export default function CreateNote(props) {
                 fullWidth
                 multiline
               />
+              {/* DISPLAY SELECTED NOTE IMAGE HERE */}
+              {/* {displayNoteImage} */}
             </CardContent>
             <CardActions disableSpacing>
               <IconsGroup
@@ -138,6 +162,7 @@ export default function CreateNote(props) {
                 addColor={addColor}
                 parent="createNote"
                 getCollaboratingUser={getCollaboratingUser}
+                //noteImage={handleNoteImage}
               />
               <Button className="card-close-button" onClick={createNote}>
                 Close

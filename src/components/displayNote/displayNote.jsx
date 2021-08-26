@@ -1,19 +1,29 @@
 import "./displayNoteStyles.scss";
-import NoteService from "../../services/noteService";
 import React from "react";
+// import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
+// import CardMedia from "@material-ui/core/CardMedia";
 import CardActions from "@material-ui/core/CardActions";
 import IconsGroup from "../icons/icons";
 import UpdateNoteDialog from "../updateNote/updateNote";
 import PersonOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
 import Avatar from "@material-ui/core/Avatar";
 
-const Service = new NoteService();
+// const useStyles = makeStyles({
+//   root: {
+//     maxWidth: 250,
+//   },
+//   media: {
+//     height: "auto",
+//   },
+// });
 
 export default function DisplayNotes(props) {
+  // const classes = useStyles();
+
   const [updateNoteData, setUpdateNoteData] = React.useState({});
   const [open, setOpen] = React.useState(false);
   const [background, setBackgroundColor] = React.useState("");
@@ -29,24 +39,31 @@ export default function DisplayNotes(props) {
     setOpen(false);
   };
 
-  // color operations
-  // const changeColor = (e, color, id) => {
-  //  setBackgroundColor(color);
-  //  const token = localStorage.getItem("token");
-  //  console.log("NoteId in color change :: ", id);
-  //  Cannot getting current note id here
-  //  let noteData = {
-  //    //noteIdList: id,
-  //    color: color,
-  //  };
-  //  Service.changeColor(noteData, token)
-  //   .then((noteData) => {
-  //     console.log(noteData);
-  //     //props.displayNote();
-  //   })
-  //   .catch((error) => {
-  //     console.log("Data posting error in change color: ", error);
-  //   });
+  // const displayNoteImage = (image) => {
+  //   let Url = "http://fundoonotes.incubation.bridgelabz.com/";
+  //   if (image !== undefined && image !== "") {
+  //     let splitter = image.split("/");
+  //     if (splitter.length > 2) {
+  //       splitter.splice(0, 1);
+  //       let picture = Url + splitter.join("/");
+  //       return (
+  //         <div className="row justify-content-center align-items-center">
+  //           <div className="col-12">
+  //             <img className="img-fluid" src={picture} />
+  //           </div>
+  //         </div>
+  //       );
+  //     } else {
+  //       let picture = Url + image;
+  //       return (
+  //         <div className="row justify-content-center align-items-center">
+  //           <div className="col-12">
+  //             <img className="img-fluid" src={picture} />
+  //           </div>
+  //         </div>
+  //       );
+  //     }
+  //   }
   // };
 
   return (
@@ -62,6 +79,13 @@ export default function DisplayNotes(props) {
               style={{ backgroundColor: data.color }}
             >
               <div style={{ position: "relative" }}>
+                {/* DISPLAY NOTE IMAGE HERE */}
+                {/* {displayNoteImage(data.imageUrl)} */}
+                {/* <CardMedia
+                  className={classes.media}
+                  image="/static/images/cards/contemplative-reptile.jpg"
+                  title="Contemplative Reptile"
+                /> */}
                 <CardHeader
                   title={
                     <Typography
