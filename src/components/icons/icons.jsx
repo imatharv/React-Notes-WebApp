@@ -1,9 +1,8 @@
 import "./iconsStyles.scss";
-import React, { useRef } from "react";
+import React from "react";
 import IconButton from "@material-ui/core/IconButton";
 import AddAlertOutlinedIcon from "@material-ui/icons/AddAlertOutlined";
-import PersonAddOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
-import { makeStyles } from "@material-ui/core/styles";
+// import { makeStyles } from "@material-ui/core/styles";
 import PaletteOutlinedIcon from "@material-ui/icons/PaletteOutlined";
 import CropOriginalRoundedIcon from "@material-ui/icons/CropOriginalRounded";
 import ArchiveOutlinedIcon from "@material-ui/icons/ArchiveOutlined";
@@ -20,23 +19,22 @@ import MenuList from "@material-ui/core/MenuList";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
 import NoteService from "../../services/noteService";
 import AddCollaborator from "../colaborator/colaborator";
-import { FormatListNumberedTwoTone } from "@material-ui/icons";
 
 const Service = new NoteService();
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(1),
-    },
-  },
-  input: {
-    display: "none",
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     "& > *": {
+//       margin: theme.spacing(1),
+//     },
+//   },
+//   input: {
+//     display: "none",
+//   },
+// }));
 
 export default function IconsGroup(props) {
-  const classes = useStyles();
+  // const classes = useStyles();
   const [cpOpen, setCpOpen] = React.useState(false);
   const [moreMenuOpen, setMoreMenuOpen] = React.useState(false);
 
@@ -226,8 +224,6 @@ export default function IconsGroup(props) {
               cpOpen={cpOpen}
               handleListKeyDown={handleListKeyDown}
               handleClose={handleClose}
-              //addColor={props.addColor}
-              // handleClickGetColor={handleClickGetColor(props.id)}
               handleClickGetColor={handleClickGetColor}
             />
           </div>
