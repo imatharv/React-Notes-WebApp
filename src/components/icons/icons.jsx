@@ -82,7 +82,6 @@ export default function IconsGroup(props) {
     };
     Service.archiveNotes(noteData, token)
       .then((noteData) => {
-        console.log(noteData);
         props.displayNote();
       })
       .catch((error) => {
