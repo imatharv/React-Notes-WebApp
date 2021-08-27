@@ -139,7 +139,6 @@ export default function IconsGroup(props) {
       });
   };
   const handleClickUnTrash = () => {
-    console.log("Untrash API call");
     const token = localStorage.getItem("token");
     let noteData = {
       noteIdList: [props.noteId],
@@ -147,7 +146,6 @@ export default function IconsGroup(props) {
     };
     Service.trashNotes(noteData, token)
       .then((noteData) => {
-        console.log(noteData);
         setMoreMenuOpen(false);
         props.displayNote();
       })
