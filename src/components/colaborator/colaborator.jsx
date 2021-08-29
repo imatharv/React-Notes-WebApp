@@ -64,7 +64,6 @@ export default function AddCollaborator(props) {
     //
     //setAnchorEl(null);
     //setUserPopperOpen(false);
-    //
   };
 
   const handleClickRemoveCollaborator = (userId, e) => {
