@@ -180,9 +180,8 @@ export default function IconsGroup(props) {
       props.getCollaboratingUser(user);
     }
   };
-
   const removeCollaborator = (userId) => {
-    if (props.parent == "viewNote") {
+    if (props.parent === "viewNote") {
       console.log(userId);
       const token = localStorage.getItem("token");
       let noteId = [props.noteId];
@@ -195,10 +194,9 @@ export default function IconsGroup(props) {
           console.log("Data posting error in remove collaborator: ", error);
         });
     }
-    if (props.parent == "createNote") {
+    if (props.parent === "createNote") {
       console.log(userId);
       // Send user details to create note component and remove user from there with this details
-      // props.getCollaboratingUser(user);
     }
   };
 

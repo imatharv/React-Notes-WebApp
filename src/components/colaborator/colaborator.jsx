@@ -37,11 +37,6 @@ export default function AddCollaborator(props) {
     setOpen(false);
   };
 
-  const handleClickRemoveCollaborator = (userId, e) => {
-    e.preventDefault();
-    props.removeCollaborator(userId);
-  };
-
   const handleChangeUserPopper = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
     // setUserPopperOpen(true);
@@ -65,11 +60,20 @@ export default function AddCollaborator(props) {
   //let collabUsers = [];
   const handleAddUser = (user) => {
     //e.preventDefault();
-    collabUsers.push(user);
+    setCollabUsers([...collabUsers, user]);
     //
     //setAnchorEl(null);
     //setUserPopperOpen(false);
     //
+  };
+
+  const handleClickRemoveCollaborator = (userId, e) => {
+    e.preventDefault();
+    console.log(collabUsers);
+    const removeIndex = collabUsers.findIndex((item) => item.userId === userId);
+    // remove object
+    collabUsers.splice(removeIndex, 1);
+    console.log(collabUsers);
   };
 
   const handleSave = () => {

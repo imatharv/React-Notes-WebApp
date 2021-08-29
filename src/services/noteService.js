@@ -41,4 +41,7 @@ export default class NotesService {
     RemoveCollaborator = (id, userId, token) => {
         return axios.deleteMethod(`${this.baseURL}notes/${id}/removeCollaboratorsNotes/${userId}`,{ headers: {"Authorization" : token} });
     };
+    PinNote = (data, token) => {
+        return axios.postMethod(`${this.baseURL}notes/pinUnpinNotes`, data, { headers: {"Authorization" : token} });
+    };
 }

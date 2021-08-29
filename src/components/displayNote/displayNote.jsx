@@ -11,6 +11,7 @@ import IconsGroup from "../icons/icons";
 import UpdateNoteDialog from "../updateNote/updateNote";
 import PersonOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
 import Avatar from "@material-ui/core/Avatar";
+import Pin from "../pin/pin";
 
 // const useStyles = makeStyles({
 //   root: {
@@ -23,10 +24,10 @@ import Avatar from "@material-ui/core/Avatar";
 
 export default function DisplayNotes(props) {
   // const classes = useStyles();
-
   const [updateNoteData, setUpdateNoteData] = React.useState({});
   const [open, setOpen] = React.useState(false);
   const [background, setBackgroundColor] = React.useState("");
+  const [isPinned, setIsPinned] = React.useState(false);
   // const [collabDialogOpen, setCollabDialogOpen] = React.useState(false);
 
   // const handleClickOpenCollabDialog = () => {
@@ -47,6 +48,29 @@ export default function DisplayNotes(props) {
   const handleClickUpdateDialogClose = () => {
     setOpen(false);
   };
+
+  function displayIsPinned(data) {
+    console.log(data);
+    if (data.isPined) {
+      return (
+        <Pin
+          parent="viewNote"
+          isPinned={data.isPined}
+          noteId={data.id}
+          displayNote={props.displayNote}
+        />
+      );
+    } else {
+      return (
+        <Pin
+          parent="viewNote"
+          isPinned={data.isPined}
+          noteId={data.id}
+          displayNote={props.displayNote}
+        />
+      );
+    }
+  }
 
   // const displayNoteImage = (image) => {
   //   let Url = "http://fundoonotes.incubation.bridgelabz.com/";
@@ -97,13 +121,17 @@ export default function DisplayNotes(props) {
                 /> */}
                 <CardHeader
                   title={
-                    <Typography
-                      name="noteTitle"
-                      className="noteTitle"
-                      id="noteTitle"
-                    >
-                      {data.title}
-                    </Typography>
+                    <div className="row mx-0">
+                      <Typography
+                        name="noteTitle"
+                        className="noteTitle"
+                        id="noteTitle"
+                        style={{ width: "90%" }}
+                      >
+                        {data.title}
+                      </Typography>
+                      <div className="ml-auto">{displayIsPinned(data)}</div>
+                    </div>
                   }
                 />
 

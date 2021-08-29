@@ -1,6 +1,7 @@
 import "./createNoteStyles.scss";
-import NoteService from "../../services/noteService";
 import React from "react";
+import NoteService from "../../services/noteService";
+import Pin from "../pin/pin";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
@@ -27,7 +28,8 @@ export default function CreateNote(props) {
   const [titleText, setTitleText] = React.useState("");
   const [contentText, setContentText] = React.useState("");
   const [bgColor, setBackgroundColor] = React.useState("#ffffff");
-  const [image, setImage] = React.useState("");
+  const [isNotePinned, setIsNotePinned] = React.useState(false);
+  //const [image, setImage] = React.useState("");
   //const [collaboratingUser, setCollaboratingUser] = React.useState([]);
 
   const handleClickAway = () => {
@@ -45,7 +47,6 @@ export default function CreateNote(props) {
   };
   let collaboratingUsers = [];
   const getCollaboratingUser = (user) => {
-    console.log(user);
     //collaboratingUsers.push(user);
     for (let i = 0; i < user.length; i++) {
       collaboratingUsers.push({
@@ -57,6 +58,14 @@ export default function CreateNote(props) {
     }
     console.log(collaboratingUsers);
   };
+  // const removeCollaboratingUser = (userId) => {
+  //   for (let i = 0; i < userId.length; i++) {
+  //     if (collaboratingUsers.userId === userId) {
+  //       collaboratingUsers.splice(0, userId);
+  //     }
+  //   }
+  //   console.log(collaboratingUsers);
+  // };
   const createNote = (event) => {
     if (validate()) {
       const token = localStorage.getItem("token");
@@ -65,6 +74,7 @@ export default function CreateNote(props) {
       noteData.append("description", contentText);
       noteData.append("color", bgColor);
       noteData.append("collaberators", JSON.stringify(collaboratingUsers));
+      noteData.append("isPined", isNotePinned);
       // if (image !== undefined && image !== "") {
       //   noteData.append("file", image);
       // }
@@ -99,6 +109,10 @@ export default function CreateNote(props) {
   const handleContentInputChange = (event) => {
     setContentText(event.target.value);
   };
+  const getIsPinned = (isPinned) => {
+    setIsNotePinned(isPinned);
+  };
+
   // const handleNoteImage = (image) => {
   //   setImage(image);
   // };
@@ -124,18 +138,23 @@ export default function CreateNote(props) {
         <Card className="createNote" style={{ backgroundColor: bgColor }}>
           <CardHeader
             title={
-              <TextField
-                name="noteTitle"
-                className="noteTitle"
-                id="noteTitle"
-                label=""
-                placeholder="Title"
-                onChange={handleTitleInputChange}
-                onClick={handleExpandClick}
-                aria-expanded={expanded}
-                multiline
-                fullWidth
-              />
+              <div className="row mx-0">
+                <TextField
+                  name="noteTitle"
+                  className="noteTitle"
+                  id="noteTitle"
+                  label=""
+                  placeholder="Title"
+                  onChange={handleTitleInputChange}
+                  onClick={handleExpandClick}
+                  aria-expanded={expanded}
+                  style={{ width: "95%" }}
+                  multiline
+                />
+                <div className="ml-auto">
+                  <Pin parent="createNote" getIsPinned={getIsPinned} />
+                </div>
+              </div>
             }
           />
           <Collapse in={expanded} timeout="auto" unmountOnExit>
