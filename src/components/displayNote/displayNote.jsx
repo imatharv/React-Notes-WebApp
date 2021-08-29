@@ -27,6 +27,15 @@ export default function DisplayNotes(props) {
   const [updateNoteData, setUpdateNoteData] = React.useState({});
   const [open, setOpen] = React.useState(false);
   const [background, setBackgroundColor] = React.useState("");
+  // const [collabDialogOpen, setCollabDialogOpen] = React.useState(false);
+
+  // const handleClickOpenCollabDialog = () => {
+  //   setCollabDialogOpen(true);
+  // };
+
+  // const handleClickCloseCollabDialog = () => {
+  //   setCollabDialogOpen(false);
+  // };
 
   const handleClickUpdateDialogOpen = (e, data, color) => {
     e.preventDefault();
@@ -98,21 +107,26 @@ export default function DisplayNotes(props) {
                   }
                 />
 
-                <CardContent>
+                <CardContent
+                  onClick={(e) =>
+                    handleClickUpdateDialogOpen(e, data, data.color)
+                  }
+                  style={{ cursor: "pointer" }}
+                >
                   <Typography
                     name="noteContent"
                     className="noteContent"
                     id="noteContent"
-                    onClick={(e) =>
-                      handleClickUpdateDialogOpen(e, data, data.color)
-                    }
                   >
                     {data.description}
                   </Typography>
-                  <div className="row justify-content-start align-items-center">
+                  <div className="row justify-content-start align-items-center mt-3">
                     {data.collaborators.map((index, collaborator) => (
-                      <div className="col-1" key={index}>
-                        <Avatar className="show-collaborator-icon">
+                      <div className="col-1 mr-2" key={index}>
+                        <Avatar
+                          className="show-collaborator-icon"
+                          // onClick={handleClickOpenCollabDialog}
+                        >
                           <PersonOutlinedIcon className="person-icon" />
                         </Avatar>
                       </div>
@@ -125,8 +139,11 @@ export default function DisplayNotes(props) {
                     isArchived={data.isArchived}
                     isDeleted={data.isDeleted}
                     parent="viewNote"
-                    // changeColor={changeColor}
+                    //changeColor={changeColor}
                     displayNote={props.displayNote}
+                    noteData={data}
+                    //collabDialogOpen={collabDialogOpen}
+                    //handleClickCloseCollabDialog={handleClickCloseCollabDialog}
                   />
                 </CardActions>
               </div>

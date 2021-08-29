@@ -13,6 +13,7 @@ import HighlightOffRoundedIcon from "@material-ui/icons/HighlightOffRounded";
 import Popper from "@material-ui/core/Popper";
 import Paper from "@material-ui/core/Paper";
 import NoteService from "../../services/noteService";
+import { useEffect } from "react";
 
 const Service = new NoteService();
 
@@ -24,6 +25,8 @@ export default function AddCollaborator(props) {
   const [usersList, setUsersList] = React.useState([]);
   const [collaborator, setCollaborator] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
+  //const [userPopperOpen, setUserPopperOpen] = React.useState(false);
+
   let userPopperOpen = Boolean(anchorEl);
 
   const handleClickOpen = () => {
@@ -34,8 +37,14 @@ export default function AddCollaborator(props) {
     setOpen(false);
   };
 
+  const handleClickRemoveCollaborator = (userId, e) => {
+    e.preventDefault();
+    props.removeCollaborator(userId);
+  };
+
   const handleChangeUserPopper = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
+    // setUserPopperOpen(true);
     event.preventDefault();
     const token = localStorage.getItem("token");
     let data = {
@@ -52,19 +61,37 @@ export default function AddCollaborator(props) {
       });
   };
 
-  let collabUsers = [];
-  const handleAddUser = (user, e) => {
-    e.preventDefault();
+  const [collabUsers, setCollabUsers] = React.useState([]);
+  //let collabUsers = [];
+  const handleAddUser = (user) => {
+    //e.preventDefault();
     collabUsers.push(user);
-    //setCollaborator(collabUsers);
-    //props.addCollaborator(collabUsers);
+    //
+    //setAnchorEl(null);
+    //setUserPopperOpen(false);
+    //
   };
 
   const handleSave = () => {
-    //setCollaborator(collabUsers);
     props.addCollaborator(collabUsers);
     setOpen(false);
   };
+
+  const displayPreCollaborators = () => {
+    setCollaborator(collabUsers);
+  };
+
+  useEffect(() => {
+    if (props.noteData) {
+      console.log(props.noteData.collaborators);
+      setCollabUsers(props.noteData.collaborators);
+    }
+    // setCollabUsers(props.noteData);
+  }, []);
+
+  useEffect(() => {
+    displayPreCollaborators();
+  }, [collabUsers]);
 
   return (
     <div className="collaborator-wrapper">
@@ -75,6 +102,7 @@ export default function AddCollaborator(props) {
         fullWidth={true}
         maxWidth="sm"
         open={open}
+        // open={open || props.collabDialogOpen}
         onClose={handleClose}
         className="collaborator-dialog"
         aria-labelledby="collaborator-dialog-title"
@@ -101,6 +129,7 @@ export default function AddCollaborator(props) {
           </div>
 
           {/* Collaborators list */}
+          {/* {displayPreCollaborators} */}
           {collabUsers.map((user, index) => (
             <div
               key={index}
@@ -123,7 +152,9 @@ export default function AddCollaborator(props) {
               <div className="col-2">
                 <IconButton
                   aria-label="Remove colaborators"
-                  onClick={handleClickOpen}
+                  onClick={(e) => {
+                    handleClickRemoveCollaborator(user.userId, e);
+                  }}
                   className="ml-4"
                 >
                   <HighlightOffRoundedIcon fontSize="medium" />

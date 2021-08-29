@@ -75,6 +75,7 @@ $icons-dark: #424549;
 }
 .displayNote .MuiCardContent-root {
   padding-top: 5px !important;
+  padding-bottom: 8px !important;
 }
 .displayNote .MuiCardActions-root {
   padding-top: 0px !important;
@@ -92,6 +93,12 @@ $icons-dark: #424549;
   width: 30px !important;
   height: 30px !important;
   font-size: 1rem !important;
+  cursor: pointer;
+  transition: all ease 0.3s;
+}
+.show-collaborator-icon:hover {
+  border: 1.5px solid #424549;
+  box-shadow: 0rem 0.3rem 0.6rem rgba(0, 0, 0, 0.15);
 }
 .person-icon {
   font-size: 1rem !important;

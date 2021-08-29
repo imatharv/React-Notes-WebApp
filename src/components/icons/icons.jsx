@@ -61,6 +61,7 @@ export default function IconsGroup(props) {
       Service.changeColor(noteData, token)
         .then((noteData) => {
           props.displayNote();
+          props.changeColor(color);
         })
         .catch((error) => {
           console.log("Data posting error in change color: ", error);
@@ -165,7 +166,7 @@ export default function IconsGroup(props) {
       console.log(user);
       const token = localStorage.getItem("token");
       let id = [props.noteId];
-      let data = user;
+      let data = JSON.stringify(user);
       // Service.AddCollaborator(JSON.stringify(data), id, token)
       Service.AddCollaborator(id, data, token)
         .then((res) => {
@@ -177,6 +178,27 @@ export default function IconsGroup(props) {
     }
     if (props.parent == "createNote") {
       props.getCollaboratingUser(user);
+    }
+  };
+
+  const removeCollaborator = (userId) => {
+    if (props.parent == "viewNote") {
+      console.log(userId);
+      const token = localStorage.getItem("token");
+      let noteId = [props.noteId];
+      let collaboratorId = JSON.stringify(userId);
+      Service.RemoveCollaborator(noteId, collaboratorId, token)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log("Data posting error in remove collaborator: ", error);
+        });
+    }
+    if (props.parent == "createNote") {
+      console.log(userId);
+      // Send user details to create note component and remove user from there with this details
+      // props.getCollaboratingUser(user);
     }
   };
 
@@ -214,7 +236,13 @@ export default function IconsGroup(props) {
           {/* <IconButton aria-label="Add colaborators">
             <PersonAddOutlinedIcon fontSize="small" />
           </IconButton> */}
-          <AddCollaborator addCollaborator={addCollaborator} />
+          <AddCollaborator
+            addCollaborator={addCollaborator}
+            removeCollaborator={removeCollaborator}
+            noteData={props.noteData}
+            // collabDialogOpen={props.collabDialogOpen}
+            // handleClickCloseCollabDialog={props.handleClickCloseCollabDialog}
+          />
 
           <div className="color-pallet-wrapper">
             <IconButton aria-label="Add colour" onClick={handleCpToggle}>

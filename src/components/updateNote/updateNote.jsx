@@ -13,6 +13,8 @@ import CardContent from "@material-ui/core/CardContent";
 import IconsGroup from "../icons/icons";
 import EmojiFlagsRoundedIcon from "@material-ui/icons/EmojiFlagsRounded";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import PersonOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
+import Avatar from "@material-ui/core/Avatar";
 
 const Service = new NoteService();
 
@@ -21,7 +23,8 @@ export default function UpdateNoteDialog(props) {
   const [updatedTitle, setUpdatedTitle] = React.useState("");
   const [updatedContent, setUpdatedContent] = React.useState("");
   const [dialogBgColor, setDialogBgColor] = React.useState("");
-  const [image, setImage] = React.useState("");
+  const [collaborators, setCollaborators] = React.useState([]);
+  //const [image, setImage] = React.useState("");
 
   const updateNote = () => {
     if (validate()) {
@@ -58,6 +61,11 @@ export default function UpdateNoteDialog(props) {
       setUpdatedTitle(props.data.title);
       setUpdatedContent(props.data.description);
       setDialogBgColor(props.data.color);
+      if (
+        props.data.collaborators !== "" &&
+        props.data.collaborators !== undefined
+      )
+        setCollaborators(props.data.collaborators);
       setId(props.data.id);
     }
   }, [props.data]);
@@ -106,72 +114,77 @@ export default function UpdateNoteDialog(props) {
   //   }
   // };
   return (
-    <div>
-      <Dialog maxWidth="md" className="update-note-dialog" open={props.open}>
-        {/* <ClickAwayListener onClickAway={props.close}> */}
-        <DialogContent
-          className="dialog-content"
-          style={{ backgroundColor: dialogBgColor }}
-        >
-          <DialogContentText tabIndex={-1}>
-            <Card
-              className="updateNote"
-              style={{ backgroundColor: dialogBgColor }}
-            >
-              <CardHeader
-                // action={
-                //   <IconButton aria-label="Pin to top">
-                //     <EmojiFlagsRoundedIcon />
-                //   </IconButton>
-                // }
-                title={
-                  <TextField
-                    name="noteTitle"
-                    className="noteTitle"
-                    id="standard-textarea"
-                    label=""
-                    value={updatedTitle}
-                    onChange={handleInputTitle}
-                    placeholder="Title"
-                    multiline
-                    fullWidth
-                  />
-                }
+    <Dialog maxWidth="md" className="update-note-dialog" open={props.open}>
+      {/* <ClickAwayListener onClickAway={props.close}> */}
+      <DialogContent
+        className="dialog-content"
+        style={{ backgroundColor: dialogBgColor }}
+      >
+        <Card className="updateNote" style={{ backgroundColor: dialogBgColor }}>
+          <CardHeader
+            // action={
+            //   <IconButton aria-label="Pin to top">
+            //     <EmojiFlagsRoundedIcon />
+            //   </IconButton>
+            // }
+            title={
+              <TextField
+                name="noteTitle"
+                className="noteTitle"
+                id="standard-textarea"
+                label=""
+                value={updatedTitle}
+                onChange={handleInputTitle}
+                placeholder="Title"
+                multiline
+                fullWidth
               />
-              <CardContent>
-                <TextField
-                  name="noteContent"
-                  className="noteContent"
-                  id="standard-textarea"
-                  label=""
-                  value={updatedContent}
-                  onChange={handleInputContent}
-                  placeholder="Take a note.."
-                  multiline
-                  fullWidth
-                />
-              </CardContent>
-              {/* {displayNoteImage(props.data.imageUrl)} */}
-            </Card>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions style={{ backgroundColor: dialogBgColor }}>
-          <IconsGroup
-            updatedTitle={updatedTitle}
-            updatedContent={updatedContent}
-            noteId={id}
-            displayNote={props.displayNote}
-            parent="viewNote"
-            owner="updateNote"
-            changeColor={changeColor}
-            //handleNoteImage={handleNoteImage}
+            }
+            className="note-heading-wrapper"
           />
-          <Button onClick={updateNote} className="dialog-close-button">
-            Close
-          </Button>
-        </DialogActions>
-        {/* </ClickAwayListener> */}
-      </Dialog>
-    </div>
+          <CardContent className="note-content-wrapper">
+            <TextField
+              name="noteContent"
+              className="noteContent"
+              id="standard-textarea"
+              label=""
+              value={updatedContent}
+              onChange={handleInputContent}
+              placeholder="Take a note.."
+              multiline
+              fullWidth
+            />
+          </CardContent>
+          {/* {displayNoteImage(props.data.imageUrl)} */}
+        </Card>
+        <div className="row justify-content-start align-items-center my-1 mx-0">
+          {collaborators.map((index, collaborator) => (
+            <div className="col-1 pr-0" key={index}>
+              <Avatar
+                className="show-collaborator-icon"
+                // onClick={handleClickOpenCollabDialog}
+              >
+                <PersonOutlinedIcon className="person-icon" />
+              </Avatar>
+            </div>
+          ))}
+        </div>
+      </DialogContent>
+      <DialogActions style={{ backgroundColor: dialogBgColor }}>
+        <IconsGroup
+          updatedTitle={updatedTitle}
+          updatedContent={updatedContent}
+          noteId={id}
+          displayNote={props.displayNote}
+          parent="viewNote"
+          changeColor={changeColor}
+          //handleNoteImage={handleNoteImage}
+        />
+        <Button onClick={updateNote} className="dialog-close-button">
+          Close
+        </Button>
+      </DialogActions>
+      {/* </ClickAwayListener> */}
+    </Dialog>
   );
 }

@@ -64,7 +64,7 @@ export default function CreateNote(props) {
       noteData.append("title", titleText);
       noteData.append("description", contentText);
       noteData.append("color", bgColor);
-      noteData.append("collaberators", collaboratingUsers);
+      noteData.append("collaberators", JSON.stringify(collaboratingUsers));
       // if (image !== undefined && image !== "") {
       //   noteData.append("file", image);
       // }
