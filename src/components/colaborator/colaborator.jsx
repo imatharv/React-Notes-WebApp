@@ -60,8 +60,8 @@ export default function AddCollaborator(props) {
   //let collabUsers = [];
   const handleAddUser = (user) => {
     //e.preventDefault();
+    // using spread operator for all previous data pls new one
     setCollabUsers([...collabUsers, user]);
-    //
     //setAnchorEl(null);
     //setUserPopperOpen(false);
   };
