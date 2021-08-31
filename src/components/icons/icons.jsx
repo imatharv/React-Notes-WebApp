@@ -1,7 +1,6 @@
 import "./iconsStyles.scss";
 import React from "react";
 import IconButton from "@material-ui/core/IconButton";
-import AddAlertOutlinedIcon from "@material-ui/icons/AddAlertOutlined";
 // import { makeStyles } from "@material-ui/core/styles";
 import PaletteOutlinedIcon from "@material-ui/icons/PaletteOutlined";
 import CropOriginalRoundedIcon from "@material-ui/icons/CropOriginalRounded";
@@ -19,6 +18,7 @@ import MenuList from "@material-ui/core/MenuList";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
 import NoteService from "../../services/noteService";
 import AddCollaborator from "../colaborator/colaborator";
+import AddReminder from "../reminder/reminder";
 
 const Service = new NoteService();
 
@@ -160,46 +160,6 @@ export default function IconsGroup(props) {
       });
   };
 
-  // collaborator operations
-  const addCollaborator = (user) => {
-    if (props.parent == "viewNote") {
-      console.log(user);
-      const token = localStorage.getItem("token");
-      let id = [props.noteId];
-      let data = JSON.stringify(user);
-      // Service.AddCollaborator(JSON.stringify(data), id, token)
-      Service.AddCollaborator(id, data, token)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((error) => {
-          console.log("Data posting error in add collaborator: ", error);
-        });
-    }
-    if (props.parent == "createNote") {
-      props.getCollaboratingUser(user);
-    }
-  };
-  const removeCollaborator = (userId) => {
-    if (props.parent === "viewNote") {
-      console.log(userId);
-      const token = localStorage.getItem("token");
-      let noteId = [props.noteId];
-      let collaboratorId = JSON.stringify(userId);
-      Service.RemoveCollaborator(noteId, collaboratorId, token)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((error) => {
-          console.log("Data posting error in remove collaborator: ", error);
-        });
-    }
-    if (props.parent === "createNote") {
-      console.log(userId);
-      // Send user details to create note component and remove user from there with this details
-    }
-  };
-
   // upload image operations
   // const handleUploadImage = (e) => {
   //   if (props.parent === "viewNote") {
@@ -228,16 +188,19 @@ export default function IconsGroup(props) {
         </div>
       ) : (
         <div className="icons-group">
-          <IconButton aria-label="Remind me">
-            <AddAlertOutlinedIcon fontSize="small" />
-          </IconButton>
-          {/* <IconButton aria-label="Add colaborators">
-            <PersonAddOutlinedIcon fontSize="small" />
-          </IconButton> */}
+          <AddReminder
+            data={props.data}
+            getReminders={props.getReminders}
+            displayNote={props.displayNote}
+            parent={props.parent}
+          />
+
           <AddCollaborator
-            addCollaborator={addCollaborator}
-            removeCollaborator={removeCollaborator}
             noteData={props.noteData}
+            data={props.data}
+            parent={props.parent}
+            getCollaboratingUser={props.getCollaboratingUser}
+            displayNote={props.displayNote}
             // collabDialogOpen={props.collabDialogOpen}
             // handleClickCloseCollabDialog={props.handleClickCloseCollabDialog}
           />

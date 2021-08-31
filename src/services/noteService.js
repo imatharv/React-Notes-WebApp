@@ -44,4 +44,13 @@ export default class NotesService {
     PinNote = (data, token) => {
         return axios.postMethod(`${this.baseURL}notes/pinUnpinNotes`, data, { headers: {"Authorization" : token} });
     };
+    getReminder = (data, token) => {
+        return axios.getMethod(`${this.baseURL}notes/getReminderNotesList`, data, { headers: {"Authorization" : token} });
+    };
+    addReminder = (data, token) => {
+        return axios.postMethod(`${this.baseURL}notes/addUpdateReminderNotes`, data, { headers: {"Authorization" : token} });
+    };
+    removeReminder = (data, token) => {
+        return axios.postMethod(`${this.baseURL}notes/removeReminderNotes`, data, { headers: {"Authorization" : token} });
+    };
 }

@@ -9,9 +9,10 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import IconsGroup from "../icons/icons";
 import UpdateNoteDialog from "../updateNote/updateNote";
-import PersonOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
+import PersonOutlineRoundedIcon from "@material-ui/icons/PersonOutlineRounded";
 import Avatar from "@material-ui/core/Avatar";
 import Pin from "../pin/pin";
+import { LineWeight } from "@material-ui/icons";
 
 // const useStyles = makeStyles({
 //   root: {
@@ -28,15 +29,6 @@ export default function DisplayNotes(props) {
   const [open, setOpen] = React.useState(false);
   const [background, setBackgroundColor] = React.useState("");
   const [isPinned, setIsPinned] = React.useState(false);
-  // const [collabDialogOpen, setCollabDialogOpen] = React.useState(false);
-
-  // const handleClickOpenCollabDialog = () => {
-  //   setCollabDialogOpen(true);
-  // };
-
-  // const handleClickCloseCollabDialog = () => {
-  //   setCollabDialogOpen(false);
-  // };
 
   const handleClickUpdateDialogOpen = (e, data, color) => {
     e.preventDefault();
@@ -50,7 +42,6 @@ export default function DisplayNotes(props) {
   };
 
   function displayIsPinned(data) {
-    console.log(data);
     if (data.isPined) {
       return (
         <Pin
@@ -149,13 +140,21 @@ export default function DisplayNotes(props) {
                     {data.description}
                   </Typography>
                   <div className="row justify-content-start align-items-center mt-3">
+                    {data.reminder.map((reminder, index) => (
+                      <div
+                        className="display-reminder-container ml-3 mr-0 px-2 mb-1"
+                        key={index}
+                      >
+                        <p className="my-1">{reminder.slice(3, 16)}</p>
+                      </div>
+                    ))}
                     {data.collaborators.map((index, collaborator) => (
-                      <div className="col-1 mr-2" key={index}>
+                      <div className="col-1 mr-2 mb-1" key={index}>
                         <Avatar
                           className="show-collaborator-icon"
                           // onClick={handleClickOpenCollabDialog}
                         >
-                          <PersonOutlinedIcon className="person-icon" />
+                          <PersonOutlineRoundedIcon className="person-icon" />
                         </Avatar>
                       </div>
                     ))}
@@ -170,6 +169,7 @@ export default function DisplayNotes(props) {
                     //changeColor={changeColor}
                     displayNote={props.displayNote}
                     noteData={data}
+                    data={data}
                     //collabDialogOpen={collabDialogOpen}
                     //handleClickCloseCollabDialog={handleClickCloseCollabDialog}
                   />

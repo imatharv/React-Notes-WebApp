@@ -100,6 +100,27 @@ $icons-dark: #424549;
   border: 1.5px solid #424549;
   box-shadow: 0rem 0.3rem 0.6rem rgba(0, 0, 0, 0.15);
 }
+.display-reminder-container {
+  background-color: rgb(240, 240, 240) !important;
+  border: 1px solid rgb(218, 218, 218);
+  box-shadow: 0rem 0.2rem 0.4rem rgba(0, 0, 0, 0.096);
+  min-height: 30px !important;
+  word-wrap: break-word !important;
+  max-width: 210px !important;
+  font-size: 1rem !important;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all ease 0.3s;
+}
+.display-reminder-container:hover {
+  border: 1px solid #424549;
+  box-shadow: 0rem 0.3rem 0.6rem rgba(0, 0, 0, 0.15);
+}
+.display-reminder-container p {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: #575b5f !important;
+}
 .person-icon {
   font-size: 1rem !important;
 }

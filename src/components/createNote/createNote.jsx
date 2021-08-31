@@ -12,6 +12,8 @@ import Button from "@material-ui/core/Button";
 import Collapse from "@material-ui/core/Collapse";
 import IconsGroup from "../icons/icons";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import PersonOutlineRoundedIcon from "@material-ui/icons/PersonOutlineRounded";
+import Avatar from "@material-ui/core/Avatar";
 
 const Service = new NoteService();
 
@@ -29,8 +31,10 @@ export default function CreateNote(props) {
   const [contentText, setContentText] = React.useState("");
   const [bgColor, setBackgroundColor] = React.useState("#ffffff");
   const [isNotePinned, setIsNotePinned] = React.useState(false);
+  const [selectedDate, setSelectedDate] = React.useState(new Date(""));
+  const [selectedTime, setSelectedTime] = React.useState("");
+  const [reminder, setReminder] = React.useState([]);
   //const [image, setImage] = React.useState("");
-  //const [collaboratingUser, setCollaboratingUser] = React.useState([]);
 
   const handleClickAway = () => {
     //createNote();
@@ -58,14 +62,20 @@ export default function CreateNote(props) {
     }
     console.log(collaboratingUsers);
   };
-  // const removeCollaboratingUser = (userId) => {
-  //   for (let i = 0; i < userId.length; i++) {
-  //     if (collaboratingUsers.userId === userId) {
-  //       collaboratingUsers.splice(0, userId);
-  //     }
-  //   }
-  //   console.log(collaboratingUsers);
-  // };
+  const getIsPinned = (isPinned) => {
+    setIsNotePinned(isPinned);
+  };
+  const getReminders = (date, time) => {
+    console.log(date, time);
+    setSelectedDate(date);
+    setSelectedTime(time);
+    setReminder(date + "T" + time);
+  };
+  const removeReminders = (date, time) => {
+    console.log(date, time);
+    setSelectedDate("");
+    setSelectedTime("");
+  };
   const createNote = (event) => {
     if (validate()) {
       const token = localStorage.getItem("token");
@@ -75,6 +85,7 @@ export default function CreateNote(props) {
       noteData.append("color", bgColor);
       noteData.append("collaberators", JSON.stringify(collaboratingUsers));
       noteData.append("isPined", isNotePinned);
+      noteData.append("reminder", reminder);
       // if (image !== undefined && image !== "") {
       //   noteData.append("file", image);
       // }
@@ -109,9 +120,48 @@ export default function CreateNote(props) {
   const handleContentInputChange = (event) => {
     setContentText(event.target.value);
   };
-  const getIsPinned = (isPinned) => {
-    setIsNotePinned(isPinned);
-  };
+  function displayReminder(selectedDate, selectedTime) {
+    if (
+      selectedDate !== "" &&
+      selectedTime !== "" &&
+      selectedDate !== undefined &&
+      selectedTime !== undefined
+    ) {
+      return (
+        <div
+          className="display-reminder-container ml-3 mr-0 px-2"
+          onClick={removeReminders}
+        >
+          <p>
+            {selectedDate} {selectedTime}
+          </p>
+        </div>
+      );
+    }
+  }
+  function displayCollaborators() {
+    if (
+      collaboratingUsers.length !== 0 &&
+      collaboratingUsers.length !== undefined
+    ) {
+      return (
+        <div
+          className="col-1 mr-2"
+          //key={index}
+        >
+          <Avatar
+            className="show-collaborator-icon"
+            // onClick={handleClickOpenCollabDialog}
+          >
+            <PersonOutlineRoundedIcon className="person-icon" />
+          </Avatar>
+        </div>
+      );
+    }
+  }
+  React.useEffect(() => {
+    displayReminder();
+  }, [selectedDate, selectedTime]);
 
   // const handleNoteImage = (image) => {
   //   setImage(image);
@@ -171,6 +221,28 @@ export default function CreateNote(props) {
               />
               {/* DISPLAY SELECTED NOTE IMAGE HERE */}
               {/* {displayNoteImage} */}
+              <div className="row justify-content-start align-items-center mt-4 mb-0">
+                {displayReminder()}
+                {displayCollaborators()}
+                {/* {selectedDate.map((index, reminder) => (
+                  <div className="display-reminder-container ml-3 mr-0 px-2">
+                    <p>aaaaaaaaa</p>
+                  </div>
+                ))} */}
+                {/* {collaboratingUsers.map((index, collaborator) => (
+                  <div
+                    className="col-1 mr-2"
+                    //key={index}
+                  >
+                    <Avatar
+                      className="show-collaborator-icon"
+                      // onClick={handleClickOpenCollabDialog}
+                    >
+                      <PersonOutlineRoundedIcon className="person-icon" />
+                    </Avatar>
+                  </div>
+                ))} */}
+              </div>
             </CardContent>
             <CardActions disableSpacing>
               <IconsGroup
@@ -181,6 +253,7 @@ export default function CreateNote(props) {
                 addColor={addColor}
                 parent="createNote"
                 getCollaboratingUser={getCollaboratingUser}
+                getReminders={getReminders}
                 //noteImage={handleNoteImage}
               />
               <Button className="card-close-button" onClick={createNote}>

@@ -12,6 +12,8 @@ function Notes(props) {
   const location = useLocation();
 
   const [notes, setNotes] = React.useState([]);
+  const [pinnedNotes, setPinnedNotes] = React.useState([]);
+  const [unPinnedNotes, setUnPinnedNotes] = React.useState([]);
   const [searchTerm, setSearchTerm] = React.useState([]);
 
   const displayNote = () => {
@@ -31,6 +33,7 @@ function Notes(props) {
   };
 
   let filteredNotes = notes;
+
   if (searchTerm != "") {
     filteredNotes = notes.filter((i) =>
       i.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -48,10 +51,37 @@ function Notes(props) {
         <div className="create-note-container">
           <CreateNote displayNote={displayNote} />
         </div>
-        <div className="display-note-container">
-          {/* <div className="display-note-wrapper"> */}
-          <DisplayNote displayNote={displayNote} notes={filteredNotes} />
-          {/* </div> */}
+        <div className="row mx-0 px-1">
+          <p
+            className="font-weight-bolder small text-black-50 mx-2 mb-1"
+            style={{ letterSpacing: 1 }}
+          >
+            PINNED
+          </p>
+        </div>
+        <div className="display-note-container mb-4">
+          <DisplayNote
+            displayNote={displayNote}
+            notes={filteredNotes.filter(function (e) {
+              return e.isPined === true;
+            })}
+          />
+        </div>
+        <div className="row mx-0 px-1">
+          <p
+            className="font-weight-bolder small text-black-50 mx-2 mb-1"
+            style={{ letterSpacing: 1 }}
+          >
+            OTHERS
+          </p>
+        </div>
+        <div className="display-note-container mb-4">
+          <DisplayNote
+            displayNote={displayNote}
+            notes={filteredNotes.filter(function (e) {
+              return e.isPined === false;
+            })}
+          />
         </div>
       </div>
     </React.Fragment>

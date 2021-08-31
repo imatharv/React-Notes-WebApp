@@ -77,7 +77,6 @@ function Dashboard(props) {
           path="/dashboard/notes"
           component={() => <Notes searchTerm={searchedTerm} />}
         />
-        {/* <Route exact path="/dashboard/notes" component={Notes} /> */}
         <Route exact path="/dashboard/archives" component={Archive} />
         <Route exact path="/dashboard/trash" component={Trash} />
         {/* </Profiler> */}

@@ -1,6 +1,9 @@
 .collaborator-wrapper {
   display: inline;
 }
+.collaborator-dialog .MuiDialog-paper {
+  // min-height: 360px !important;
+}
 .collaborator-dialog .collaborator-avatar {
   color: #fff;
   background-color: #673ab7;
@@ -17,9 +20,23 @@
   border-radius: 0px !important;
   border: 1px solid rgb(224, 224, 224);
   padding: 10px;
-  max-height: 200px;
-  overflow-y: scroll;
+  max-height: 150px;
+  overflow-y: auto;
   min-width: 200px;
+  z-index: 9999 !important;
+}
+.user-list-popper::-webkit-scrollbar {
+  width: 7px;
+}
+.user-list-popper::-webkit-scrollbar-thumb {
+  background-color: #c4c4c4;
+  border-radius: 2px !important;
+  border-top: solid 3px white !important;
+  border-bottom: solid 3px white !important;
+  border-right: solid 3px white !important;
+}
+.user-list-popper::-webkit-scrollbar-thumb:hover {
+  background-color: #9b9b9b;
 }
 .collaborator-owner {
   font-weight: 600 !important;

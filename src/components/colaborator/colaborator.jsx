@@ -23,11 +23,11 @@ export default function AddCollaborator(props) {
   const email = localStorage.getItem("email");
   const [open, setOpen] = React.useState(false);
   const [usersList, setUsersList] = React.useState([]);
-  const [collaborator, setCollaborator] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
-  //const [userPopperOpen, setUserPopperOpen] = React.useState(false);
+  const [userPopperOpen, setUserPopperOpen] = React.useState(false);
+  const [collabUsers, setCollabUsers] = React.useState([]);
 
-  let userPopperOpen = Boolean(anchorEl);
+  //let userPopperOpen = Boolean(anchorEl);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -38,63 +38,95 @@ export default function AddCollaborator(props) {
   };
 
   const handleChangeUserPopper = (event) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
-    // setUserPopperOpen(true);
-    event.preventDefault();
-    const token = localStorage.getItem("token");
-    let data = {
-      searchWord: event.target.value,
-    };
-    Service.SearchUserList(data, token)
-      .then((res) => {
-        //console.log(res);
-        event.preventDefault();
-        setUsersList(res.data.data.details);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (event.target.value !== "") {
+      setAnchorEl(anchorEl ? null : event.currentTarget);
+      setUserPopperOpen(true);
+      event.preventDefault();
+      const token = localStorage.getItem("token");
+      let data = {
+        searchWord: event.target.value,
+      };
+      Service.SearchUserList(data, token)
+        .then((res) => {
+          //console.log(res);
+          event.preventDefault();
+          setUsersList(res.data.data.details);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setAnchorEl(null);
+      setUserPopperOpen(false);
+    }
   };
 
-  const [collabUsers, setCollabUsers] = React.useState([]);
-  //let collabUsers = [];
   const handleAddUser = (user) => {
     //e.preventDefault();
-    //using spread operator for all previous data pls new one
-    setCollabUsers([...collabUsers, user]);
-    //setAnchorEl(null);
-    //setUserPopperOpen(false);
-  };
-
-  const handleClickRemoveCollaborator = (userId, e) => {
-    e.preventDefault();
-    console.log(collabUsers);
-    const removeIndex = collabUsers.findIndex((item) => item.userId === userId);
-    // remove object
-    collabUsers.splice(removeIndex, 1);
-    console.log(collabUsers);
+    if (props.parent === "createNote") {
+      //using spread operator for all previous data pls new one
+      setCollabUsers([...collabUsers, user]);
+      setAnchorEl(null);
+      setUserPopperOpen(false);
+    } else if (props.parent === "viewNote") {
+      const token = localStorage.getItem("token");
+      let id = props.data.id;
+      let data = user;
+      Service.AddCollaborator(id, data, token)
+        .then((res) => {
+          props.displayNote();
+          setUserPopperOpen(false);
+        })
+        .catch((error) => {
+          console.log("Data posting error in add collaborator: ", error);
+        });
+    }
   };
 
   const handleSave = () => {
-    props.addCollaborator(collabUsers);
+    addCollaborator(collabUsers);
     setOpen(false);
   };
 
-  const displayPreCollaborators = () => {
-    setCollaborator(collabUsers);
+  const addCollaborator = (user) => {
+    if (props.parent === "createNote") {
+      props.getCollaboratingUser(user);
+    }
+  };
+
+  const handleClickRemoveCollaborator = (userId, e) => {
+    //e.preventDefault();
+    if (props.parent === "createNote") {
+      const removeIndex = collabUsers.findIndex(
+        (item) => item.userId === userId // getting index of object
+      );
+      collabUsers.splice(removeIndex, 1); // removing object
+      setCollabUsers(collabUsers);
+    } else if (props.parent === "viewNote") {
+      const token = localStorage.getItem("token");
+      let noteId = props.data.id;
+      let collaboratorId = userId;
+      Service.RemoveCollaborator(noteId, collaboratorId, token)
+        .then((res) => {
+          console.log(res);
+          props.displayNote();
+          const removeIndex = collabUsers.findIndex(
+            (item) => item.userId === userId
+          );
+          collabUsers.splice(removeIndex, 1);
+          setCollabUsers(collabUsers);
+        })
+        .catch((error) => {
+          console.log("Data posting error in remove collaborator: ", error);
+        });
+    }
   };
 
   useEffect(() => {
-    if (props.noteData) {
-      console.log(props.noteData.collaborators);
-      setCollabUsers(props.noteData.collaborators);
+    if (props.data) {
+      setCollabUsers(props.data.collaborators);
     }
-    // setCollabUsers(props.noteData);
-  }, []);
-
-  useEffect(() => {
-    displayPreCollaborators();
-  }, [collabUsers]);
+  }, [props.data, collabUsers]);
 
   return (
     <div className="collaborator-wrapper">
@@ -114,9 +146,12 @@ export default function AddCollaborator(props) {
         <DialogTitle id="collaborator-dialog-title">Collaborators</DialogTitle>
         <hr className="mx-3 mt-0" />
         <DialogContent id="collaborator-dialog-description">
+          {/* Note Owner */}
           <div className="row justify-content-start align-items-center mb-3">
             <div className="col-1 justify-content-center">
-              <Avatar className="collaborator-avatar">A</Avatar>
+              <Avatar className="collaborator-avatar">
+                {firstName.charAt(0).toUpperCase()}
+              </Avatar>
             </div>
             <div className="col-9">
               <p className="mb-0 collaborator-owner">
@@ -132,18 +167,19 @@ export default function AddCollaborator(props) {
           </div>
 
           {/* Collaborators list */}
-          {/* {displayPreCollaborators} */}
           {collabUsers.map((user, index) => (
             <div
               key={index}
               className="row justify-content-start align-items-center mb-3"
             >
               <div className="col-1 justify-content-center">
-                <Avatar className="collaborator-avatar">A</Avatar>
+                <Avatar className="collaborator-avatar">
+                  {user.firstName.charAt(0).toUpperCase()}
+                </Avatar>
               </div>
               <div className="col-9">
                 <p className="mb-0 collaborator-user">
-                  {user.firstName} {user.LastName}
+                  {user.firstName} {user.lastName}
                 </p>
                 <p
                   className="font-weight-normal text-black-50 mb-0"
@@ -166,6 +202,7 @@ export default function AddCollaborator(props) {
             </div>
           ))}
 
+          {/* Add collaborators */}
           <div className="row justify-content-start align-items-center mb-3">
             <div className="col-1 justify-content-center">
               <Avatar className="add-collaborator-icon">
@@ -194,7 +231,7 @@ export default function AddCollaborator(props) {
                   {usersList.map((user, index) => (
                     <p
                       key={index}
-                      className="small mb-0 collaborating-user"
+                      className="small mb-0 collaborating-user pl-1 rounded-sm"
                       onClick={(e) => {
                         handleAddUser(user, e);
                       }}

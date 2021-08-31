@@ -1,0 +1,44 @@
+.reminder-wrapper {
+  display: inline;
+}
+.MuiDialog-paperWidthXs {
+  max-width: 250px !important;
+}
+.MuiDialog-paperWidthXs .MuiDialogTitle-root {
+  padding: 12px 24px 8px 24px !important;
+}
+.time-popper-wrapper {
+  z-index: 9999;
+}
+.time-popper {
+  box-shadow: 0rem 0.25rem 0.75rem rgba(0, 0, 0, 0.1) !important;
+  color: rgb(37, 42, 59);
+  border-radius: 0px !important;
+  border: 1px solid rgb(224, 224, 224);
+  padding: 10px;
+  max-height: 100px;
+  overflow-y: auto;
+  min-width: 50px;
+  z-index: 9999 !important;
+}
+.time-popper::-webkit-scrollbar {
+  width: 7px;
+}
+.time-popper::-webkit-scrollbar-thumb {
+  background-color: #c4c4c4;
+  border-radius: 2px !important;
+  border-top: solid 3px white !important;
+  border-bottom: solid 3px white !important;
+  border-right: solid 3px white !important;
+}
+.time-popper::-webkit-scrollbar-thumb:hover {
+  background-color: #9b9b9b;
+}
+.time {
+  padding: 2px;
+}
+.time:hover {
+  background-color: rgb(242, 242, 242);
+  color: #673ab7;
+  cursor: pointer;
+}

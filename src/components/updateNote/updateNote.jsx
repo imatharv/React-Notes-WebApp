@@ -24,6 +24,7 @@ export default function UpdateNoteDialog(props) {
   const [updatedContent, setUpdatedContent] = React.useState("");
   const [dialogBgColor, setDialogBgColor] = React.useState("");
   const [collaborators, setCollaborators] = React.useState([]);
+  const [reminder, setReminder] = React.useState([]);
   //const [image, setImage] = React.useState("");
 
   const updateNote = () => {
@@ -58,15 +59,19 @@ export default function UpdateNoteDialog(props) {
   };
   React.useEffect(() => {
     if (props.data) {
+      setId(props.data.id);
       setUpdatedTitle(props.data.title);
       setUpdatedContent(props.data.description);
       setDialogBgColor(props.data.color);
       if (
         props.data.collaborators !== "" &&
         props.data.collaborators !== undefined
-      )
+      ) {
         setCollaborators(props.data.collaborators);
-      setId(props.data.id);
+      }
+      if (props.data.reminder !== 0 && props.data.reminder !== undefined) {
+        setReminder(props.data.reminder);
+      }
     }
   }, [props.data]);
   const handleInputTitle = (event) => {
@@ -77,6 +82,23 @@ export default function UpdateNoteDialog(props) {
   };
   const changeColor = (color) => {
     setDialogBgColor(color);
+  };
+  const handleClickRemoveReminder = (e, noteId) => {
+    //e.preventDefault();
+    const token = localStorage.getItem("token");
+    //let noteId = props.data.id;
+    let data = {
+      id: props.data.id,
+    };
+    Service.removeReminder(data, token)
+      .then((res) => {
+        console.log(res);
+        props.displayNote();
+        setReminder("");
+      })
+      .catch((error) => {
+        console.log("Data posting error in remove reminder: ", error);
+      });
   };
   // const handleNoteImage = (image) => {
   //   setImage(image);
@@ -157,7 +179,18 @@ export default function UpdateNoteDialog(props) {
           </CardContent>
           {/* {displayNoteImage(props.data.imageUrl)} */}
         </Card>
-        <div className="row justify-content-start align-items-center my-1 mx-0">
+        <div className="row justify-content-start align-items-center my-3 mx-0">
+          {reminder.map((reminder, index) => (
+            <div
+              className="display-reminder-container ml-3 mr-0 px-2"
+              key={index}
+              onClick={(e) => {
+                handleClickRemoveReminder(id);
+              }}
+            >
+              <p className="my-1">{reminder.slice(3, 16)}</p>
+            </div>
+          ))}
           {collaborators.map((index, collaborator) => (
             <div className="col-1 pr-0" key={index}>
               <Avatar
@@ -178,6 +211,7 @@ export default function UpdateNoteDialog(props) {
           displayNote={props.displayNote}
           parent="viewNote"
           changeColor={changeColor}
+          data={props.data}
           //handleNoteImage={handleNoteImage}
         />
         <Button onClick={updateNote} className="dialog-close-button">
