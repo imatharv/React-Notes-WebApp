@@ -95,6 +95,8 @@ export default function CreateNote(props) {
           setExpanded(false);
           setBackgroundColor("#ffffff");
           props.displayNote();
+          setTitleText("");
+          setReminder("");
         })
         .catch((error) => {
           console.log("Data posting error in create note: ", error);
@@ -198,7 +200,7 @@ export default function CreateNote(props) {
                   onChange={handleTitleInputChange}
                   onClick={handleExpandClick}
                   aria-expanded={expanded}
-                  style={{ width: "95%" }}
+                  style={{ width: "90%" }}
                   multiline
                 />
                 <div className="ml-auto">

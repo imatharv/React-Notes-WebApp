@@ -10,7 +10,6 @@ const Service = new NoteService();
 
 function Notes(props) {
   const location = useLocation();
-
   const [notes, setNotes] = React.useState([]);
   const [pinnedNotes, setPinnedNotes] = React.useState([]);
   const [unPinnedNotes, setUnPinnedNotes] = React.useState([]);
@@ -31,15 +30,12 @@ function Notes(props) {
         console.log("Data fetch error: ", error);
       });
   };
-
   let filteredNotes = notes;
-
   if (searchTerm != "") {
     filteredNotes = notes.filter((i) =>
       i.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
-
   useEffect(() => {
     displayNote();
     setSearchTerm(props.searchData);
@@ -59,14 +55,14 @@ function Notes(props) {
             PINNED
           </p>
         </div>
-        <div className="display-note-container mb-4">
-          <DisplayNote
-            displayNote={displayNote}
-            notes={filteredNotes.filter(function (e) {
-              return e.isPined === true;
-            })}
-          />
-        </div>
+        {/* <div className="display-note-container mb-4"> */}
+        <DisplayNote
+          displayNote={displayNote}
+          notes={filteredNotes.filter(function (e) {
+            return e.isPined === true;
+          })}
+        />
+        {/* </div> */}
         <div className="row mx-0 px-1">
           <p
             className="font-weight-bolder small text-black-50 mx-2 mb-1"
@@ -75,14 +71,26 @@ function Notes(props) {
             OTHERS
           </p>
         </div>
-        <div className="display-note-container mb-4">
-          <DisplayNote
+        {/* <div className="display-note-container mb-4"> */}
+        {/* <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="my-masonry-grid mb-4"
+          //columnClassName="my-masonry-grid_column"
+        > */}
+        <DisplayNote
+          displayNote={displayNote}
+          notes={filteredNotes.filter(function (e) {
+            return e.isPined === false;
+          })}
+        />
+        {/* </Masonry> */}
+        {/* <DisplayNote
             displayNote={displayNote}
             notes={filteredNotes.filter(function (e) {
               return e.isPined === false;
             })}
-          />
-        </div>
+          /> 
+        </div>*/}
       </div>
     </React.Fragment>
   );

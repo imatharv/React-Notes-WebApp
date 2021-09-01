@@ -12,11 +12,86 @@
 .display-note-container {
   @include flexbox(row, flex-start, flex-start);
   flex-wrap: wrap !important;
-  
+  @include margin(null, -10px, 60px, null);
 }
-@media (max-width: 960px) {
+
+// Masonry CSS
+.my-masonry-grid {
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: flex;
+  //margin-left: -25px; /* gutter size offset */
+  width: auto;
+  // margin-right: 50px;
+}
+.my-masonry-grid_column {
+  //padding-left: 30px; /* gutter size */
+  background-clip: padding-box;
+}
+/* Style your items */
+.my-masonry-grid_column > div {
+  /* change div to reference your elements you put in <Masonry> */
+  margin-bottom: 16px !important;
+}
+
+// Responsive breakpoints
+@media (max-width: 374.9px) {
   .dashboard-notes-container {
-    @include margin(null, null, null, 50px);
+    @include margin(null, 0px, null, 45px);
+    @include padding(20px, 8px, 16px, 16px);
+  }
+  .create-note-container {
+    @include margin(null, 10px, 20px, 10px);
+  }
+}
+
+@media (min-width: 375.9px) {
+  .dashboard-notes-container {
+    @include margin(null, null, null, 45px);
+    @include padding(20px, 8px, 16px, 16px);
+  }
+  .create-note-container {
+    @include margin(null, 10px, 20px, 10px);
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+  .dashboard-notes-container {
+    @include margin(null, 30px, null, 85px);
+    @include padding(30px, 8px, 16px, 16px);
+  }
+  .create-note-container {
+    @include margin(null, null, 25px, null);
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .dashboard-notes-container {
+    @include margin(null, 30px, null, 95px);
+    @include padding(45px, 16px, 16px, 16px);
+  }
+  .create-note-container {
+    @include margin(null, null, 40px, null);
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .dashboard-notes-container {
+    @include margin(null, 40px, null, 105px);
+    @include padding(60px, 16px, 16px, 16px);
+  }
+  .create-note-container {
+    @include margin(null, null, 50px, null);
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .dashboard-notes-container {
+    @include margin(null, 50px, null, 115px);
   }
   .create-note-container {
     @include margin(null, null, 40px, null);

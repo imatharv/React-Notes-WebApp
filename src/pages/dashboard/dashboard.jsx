@@ -28,10 +28,6 @@ function Dashboard(props) {
     props.history.push("/login");
   };
   const navigateToNotes = () => {
-    // props.history.push({
-    //   pathname: "/dashboard/order",
-    //   state: { searchTerm: searchedTerm },
-    // });
     props.dispatch({ type: "Notes" });
     props.history.push("/dashboard/notes");
   };

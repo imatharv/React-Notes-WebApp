@@ -13,6 +13,7 @@ import PersonOutlineRoundedIcon from "@material-ui/icons/PersonOutlineRounded";
 import Avatar from "@material-ui/core/Avatar";
 import Pin from "../pin/pin";
 import { LineWeight } from "@material-ui/icons";
+import Masonry from "react-masonry-css";
 
 // const useStyles = makeStyles({
 //   root: {
@@ -29,6 +30,15 @@ export default function DisplayNotes(props) {
   const [open, setOpen] = React.useState(false);
   const [background, setBackgroundColor] = React.useState("");
   const [isPinned, setIsPinned] = React.useState(false);
+
+  // Masonry CSS breakpoints
+  const breakpointColumnsObj = {
+    default: 5,
+    1172: 4,
+    972: 3,
+    772: 2,
+    528: 1,
+  };
 
   const handleClickUpdateDialogOpen = (e, data, color) => {
     e.preventDefault();
@@ -91,90 +101,97 @@ export default function DisplayNotes(props) {
   // };
 
   return (
-    <React.Fragment>
+    <Masonry
+      breakpointCols={breakpointColumnsObj}
+      className="my-masonry-grid mb-4"
+      columnClassName="my-masonry-grid_column"
+    >
+      {/* <React.Fragment> */}
+      {/* <div className="my-masonry-grid_column"> */}
       {props.notes
         .slice(0)
         .reverse()
         .map((data) => {
           return (
             <Card
+              //className="align-self-start m-2 d-inline-block"
               className="displayNote"
               key={data.id}
               style={{ backgroundColor: data.color }}
             >
-              <div style={{ position: "relative" }}>
-                {/* DISPLAY NOTE IMAGE HERE */}
-                {/* {displayNoteImage(data.imageUrl)} */}
-                {/* <CardMedia
+              {/* <div style={{ position: "relative" }}> */}
+              {/* DISPLAY NOTE IMAGE HERE */}
+              {/* {displayNoteImage(data.imageUrl)} */}
+              {/* <CardMedia
                   className={classes.media}
                   image="/static/images/cards/contemplative-reptile.jpg"
                   title="Contemplative Reptile"
                 /> */}
-                <CardHeader
-                  title={
-                    <div className="row mx-0">
-                      <Typography
-                        name="noteTitle"
-                        className="noteTitle"
-                        id="noteTitle"
-                        style={{ width: "90%" }}
-                      >
-                        {data.title}
-                      </Typography>
-                      <div className="ml-auto">{displayIsPinned(data)}</div>
-                    </div>
-                  }
-                />
-
-                <CardContent
-                  onClick={(e) =>
-                    handleClickUpdateDialogOpen(e, data, data.color)
-                  }
-                  style={{ cursor: "pointer" }}
-                >
-                  <Typography
-                    name="noteContent"
-                    className="noteContent"
-                    id="noteContent"
-                  >
-                    {data.description}
-                  </Typography>
-                  <div className="row justify-content-start align-items-center mt-3">
-                    {data.reminder.map((reminder, index) => (
-                      <div
-                        className="display-reminder-container ml-3 mr-0 px-2 mb-1"
-                        key={index}
-                      >
-                        <p className="my-1">{reminder.slice(3, 16)}</p>
-                      </div>
-                    ))}
-                    {data.collaborators.map((index, collaborator) => (
-                      <div className="col-1 mr-2 mb-1" key={index}>
-                        <Avatar
-                          className="show-collaborator-icon"
-                          // onClick={handleClickOpenCollabDialog}
-                        >
-                          <PersonOutlineRoundedIcon className="person-icon" />
-                        </Avatar>
-                      </div>
-                    ))}
+              <CardHeader
+                title={
+                  <div className="row mx-0">
+                    <Typography
+                      name="noteTitle"
+                      className="noteTitle"
+                      id="noteTitle"
+                      style={{ width: "88%" }}
+                    >
+                      {data.title}
+                    </Typography>
+                    <div className="ml-auto">{displayIsPinned(data)}</div>
                   </div>
-                </CardContent>
-                <CardActions disableSpacing className="iconbar">
-                  <IconsGroup
-                    noteId={data.id}
-                    isArchived={data.isArchived}
-                    isDeleted={data.isDeleted}
-                    parent="viewNote"
-                    //changeColor={changeColor}
-                    displayNote={props.displayNote}
-                    noteData={data}
-                    data={data}
-                    //collabDialogOpen={collabDialogOpen}
-                    //handleClickCloseCollabDialog={handleClickCloseCollabDialog}
-                  />
-                </CardActions>
-              </div>
+                }
+              />
+
+              <CardContent
+                onClick={(e) =>
+                  handleClickUpdateDialogOpen(e, data, data.color)
+                }
+                style={{ cursor: "pointer" }}
+              >
+                <Typography
+                  name="noteContent"
+                  className="noteContent"
+                  id="noteContent"
+                >
+                  {data.description}
+                </Typography>
+                <div className="row justify-content-start align-items-center mt-3">
+                  {data.reminder.map((reminder, index) => (
+                    <div
+                      className="display-reminder-container ml-3 mr-0 px-2 mb-1"
+                      key={index}
+                    >
+                      <p className="my-1">{reminder.slice(3, 16)}</p>
+                    </div>
+                  ))}
+                  {data.collaborators.map((index, collaborator) => (
+                    <div className="col-1 mr-2 mb-1" key={index}>
+                      <Avatar
+                        className="show-collaborator-icon"
+                        // onClick={handleClickOpenCollabDialog}
+                      >
+                        <PersonOutlineRoundedIcon className="person-icon" />
+                      </Avatar>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+              <CardActions disableSpacing className="iconbar">
+                <IconsGroup
+                  noteId={data.id}
+                  isArchived={data.isArchived}
+                  isDeleted={data.isDeleted}
+                  parent="viewNote"
+                  //changeColor={changeColor}
+                  displayNote={props.displayNote}
+                  noteData={data}
+                  data={data}
+                  //collabDialogOpen={collabDialogOpen}
+                  //handleClickCloseCollabDialog={handleClickCloseCollabDialog}
+                />
+              </CardActions>
+              {/* </div> */}
             </Card>
           );
         })}
@@ -186,6 +203,8 @@ export default function DisplayNotes(props) {
         displayNote={props.displayNote}
         //changeColor={changeColor}
       />
-    </React.Fragment>
+      {/* </div> */}
+      {/* </React.Fragment> */}
+    </Masonry>
   );
 }
