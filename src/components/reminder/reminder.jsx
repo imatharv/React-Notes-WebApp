@@ -32,10 +32,12 @@ export default function AddReminder(props) {
 
   const handleDateChange = (event) => {
     setSelectedDate(event.target.value);
+    console.log(event.target.value);
   };
 
   const handleTimeChange = (event) => {
     setSelectedTime(event.target.value);
+    console.log(event.target.value);
   };
 
   const handleSave = () => {
@@ -51,7 +53,7 @@ export default function AddReminder(props) {
       reminder = selectedDate + "T" + selectedTime;
       console.log(reminder);
       let data = {
-        id: props.data.id,
+        id: [props.data.id],
         reminder: reminder,
       };
       Service.addReminder(data, token)

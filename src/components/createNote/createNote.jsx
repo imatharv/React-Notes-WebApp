@@ -91,12 +91,11 @@ export default function CreateNote(props) {
       // }
       Service.createNote(noteData, token)
         .then((noteData) => {
-          console.log(noteData);
-          setExpanded(false);
           setBackgroundColor("#ffffff");
-          props.displayNote();
           setTitleText("");
-          setReminder("");
+          setReminder([]);
+          setExpanded(false);
+          props.displayNote();
         })
         .catch((error) => {
           console.log("Data posting error in create note: ", error);

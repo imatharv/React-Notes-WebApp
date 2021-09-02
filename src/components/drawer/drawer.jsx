@@ -64,34 +64,34 @@ export default function ActionsDrawer(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  React.useEffect(() => {
+    setOpen(props.open);
+  }, [props]);
+
   // const handleClickAwayCloseDrawer = () => {
   //   props.handleNavbarDrawerToggle();
   // };
 
-  // const handleDrawerClick = (component) => {
-  //   props.handleDrawerLinkClick(component);
-  // };
-
-  // const handleDrawerToggle = () => {
-  //   setOpen(!open);
-  // };
+  const handleDrawerToggle = () => {
+    setOpen(!open);
+  };
 
   return (
     // <ClickAwayListener onClickAway={handleClickAwayCloseDrawer}>
     <Drawer
       variant="permanent"
       className={clsx(classes.drawer, {
-        [classes.drawerOpen]: props.open,
-        [classes.drawerClose]: !props.open,
+        [classes.drawerOpen]: open,
+        [classes.drawerClose]: !open,
       })}
       classes={{
         paper: clsx({
-          [classes.drawerOpen]: props.open,
-          [classes.drawerClose]: !props.open,
+          [classes.drawerOpen]: open,
+          [classes.drawerClose]: !open,
         }),
       }}
-      // onMouseEnter={handleDrawerToggle}
-      // onMouseLeave={handleDrawerToggle}
+      onMouseEnter={handleDrawerToggle}
+      onMouseLeave={handleDrawerToggle}
     >
       <List className="drawer-expanded">
         <ListItem button onClick={props.navigateToNotes}>
