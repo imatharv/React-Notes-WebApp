@@ -116,7 +116,6 @@ export default class LoginPage extends Component {
 
   submit = () => {
     if (this.validate()) {
-      console.log("API call");
       let data = {
         email: this.state.email,
         service: "advance",
@@ -124,12 +123,11 @@ export default class LoginPage extends Component {
       };
       Service.login(data)
         .then((data) => {
-          console.log(data);
-          // this.setState({
-          //   open: true,
-          //   SnackbarMessage: "Login successful",
-          //   SnackbarStyle: "snackbar-success",
-          // });
+          this.setState({
+            open: true,
+            SnackbarMessage: "Login successful",
+            SnackbarStyle: "snackbar-success",
+          });
           localStorage.setItem("firstName", data.data.firstName);
           localStorage.setItem("lastName", data.data.lastName);
           localStorage.setItem("email", data.data.email);
@@ -300,16 +298,14 @@ export default class LoginPage extends Component {
             message={this.state.SnackbarMessage}
             className={this.state.SnackbarStyle}
             action={
-              <React.Fragment>
-                <IconButton
-                  size="small"
-                  aria-label="close"
-                  color="inherit"
-                  onClick={this.handleClose}
-                >
-                  <CloseIcon fontSize="small" />
-                </IconButton>
-              </React.Fragment>
+              <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={this.handleClose}
+              >
+                <CloseIcon fontSize="small" />
+              </IconButton>
             }
           />
         </Container>

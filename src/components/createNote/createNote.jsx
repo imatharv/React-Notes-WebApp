@@ -60,7 +60,6 @@ export default function CreateNote(props) {
         userId: user[i].userId,
       });
     }
-    console.log(collaboratingUsers);
   };
   const getIsPinned = (isPinned) => {
     setIsNotePinned(isPinned);

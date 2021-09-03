@@ -417,16 +417,14 @@ export default class RegistrationPage extends Component {
           message={this.state.SnackbarMessage}
           className={this.state.SnackbarStyle}
           action={
-            <React.Fragment>
-              <IconButton
-                size="small"
-                aria-label="close"
-                color="inherit"
-                onClick={this.handleClose}
-              >
-                <CloseIcon fontSize="small" />
-              </IconButton>
-            </React.Fragment>
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={this.handleClose}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
           }
         />
       </Container>
