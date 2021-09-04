@@ -51,7 +51,6 @@ export default function CreateNote(props) {
   };
   let collaboratingUsers = [];
   const getCollaboratingUser = (user) => {
-    //collaboratingUsers.push(user);
     for (let i = 0; i < user.length; i++) {
       collaboratingUsers.push({
         firstName: user[i].firstName,
