@@ -37,7 +37,7 @@ export default function CreateNote(props) {
   //const [image, setImage] = React.useState("");
 
   const handleClickAway = () => {
-    //createNote();
+    // call createNote() function here if you want to creat a note when user clicks outside;
     setExpanded(false);
     setBackgroundColor("#ffffff");
   };
