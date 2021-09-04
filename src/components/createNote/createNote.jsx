@@ -97,7 +97,7 @@ export default function CreateNote(props) {
           props.displayNote();
         })
         .catch((error) => {
-          console.log("Data posting error in create note: ", error);
+          console.log("Data posting error in create note,", error);
         });
     } else {
       setExpanded(false);
