@@ -20,7 +20,7 @@ export default function Trash() {
         setNotes(newArray);
       })
       .catch((error) => {
-        console.log("Data fetch error in archives: ", error);
+        console.log("Data fetch error in archives,", error);
       });
   };
   useEffect(() => {
