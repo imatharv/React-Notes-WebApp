@@ -7,10 +7,4 @@ export const isAuthenticated = (data) => {
     } else {
         return false;
     }
-//   if (typeof window !== "undefined") {
-//     if(localStorage.getItem("token")) {
-//         return true;
-//     }
-//   }
-//   return false;
 };
