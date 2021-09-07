@@ -7,7 +7,6 @@ const Service = new NoteService();
 
 export default function Trash() {
   const [notes, setNotes] = React.useState([]);
-
   const displayNote = () => {
     const token = localStorage.getItem("token");
     Service.getArchiveNotes(token)
