@@ -13,7 +13,6 @@ export default function Trash() {
     Service.getArchiveNotes(token)
       .then((noteData) => {
         let data = noteData.data.data.data;
-        //filter data
         let newArray = data.filter(function (e) {
           return e.isArchived == true && e.isDeleted == false;
         });
