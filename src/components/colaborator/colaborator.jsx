@@ -27,8 +27,6 @@ export default function AddCollaborator(props) {
   const [userPopperOpen, setUserPopperOpen] = React.useState(false);
   const [collabUsers, setCollabUsers] = React.useState([]);
 
-  //let userPopperOpen = Boolean(anchorEl);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
