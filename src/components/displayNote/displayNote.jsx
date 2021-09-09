@@ -16,7 +16,6 @@ import Masonry from "react-masonry-css";
 // import CardMedia from "@material-ui/core/CardMedia";
 
 export default function DisplayNotes(props) {
-  // const classes = useStyles();
   const [updateNoteData, setUpdateNoteData] = React.useState({});
   const [open, setOpen] = React.useState(false);
   const [background, setBackgroundColor] = React.useState("");
