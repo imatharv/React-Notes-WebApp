@@ -11,7 +11,6 @@ import PersonOutlineRoundedIcon from "@material-ui/icons/PersonOutlineRounded";
 import Avatar from "@material-ui/core/Avatar";
 import Pin from "../pin/pin";
 import Masonry from "react-masonry-css";
-// import { makeStyles } from "@material-ui/core/styles";
 // import { LineWeight } from "@material-ui/icons";
 // import CardMedia from "@material-ui/core/CardMedia";
 
