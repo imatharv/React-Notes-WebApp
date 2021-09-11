@@ -11,7 +11,6 @@ import PersonOutlineRoundedIcon from "@material-ui/icons/PersonOutlineRounded";
 import Avatar from "@material-ui/core/Avatar";
 import Pin from "../pin/pin";
 import Masonry from "react-masonry-css";
-// import CardMedia from "@material-ui/core/CardMedia";
 
 export default function DisplayNotes(props) {
   const [updateNoteData, setUpdateNoteData] = React.useState({});
