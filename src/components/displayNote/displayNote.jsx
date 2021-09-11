@@ -189,7 +189,6 @@ export default function DisplayNotes(props) {
           data={updateNoteData}
           close={handleClickUpdateDialogClose}
           displayNote={props.displayNote}
-          //changeColor={changeColor}
         />
         {/* </div> */}
         {/* </React.Fragment> */}
