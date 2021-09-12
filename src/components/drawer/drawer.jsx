@@ -13,7 +13,6 @@ import LabelOutlinedIcon from "@material-ui/icons/LabelOutlined";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import ArchiveOutlinedIcon from "@material-ui/icons/ArchiveOutlined";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 const drawerWidth = 220;
 
