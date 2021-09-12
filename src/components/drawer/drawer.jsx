@@ -67,10 +67,6 @@ export default function ActionsDrawer(props) {
     setOpen(props.open);
   }, [props]);
 
-  // const handleClickAwayCloseDrawer = () => {
-  //   props.handleNavbarDrawerToggle();
-  // };
-
   const handleDrawerToggle = () => {
     setOpen(!open);
   };
