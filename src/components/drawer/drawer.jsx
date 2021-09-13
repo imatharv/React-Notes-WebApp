@@ -72,7 +72,6 @@ export default function ActionsDrawer(props) {
   };
 
   return (
-    // <ClickAwayListener onClickAway={handleClickAwayCloseDrawer}>
     <Drawer
       variant="permanent"
       className={clsx(classes.drawer, {
