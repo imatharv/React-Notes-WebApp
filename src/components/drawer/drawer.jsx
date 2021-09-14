@@ -126,6 +126,5 @@ export default function ActionsDrawer(props) {
         </ListItem>
       </List>
     </Drawer>
-    // </ClickAwayListener>
   );
 }
