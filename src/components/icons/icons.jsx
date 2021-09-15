@@ -22,7 +22,6 @@ import AddReminder from "../reminder/reminder";
 
 const Service = new NoteService();
 
-// const useStyles = makeStyles((theme) => ({
 //   root: {
 //     "& > *": {
 //       margin: theme.spacing(1),
@@ -30,8 +29,7 @@ const Service = new NoteService();
 //   },
 //   input: {
 //     display: "none",
-//   },
-// }));
+//   }
 
 export default function IconsGroup(props) {
   // const classes = useStyles();
