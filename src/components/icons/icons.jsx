@@ -22,10 +22,6 @@ import AddReminder from "../reminder/reminder";
 
 const Service = new NoteService();
 
-//   input: {
-//     display: "none",
-//   }
-
 export default function IconsGroup(props) {
   // const classes = useStyles();
   const [cpOpen, setCpOpen] = React.useState(false);
