@@ -22,11 +22,6 @@ import AddReminder from "../reminder/reminder";
 
 const Service = new NoteService();
 
-//   root: {
-//     "& > *": {
-//       margin: theme.spacing(1),
-//     },
-//   },
 //   input: {
 //     display: "none",
 //   }
