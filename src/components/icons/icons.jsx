@@ -23,7 +23,6 @@ import AddReminder from "../reminder/reminder";
 const Service = new NoteService();
 
 export default function IconsGroup(props) {
-  // const classes = useStyles();
   const [cpOpen, setCpOpen] = React.useState(false);
   const [moreMenuOpen, setMoreMenuOpen] = React.useState(false);
 
