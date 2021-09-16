@@ -52,7 +52,7 @@ export default function IconsGroup(props) {
           props.changeColor(color);
         })
         .catch((error) => {
-          console.log("Data posting error in change color: ", error);
+          console.log("Data posting error in change color,", error);
         });
     }
     if (props.parent == "createNote") {
