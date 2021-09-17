@@ -86,7 +86,7 @@ export default function IconsGroup(props) {
         props.displayNote();
       })
       .catch((error) => {
-        console.log("Data posting error in unarchives: ", error);
+        console.log("Data posting error in unarchives,", error);
       });
   };
 
