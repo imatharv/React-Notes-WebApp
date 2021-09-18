@@ -144,7 +144,7 @@ export default function IconsGroup(props) {
         props.displayNote();
       })
       .catch((error) => {
-        console.log("Data posting error in delete forever: ", error);
+        console.log("Data posting error in delete forever,", error);
       });
   };
 
