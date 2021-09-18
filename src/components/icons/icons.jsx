@@ -115,7 +115,7 @@ export default function IconsGroup(props) {
         props.displayNote();
       })
       .catch((error) => {
-        console.log("Data posting error in trash: ", error);
+        console.log("Data posting error in trash,", error);
       });
   };
   const handleClickUnTrash = () => {
