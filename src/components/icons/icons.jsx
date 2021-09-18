@@ -130,7 +130,7 @@ export default function IconsGroup(props) {
         props.displayNote();
       })
       .catch((error) => {
-        console.log("Data posting error in untrash: ", error);
+        console.log("Data posting error in untrash,", error);
       });
   };
   const handleClickDeleteForever = () => {
