@@ -72,7 +72,7 @@ export default function IconsGroup(props) {
         props.displayNote();
       })
       .catch((error) => {
-        console.log("Data posting error in archives: ", error);
+        console.log("Data posting error in archives,", error);
       });
   };
   const handleClickUnArchive = () => {
