@@ -10,7 +10,7 @@ export default class UserService {
     }
 
     login = (data) => {
-        return axios.postMethod(`${this.baseURL}user/login/:splat`, data);
+        return axios.postMethod(`${this.baseURL}user/login`, data);
     }
 
     forgetPassword = (data) => {
