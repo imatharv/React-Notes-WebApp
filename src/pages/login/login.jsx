@@ -66,8 +66,8 @@ export default class LoginPage extends Component {
         )
       ) {
         this.setState({
-          emailErrorMsg: "",
           emailError: false,
+          emailErrorMsg: "You can use letters, numbers and periods",
         });
       } else {
         valid = false;
@@ -93,7 +93,7 @@ export default class LoginPage extends Component {
       ) {
         this.setState({
           passwordError: false,
-          passwordErrorMsg: "",
+          passwordErrorMsg: "Should be alphanumeric",
         });
       } else {
         valid = false;
@@ -299,7 +299,9 @@ export default class LoginPage extends Component {
               <IconButton
                 size="small"
                 aria-label="close"
-                color="inherit"
+                color="white"
+                fill="white"
+                stroke="white"
                 onClick={this.handleClose}
               >
                 <CloseIcon fontSize="small" />

@@ -141,7 +141,7 @@ const useStyles = makeStyles((theme) => ({
 function Navigation(props) {
   const classes = useStyles();
   const [menuOpen, setMenuOpen] = React.useState(false);
-  const [title, setTitle] = React.useState("FundooNotes");
+  const [title, setTitle] = React.useState("Notes");
   const anchorRef = React.useRef(null);
   const prevOpen = React.useRef(menuOpen);
 

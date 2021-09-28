@@ -122,9 +122,9 @@ export default class ForgetPasswordPage extends Component {
               >
                 <Grid item xs={12} className="card-heading">
                   <Typography
-                    variant="h6"
-                    component="h6"
-                    className="font-weight-bold mb-2"
+                    variant="h5"
+                    component="h5"
+                    className="font-weight-bold mb-1"
                   >
                     <span className="text-primary">N</span>
                     <span className="text-danger">o</span>
@@ -211,7 +211,7 @@ export default class ForgetPasswordPage extends Component {
                 <IconButton
                   size="small"
                   aria-label="close"
-                  color="inherit"
+                  color="grey"
                   onClick={this.handleClose}
                 >
                   <CloseIcon fontSize="small" />
