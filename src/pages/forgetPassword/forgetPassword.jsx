@@ -110,116 +110,117 @@ export default class ForgetPasswordPage extends Component {
 
   render() {
     return (
-      <Container className="py-3 px-0 forget-password-page-container">
-        <Card className="component-card ">
-          <CardContent className="card-content">
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              alignItems="center"
-            >
-              <Grid item xs={12} className="card-heading">
-                <Typography
-                  variant="h6"
-                  component="h6"
-                  className="font-weight-bold mb-2"
-                >
-                  <span className="text-primary">F</span>
-                  <span className="text-danger">u</span>
-                  <span className="text-warning">n</span>
-                  <span className="text-info">d</span>
-                  <span className="text-secondary">o</span>
-                  <span className="text-success">o</span>
-                  <span className="text-dark">Notes</span>
-                </Typography>
-                <Typography
-                  variant="h5"
-                  component="h5"
-                  className="font-weight-light mb-2"
-                >
-                  Please provide your registered email ID to reset the password
-                </Typography>
-              </Grid>
-            </Grid>
-
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              alignItems="flex-start"
-            >
-              <Grid item xs={12} className="card-data">
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <TextField
-                      size="small"
-                      type="email"
-                      fullWidth
-                      id="outlined-basic"
-                      name="email"
-                      label="Email"
-                      variant="outlined"
-                      margin="normal"
-                      onChange={this.handelInput}
-                      error={this.state.emailError}
-                      helperText={this.state.emailErrorMsg}
-                      required
-                    />
-                  </Grid>
-                </Grid>
-                <Grid container spacing={3} className="card-footing">
-                  <Grid item xs={6} className="link-wrapper">
-                    <Button
-                      size="medium"
-                      color="primary"
-                      className="mb-0 mb-sm-0 text-primary"
-                      onClick={this.handleClickToLogin}
-                      style={{ textTransform: "unset" }}
-                    >
-                      Sign in instead
-                    </Button>
-                  </Grid>
-                  <Grid item xs={6} className="button-wrapper">
-                    <Button
-                      type="button"
-                      variant="contained"
-                      size="medium"
-                      className="button-login"
-                      onClick={this.submit}
-                    >
-                      Submit
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
-        <Snackbar
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "center",
-          }}
-          open={this.state.open}
-          autoHideDuration={2000}
-          onClose={this.handleClose}
-          message={this.state.SnackbarMessage}
-          className={this.state.SnackbarStyle}
-          action={
-            <React.Fragment>
-              <IconButton
-                size="small"
-                aria-label="close"
-                color="inherit"
-                onClick={this.handleClose}
+      <div className="App-containt">
+        <Container className="py-3 px-0 forget-password-page-container">
+          <Card className="component-card ">
+            <CardContent className="card-content">
+              <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
               >
-                <CloseIcon fontSize="small" />
-              </IconButton>
-            </React.Fragment>
-          }
-        />
-      </Container>
+                <Grid item xs={12} className="card-heading">
+                  <Typography
+                    variant="h6"
+                    component="h6"
+                    className="font-weight-bold mb-2"
+                  >
+                    <span className="text-primary">N</span>
+                    <span className="text-danger">o</span>
+                    <span className="text-warning">t</span>
+                    <span className="text-info">e</span>
+                    <span className="text-success">s</span>
+                  </Typography>
+                  <Typography
+                    variant="h5"
+                    component="h5"
+                    className="font-weight-light mb-2"
+                  >
+                    Please provide your registered email ID to reset the
+                    password
+                  </Typography>
+                </Grid>
+              </Grid>
+
+              <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="flex-start"
+              >
+                <Grid item xs={12} className="card-data">
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <TextField
+                        size="small"
+                        type="email"
+                        fullWidth
+                        id="outlined-basic"
+                        name="email"
+                        label="Email"
+                        variant="outlined"
+                        margin="normal"
+                        onChange={this.handelInput}
+                        error={this.state.emailError}
+                        helperText={this.state.emailErrorMsg}
+                        required
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid container spacing={3} className="card-footing">
+                    <Grid item xs={6} className="link-wrapper">
+                      <Button
+                        size="medium"
+                        color="primary"
+                        className="mb-0 mb-sm-0 text-primary"
+                        onClick={this.handleClickToLogin}
+                        style={{ textTransform: "unset" }}
+                      >
+                        Sign in instead
+                      </Button>
+                    </Grid>
+                    <Grid item xs={6} className="button-wrapper">
+                      <Button
+                        type="button"
+                        variant="contained"
+                        size="medium"
+                        className="button-login"
+                        onClick={this.submit}
+                      >
+                        Submit
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+          <Snackbar
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "center",
+            }}
+            open={this.state.open}
+            autoHideDuration={2000}
+            onClose={this.handleClose}
+            message={this.state.SnackbarMessage}
+            className={this.state.SnackbarStyle}
+            action={
+              <React.Fragment>
+                <IconButton
+                  size="small"
+                  aria-label="close"
+                  color="inherit"
+                  onClick={this.handleClose}
+                >
+                  <CloseIcon fontSize="small" />
+                </IconButton>
+              </React.Fragment>
+            }
+          />
+        </Container>
+      </div>
     );
   }
 }

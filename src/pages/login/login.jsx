@@ -172,20 +172,18 @@ export default class LoginPage extends Component {
                     component="h5"
                     className="font-weight-bold mb-1"
                   >
-                    <span className="text-primary">F</span>
-                    <span className="text-danger">u</span>
-                    <span className="text-warning">n</span>
-                    <span className="text-info">d</span>
-                    <span className="text-secondary">o</span>
-                    <span className="text-success">o</span>
-                    <span className="text-dark">Notes</span>
+                    <span className="text-primary">N</span>
+                    <span className="text-danger">o</span>
+                    <span className="text-warning">t</span>
+                    <span className="text-info">e</span>
+                    <span className="text-success">s</span>
                   </Typography>
                   <Typography
                     variant="h5"
                     component="h5"
                     className="font-weight-light mb-2"
                   >
-                    Login to your FundooNotes account
+                    Login to your Notes account
                   </Typography>
                 </Grid>
               </Grid>
